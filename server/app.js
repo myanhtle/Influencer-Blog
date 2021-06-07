@@ -28,7 +28,7 @@ app.use("/cart", cartRouter);
 app.use("/blog", blogRouter);
 app.use("/forum", forumRouter);
 app.use("/merchandise", merchRouter);
-
+app.use(cors());
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
   next(createError(404));
@@ -44,7 +44,10 @@ app.use(function (err, req, res, next) {
   res.status(err.status || 500);
   res.render("error");
 });
-app.listen(port, () => {
-  console.log(`Server listening at http://localhost:8080`);
-});
+let allowCrossDomain = function (req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "*");
+  next();
+};
+app.use(allowCrossDomain);
 module.exports = app;

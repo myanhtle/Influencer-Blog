@@ -11,16 +11,17 @@ router.get("/", function (req, res, next) {
 router.get("/read", async (req, res) => {
   const forum = [];
   const snapshot = await forumRef.get();
-  console.log(snapshot);
+  // console.log(snapshot);
   snapshot.forEach((doc) => {
     let docU = { ...doc.data(), id: doc.id };
     forum.push(docU);
   });
-  console.log(forum);
+  // console.log(forum);
   res.send(forum);
 });
 
 router.post("/add", async (req, res) => {
+  console.log(req.body);
   var input = req.body;
   const snapshot = forumRef.add(input);
   res.send(snapshot);
