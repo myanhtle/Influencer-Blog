@@ -1,5 +1,6 @@
 import "./App.css";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
+import ErrorPage from "./components/ErrorPage"
 
 function App() {
   return (
@@ -10,7 +11,7 @@ function App() {
         <Route path="/blog" component={null} />
         <Route path="/forum" component={null} />
         <Route path="/login" component={null} />
-        <Route component={Error} />
+        <Route component={ErrorPage} />
       </Switch>
     </BrowserRouter>
   );
