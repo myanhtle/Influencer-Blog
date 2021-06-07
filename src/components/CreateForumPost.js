@@ -38,7 +38,9 @@ export default function CreateForumPost() {
             justifyContent: "center",
           }}
         >
-          <Button variant="contained">Post</Button>
+          <Button variant="contained" color="secondary">
+            Post
+          </Button>
         </div>
       </form>
     </div>
