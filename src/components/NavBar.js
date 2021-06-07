@@ -21,7 +21,7 @@ function NavBar() {
           variant="contained"
           color="secondary"
         >
-          Login
+          Log In
         </Button>
       </Toolbar>
     </AppBar>
