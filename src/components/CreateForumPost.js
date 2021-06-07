@@ -21,7 +21,7 @@ export default function CreateForumPost() {
   };
 
   return (
-    <div>
+    <div style={{ display: "flex", justifyContent: "center" }}>
       <form className={classes.root} noValidate autoComplete="off">
         <TextField
           id="create-post"

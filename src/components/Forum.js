@@ -7,7 +7,6 @@ export default function Forum() {
 
   return (
     <div>
-      <p>forum</p>
       <CreateForumPost />
       <ForumPost />
     </div>
