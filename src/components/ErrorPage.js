@@ -2,16 +2,8 @@ import { Card, CardContent, Typography } from "@material-ui/core";
 
 function ErrorPage() {
   return (
-    <div
-      style={{
-        display: "flex",
-        justifyContent: "centers",
-        alignItems: "center",
-        height: "100vh",
-        flexDirection: "column",
-      }}
-    >
-      <Card style={{ width: "50vw", textAlign: "center" }}>
+    <div>
+      <Card style={{ width: "50vw", margin: "auto", marginTop: "2%" }}>
         <CardContent>
           <Typography variant="h6">Sorry, page not found.</Typography>
           <Typography>
