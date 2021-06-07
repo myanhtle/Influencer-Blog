@@ -11,7 +11,9 @@ var blogRouter = require("./routes/blog");
 var forumRouter = require("./routes/forum");
 var merchRouter = require("./routes/merchandise.js");
 var app = express();
-var port = 8080;
+
+app.use(cors());
+
 // view engine setup
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "jade");
@@ -50,4 +52,5 @@ let allowCrossDomain = function (req, res, next) {
   next();
 };
 app.use(allowCrossDomain);
+
 module.exports = app;
