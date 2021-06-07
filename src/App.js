@@ -4,6 +4,7 @@ import ErrorPage from "./components/ErrorPage";
 import NavBar from "./components/NavBar";
 import ColorExamples from "./components/ColorExamples";
 import DataForm from "./components/dataForm";
+import Blog from "./components/Blog";
 
 function App() {
   return (
@@ -12,7 +13,7 @@ function App() {
       <Switch>
         <Route path="/" component={null} exact />
         <Route path="/about" component={null} />
-        <Route path="/blog" component={null} />
+        <Route path="/blog" component={Blog} />
         <Route path="/forum" component={null} />
         <Route path="/dataform" component={DataForm} />
         <Route path="/login" component={null} />
