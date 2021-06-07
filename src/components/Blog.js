@@ -1,47 +1,69 @@
 import React from "react";
 import "./Blog.css";
+import { Card, CardContent, Link, Typography } from "@material-ui/core";
 
 export default function Blog() {
   return (
     <div>
-      <div className="header">
-        <h2>Blog Name</h2>
-      </div>
+      <Card className="header">
+        <CardContent>
+          <Typography variant="h3">Blog Name</Typography>
+        </CardContent>
+      </Card>
+
+      <br></br>
 
       <div className="leftcolumn">
-        <div className="card">
-          <h2>TITLE HEADING</h2>
-          <h5>Title description, Dec 7, 2017</h5>
-          <div className="fakeimg" style={{ height: "200px" }}>
-            Image
-          </div>
-          <p>Some text..</p>
-        </div>
-        <div className="card">
-          <h2>TITLE HEADING</h2>
-          <h5>Title description, Sep 2, 2017</h5>
-          <div className="fakeimg" style={{ height: "200px" }}>
-            Image
-          </div>
-          <p>Some text..</p>
-        </div>
+        <Card className="card">
+          <CardContent>
+            <Typography variant="h6">Title Heading</Typography>
+            <Typography variant="subtitle2">Title Description, Date</Typography>
+            <br></br>
+            <div className="fakeimg" style={{ height: "200px" }}>
+              Image
+            </div>
+            <br></br>
+            <Typography variant="body2">Body</Typography>
+          </CardContent>
+        </Card>
+        <Card className="card">
+          <CardContent>
+            <Typography variant="h6">Title Heading</Typography>
+            <Typography variant="subtitle2">Title Description, Date</Typography>
+            <br></br>
+            <div className="fakeimg" style={{ height: "200px" }}>
+              Image
+            </div>
+            <br></br>
+            <Typography variant="body2">Body</Typography>
+          </CardContent>
+        </Card>
       </div>
+
       <div className="rightcolumn">
-        <div className="card">
-          <h3>Popular Post</h3>
-          <div className="fakeimg">Image</div>
-          <br></br>
-          <div className="fakeimg">Image</div>
-          <br></br>
-          <div className="fakeimg">Image</div>
-        </div>
-        <div className="card">
-          <h3>Follow Me</h3>
-          <p>Some text..</p>
-        </div>
-      </div>
-      <div className="footer">
-        <h2>Footer</h2>
+        <Card className="card">
+          <CardContent>
+            <Typography variant="h6">Table of Contents:</Typography>
+            <ul>
+              <li>
+                <Link>Post 1</Link>
+              </li>
+              <li>
+                <Link>Post 2</Link>
+              </li>
+              <li>
+                <Link>Post 3</Link>
+              </li>
+            </ul>
+          </CardContent>
+        </Card>
+
+        <Card className="card">
+          <CardContent>
+            <Typography variant="h6">Socials:</Typography>
+            <Link>Instagram</Link>
+          </CardContent>
+        </Card>
       </div>
     </div>
   );
