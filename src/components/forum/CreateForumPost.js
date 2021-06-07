@@ -14,23 +14,38 @@ const useStyles = makeStyles((theme) => ({
 
 export default function CreateForumPost() {
   const classes = useStyles();
-  const [value, setValue] = useState("");
+  const [content, setContent] = useState({
+    title: "",
+    postDetails: "",
+    time: "",
+    totalLikes: 0,
+  });
 
   const handleChange = (event) => {
-    setValue(event.target.value);
+    setContent({ ...content, [event.currentTarget.id]: event.target.value });
+    console.log(content);
   };
 
   return (
-    <div style={{ display: "flex", justifyContent: "center" }}>
+    <div style={{ display: "flex", justifyContent: "center", marginTop: "2%" }}>
       <form className={classes.root} noValidate autoComplete="off">
+        <div>
+          <TextField
+            id="title"
+            label="Description"
+            variant="filled"
+            onChange={handleChange}
+            value={content.title}
+          />
+        </div>
         <TextField
-          id="create-post"
-          label="Make a new post"
+          id="postDetails"
+          label="What's new?"
           multiline
           rows={4}
-          value={value}
+          value={content.postDetails}
           onChange={handleChange}
-          variant="outlined"
+          variant="filled"
         />
         <div
           style={{
