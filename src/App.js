@@ -1,12 +1,25 @@
+// Configs
 import "./App.css";
+import firebase from "./configs/firebase"
+
+// Module components
+import { useContext } from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
+
+// Our components
 import ErrorPage from "./components/ErrorPage";
 import NavBar from "./components/NavBar";
 import ColorExamples from "./components/ColorExamples";
 import DataForm from "./components/dataForm";
 import LoginPage from "./components/LoginPage";
+import { UserContext } from "./contexts/UserContext";
 
 function App() {
+  const { setUser } = useContext(UserContext);
+  firebase.auth().onAuthStateChanged((user) => {
+    setUser(user);
+  });
+
   return (
     <BrowserRouter>
       <NavBar />
