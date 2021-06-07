@@ -11,7 +11,9 @@ var blogRouter = require("./routes/blog");
 var forumRouter = require("./routes/forum");
 var merchRouter = require("./routes/merchandise.js");
 var app = express();
-var port = 8080;
+
+app.use(cors());
+
 // view engine setup
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "jade");
@@ -44,7 +46,5 @@ app.use(function (err, req, res, next) {
   res.status(err.status || 500);
   res.render("error");
 });
-app.listen(port, () => {
-  console.log(`Server listening at http://localhost:8080`);
-});
+
 module.exports = app;
