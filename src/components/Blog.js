@@ -11,8 +11,6 @@ export default function Blog() {
         </CardContent>
       </Card>
 
-      <br></br>
-
       <div className="leftcolumn">
         <Card className="card">
           <CardContent>
