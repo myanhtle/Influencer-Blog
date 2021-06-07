@@ -1,32 +1,21 @@
 import { TextField, Button, Card, Typography } from "@material-ui/core";
 import { useState } from "react";
+import { useLoginStyles } from "../styles/loginStyles";
 
 function LoginPage() {
   const [signUpActive, setSignUpActive] = useState(false);
-
+  const classes = useLoginStyles();
   return (
-    <Card
-      style={{
-        margin: "auto",
-        marginTop: "2rem",
-        width: "25rem",
-        padding: "2rem",
-        textAlign: "center",
-      }}
-    >
+    <Card className={classes.loginCard}>
       <Typography variant="h6">
         {signUpActive ? "Sign Up" : "Log In"}
       </Typography>
-      <form
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          gap: "1rem",
-        }}
-        onSubmit={() => console.log(1)}
-      >
+
+      <form className={classes.loginForm}>
         {signUpActive && <TextField label="Username" autoComplete="username" />}
+
         <TextField label="Email" autoComplete="email" />
+
         <TextField
           label="Password"
           type="password"
@@ -39,11 +28,14 @@ function LoginPage() {
             autoComplete="new-password"
           />
         )}
+
         <div style={{ textAlign: "center" }}>
-          <Button variant="contained" color="primary" style={{width: "75%"}}>
+          <Button variant="contained" color="primary" style={{ width: "75%" }}>
             {signUpActive ? "Sign Up" : "Log In"}
           </Button>
+
           <Typography style={{ padding: ".5rem" }}>or</Typography>
+          
           <Button
             variant="contained"
             color="secondary"
