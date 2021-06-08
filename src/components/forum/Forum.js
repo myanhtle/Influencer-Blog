@@ -15,13 +15,15 @@ export default function Forum() {
 
   return (
     <div>
-      <CreateForumPost
-        posts={posts}
-        setPosts={setPosts}
-        setClickedPost={setClickedPost}
-      />
+      <CreateForumPost setClickedPost={setClickedPost} />
       {posts.map((p) => (
-        <ForumPost p={p} posts={posts} setPosts={setPosts} />
+        <ForumPost
+          p={p}
+          posts={posts}
+          setPosts={setPosts}
+          setClickedPost={setClickedPost}
+          clickedPost={clickedPost}
+        />
       ))}
     </div>
   );

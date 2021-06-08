@@ -5,6 +5,7 @@ import Button from "@material-ui/core/Button";
 import Popover from "@material-ui/core/Popover";
 import Typography from "@material-ui/core/Typography";
 import { UserContext } from "../../contexts/UserContext";
+import moment from "moment";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -15,10 +16,10 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function CreateForumPost({ posts, setPosts, setClickedPost }) {
+export default function CreateForumPost({ setClickedPost }) {
   const { username } = useContext(UserContext);
   const classes = useStyles();
-  const [anchorEl, setAnchorEl] = React.useState(null);
+  const [anchorEl, setAnchorEl] = useState(null);
   const [postContent, setPostContent] = useState({
     Title: "",
     Content: "",
@@ -52,7 +53,11 @@ export default function CreateForumPost({ posts, setPosts, setClickedPost }) {
           Accept: "application/json",
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ ...postContent, User: username }),
+        body: JSON.stringify({
+          ...postContent,
+          User: username,
+          Date: moment().format("LLL"),
+        }),
       })
         .then(() => {
           setClickedPost((prev) => !prev);
