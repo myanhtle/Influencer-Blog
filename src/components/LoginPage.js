@@ -1,4 +1,11 @@
-import { TextField, Button, Card, Typography } from "@material-ui/core";
+import {
+  TextField,
+  Button,
+  Card,
+  Typography,
+  Grid,
+  CardContent,
+} from "@material-ui/core";
 import { useState } from "react";
 import { useLoginStyles } from "../styles/loginStyles";
 import { login, signup } from "../utils/loginUtils";
@@ -36,60 +43,71 @@ function LoginPage() {
   if (isLoggedIn) history.push("/account");
   return (
     <Card className={classes.loginCard}>
-      <Typography variant="h6">
-        {signUpActive ? "Sign Up" : "Log In"}
-      </Typography>
+      <Grid container spacing={12} className={classes.loginGrid}>
+        <Grid item xs={7} className={classes.loginActions}>
+          Content to go here later
+        </Grid>
+        <Grid item xs={5}>
+          <CardContent className={classes.loginActions}>
+            <Typography variant="h6">
+              {signUpActive ? "Sign Up" : "Log In"}
+            </Typography>
 
-      <form className={classes.loginForm} onSubmit={handleSubmit}>
-        {signUpActive && (
-          <TextField
-            label="Username"
-            autoComplete="username"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-          />
-        )}
+            <form className={classes.loginForm} onSubmit={handleSubmit}>
+              {signUpActive && (
+                <TextField
+                  label="Username"
+                  autoComplete="username"
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)}
+                />
+              )}
 
-        <TextField
-          label="Email"
-          autoComplete="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
+              <TextField
+                label="Email"
+                autoComplete="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
 
-        <TextField
-          label="Password"
-          type="password"
-          autoComplete={signUpActive ? "new-password" : "current-password"}
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        {signUpActive && (
-          <TextField
-            label="Confirm Password"
-            type="password"
-            autoComplete="new-password"
-            value={confirmPassword}
-            onChange={(e) => setConfirmPassword(e.target.value)}
-          />
-        )}
+              <TextField
+                label="Password"
+                type="password"
+                autoComplete={
+                  signUpActive ? "new-password" : "current-password"
+                }
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
+              {signUpActive && (
+                <TextField
+                  label="Confirm Password"
+                  type="password"
+                  autoComplete="new-password"
+                  value={confirmPassword}
+                  onChange={(e) => setConfirmPassword(e.target.value)}
+                />
+              )}
 
-        <div style={{ textAlign: "center" }}>
-          <Button variant="contained" color="primary" type="submit">
-            {signUpActive ? "Sign Up" : "Log In"}
-          </Button>
+              <div style={{ textAlign: "center" }}>
+                <Button variant="contained" color="primary" type="submit">
+                  {signUpActive ? "Sign Up" : "Log In"}
+                </Button>
 
-          <Typography style={{ padding: ".5rem" }}>or</Typography>
+                <Typography style={{ padding: ".5rem" }}>or</Typography>
 
-          <Button
-            variant="contained"
-            color="secondary"
-            onClick={() => setSignUpActive((current) => !current)}
-          >
-            {signUpActive ? "Log In" : "Sign Up"}
-          </Button>
-        </div>
-      </form>
+                <Button
+                  variant="contained"
+                  color="secondary"
+                  onClick={() => setSignUpActive((current) => !current)}
+                >
+                  {signUpActive ? "Log In" : "Sign Up"}
+                </Button>
+              </div>
+            </form>
+          </CardContent>
+        </Grid>
+      </Grid>
     </Card>
   );
 }
