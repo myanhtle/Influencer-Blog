@@ -2,6 +2,7 @@ import { Typography, Button, Card, Grid } from "@material-ui/core";
 import headerImage from "../images/homepage_image.png";
 import homePageStyles from "../styles/homePageStyles";
 import { useHistory } from "react-router-dom";
+import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 
 function HomePage() {
   const classes = homePageStyles();
@@ -19,11 +20,12 @@ function HomePage() {
         <Typography variant="h1" className={classes.welcomeText}>
           Welcome to <br /> Camille's Corner <br />
           <Button
-            value="Go"
             onClick={() =>
               document.getElementById("featured-blog-post").scrollIntoView()
             }
-          />
+          >
+            <ExpandMoreIcon className={classes.expandIcon}/>
+          </Button>
         </Typography>
       </div>
       <Grid container className={classes.bottomContainer}>

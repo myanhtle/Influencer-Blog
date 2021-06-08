@@ -42,6 +42,10 @@ const homePageStyles = makeStyles({
   content: {
     padding: "1rem",
   },
+  expandIcon: {
+    fontSize: "10vw",
+    color: "white"
+  }
 });
 
 export default homePageStyles;
