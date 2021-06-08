@@ -15,6 +15,7 @@ import { useHistory } from "react-router-dom";
 
 function LoginPage() {
   const [signUpActive, setSignUpActive] = useState(false);
+  const [fullName, setFullName] = useState("");
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -29,7 +30,7 @@ function LoginPage() {
       if (password !== confirmPassword) {
         alert("Passwords do not match");
       } else {
-        signup(username, email, password).then((success) => {
+        signup(fullName, username, email, password).then((success) => {
           success ? alert("Account created.") : alert("Account not created");
         });
       }
@@ -54,6 +55,14 @@ function LoginPage() {
             </Typography>
 
             <form className={classes.loginForm} onSubmit={handleSubmit}>
+              {signUpActive && (
+                <TextField
+                  label="Full Name"
+                  autoComplete="name"
+                  value={fullName}
+                  onChange={(e) => setFullName(e.target.value)}
+                />
+              )}
               {signUpActive && (
                 <TextField
                   label="Username"

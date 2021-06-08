@@ -19,12 +19,13 @@ const login = async (email, password) => {
 
 /**
  * Attempts to create a new account
+ * @param {string} fullName the new name
  * @param {string} username the new username
  * @param {string} email the new email
  * @param {string} password the new password
  * @returns {boolean} success
  */
-const signup = async (name, username, email, password) => {
+const signup = async (fullName, username, email, password) => {
   try {
     const { userExists } = await fetch(
       "http://localhost:8080/users/check/" + username
@@ -40,7 +41,7 @@ const signup = async (name, username, email, password) => {
         Accept: "application/json",
         "Content-Type": "application/json",
       },
-      body: {username, name, email},
+      body: {username, name: fullName, email},
     });
     return true;
   } catch (error) {
