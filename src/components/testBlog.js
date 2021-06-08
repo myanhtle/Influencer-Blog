@@ -14,9 +14,11 @@ function TestBlog() {
 
   // function handleClick() {
   //   const postData = {
-  //     date: "2021-06-07",
+  //     title: "Icecream for Breakfast",
+  //     date: "2021-06-08",
   //     likes: 0,
-  //     messageContent: "Official blog is under construction!",
+  //     messageContent:
+  //       "Couldn't resist my sugar tooth this morning. I had chocolate icecream for breakfast",
   //   };
 
   //   fetch("http://localhost:8080/blog/add", {
@@ -62,23 +64,81 @@ function TestBlog() {
   //     });
   // }
 
-  function handleClickFour() {
-    const updatedLikes = {
-      id: "rlhVQQNxYIwozARZlCJT",
-      currentLikeCount: 2,
-    };
+  // function handleClickFour() {
+  //   const updatedLikes = {
+  //     id: "rlhVQQNxYIwozARZlCJT",
+  //     currentLikeCount: 2,
+  //   };
 
-    fetch("http://localhost:8080/blog/like", {
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(updatedLikes),
-    });
+  //   fetch("http://localhost:8080/blog/like", {
+  //     method: "POST",
+  //     headers: {
+  //       Accept: "application/json",
+  //       "Content-Type": "application/json",
+  //     },
+  //     body: JSON.stringify(updatedLikes),
+  //   });
+  // }
+
+  //  function handleClickFive() {
+  //   const updatedLikes = {
+  //     id: "rlhVQQNxYIwozARZlCJT",
+  //     currentLikeCount: 2,
+  //   };
+
+  //   fetch("http://localhost:8080/blog/like", {
+  //     method: "POST",
+  //     headers: {
+  //       Accept: "application/json",
+  //       "Content-Type": "application/json",
+  //     },
+  //     body: JSON.stringify(updatedLikes),
+  //   });
+  // }
+
+  // function handleClickSix() {
+  //   const commentData = {
+  //     postId: "blzjoGWPieVheGZkC0tv",
+  //     userId: "me123",
+  //     likes: 0,
+  //     content: "Vanilla is the way to go.",
+  //   };
+
+  //   fetch("http://localhost:8080/blog/add/comment", {
+  //     method: "POST",
+  //     headers: {
+  //       Accept: "application/json",
+  //       "Content-Type": "application/json",
+  //     },
+  //     body: JSON.stringify(commentData),
+  //   });
+  // }
+
+  // function handleClickSeven() {
+  //   const commentData = {
+  //     postId: "blzjoGWPieVheGZkC0tv",
+  //     commentId: "vP7jlP0PIsQHdyTypE0r",
+  //   };
+
+  //   fetch("http://localhost:8080/blog/delete/comment", {
+  //     method: "DELETE",
+  //     headers: {
+  //       Accept: "application/json",
+  //       "Content-Type": "application/json",
+  //     },
+  //     body: JSON.stringify(commentData),
+  //   });
+  // }
+
+  const id = "iuXi5QCzLWINkCGz11zl";
+  const url = new URL("http://localhost:8080/blog/read/comment");
+  url.searchParams.append("postId", id);
+
+  function handleClickSeven() {
+    fetch(url).then((res) => res.json());
   }
 
-  return <Button onClick={() => handleClickFour()}>Hello</Button>;
+  return <Button onClick={() => handleClickSeven()}>Hello</Button>;
 }
 
 export default TestBlog;

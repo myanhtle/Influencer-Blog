@@ -22,11 +22,12 @@ router.get("/read", async (req, res) => {
 /* Add post to blog database */
 
 router.post("/add", async (req, res) => {
-  const { date, likes, messageContent } = req.body;
+  const { title, date, likes, messageContent } = req.body;
 
   console.log(req.body);
 
   const resp = await db.collection("blog").add({
+    title,
     date,
     likes,
     messageContent,
@@ -48,7 +49,7 @@ router.delete("/delete", async (req, res) => {
 /* Update post in blog database */
 
 router.post("/update", async (req, res) => {
-  const { date, messageContent, id } = req.body;
+  const { date, messageContent, title, id } = req.body;
   console.log("starting update");
   console.log("body:", req.body);
 
@@ -59,6 +60,9 @@ router.post("/update", async (req, res) => {
   }
   if (messageContent) {
     fieldChange["messageContent"] = messageContent;
+  }
+  if (title) {
+    fieldChange["title"] = title;
   }
 
   console.log("fieldChange", fieldChange);
@@ -89,6 +93,61 @@ router.post("/unlike", async (req, res) => {
     .collection("blog")
     .doc(id)
     .update({ likes: currentLikeCount - 1 });
+  res.sendStatus(200);
+});
+
+/*Blog Comments*/
+
+/*Get comments for associated blog post*/
+
+router.get("/read/comment", async (req, res) => {
+  console.log(req.query);
+  let snapshot = await db
+    .collection("blog")
+    .doc(req.query.postId)
+    .collection("comments")
+    .get();
+  var commentList = [];
+  snapshot.forEach((comment) => {
+    commentList.push({ ...comment.data(), id: comment.id });
+  });
+  console.log(commentList);
+  res.send(commentList);
+});
+
+/*Add a comment to a blog post*/
+
+router.post("/add/comment", async (req, res) => {
+  const { postId, userId, content, likes } = req.body;
+
+  console.log(req.body);
+
+  const resp = await db
+    .collection("blog")
+    .doc(postId)
+    .collection("comments")
+    .add({
+      userId,
+      content,
+      likes,
+    });
+
+  console.log("Added document with ID: ", resp.id);
+  res.sendStatus(200);
+});
+
+/*Delete a comment from a blog post*/
+
+router.delete("/delete/comment", async (req, res) => {
+  const { postId, commentId } = req.body;
+  console.log(req.body);
+  const resp = await db
+    .collection("blog")
+    .doc(postId)
+    .collection("comments")
+    .doc(commentId)
+    .delete();
+  console.log("Deleted document with ID: ", resp.id);
   res.sendStatus(200);
 });
 
