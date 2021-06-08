@@ -2,8 +2,8 @@ import "./App.css";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import ErrorPage from "./components/ErrorPage";
 import NavBar from "./components/NavBar";
-import Forum from "./components/Forum";
 import TestBlog from "./components/testBlog";
+import Forum from "./components/forum/Forum";
 import ColorExamples from "./components/ColorExamples";
 import DataForm from "./components/dataForm";
 

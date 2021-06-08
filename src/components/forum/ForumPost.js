@@ -68,7 +68,7 @@ export default function ForumPost() {
         <CardActions disableSpacing>
           <IconButton aria-label="like" id="like-1" onClick={handleLike}>
             <FavoriteIcon
-              style={isFavorited ? { fill: "gray" } : { fill: "red" }}
+              style={isFavorited ? { fill: "red" } : { fill: "grey" }}
             />
           </IconButton>
           # of likes
