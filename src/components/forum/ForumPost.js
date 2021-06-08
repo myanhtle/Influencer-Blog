@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import CardHeader from "@material-ui/core/CardHeader";
@@ -31,8 +31,12 @@ export default function ForumPost({ p, posts, setPosts, setClickedPost }) {
   const classes = useStyles();
   const [isFavorited, setIsFavorited] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
-  const [newContents, setNewContents] = useState(p.Content);
+  const [newContents, setNewContents] = useState("");
   const [expanded, setExpanded] = useState(false);
+
+  useEffect(() => {
+    setNewContents(p.Content);
+  }, [p]);
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
@@ -63,6 +67,7 @@ export default function ForumPost({ p, posts, setPosts, setClickedPost }) {
     setIsEditing((prev) => {
       return !prev;
     });
+    console.log(p.Content, posts);
   };
 
   const handleLike = (e) => {
@@ -88,10 +93,11 @@ export default function ForumPost({ p, posts, setPosts, setClickedPost }) {
         },
         body: JSON.stringify(updatedPost),
       }).then(() => {
-        fetch("http://localhost:8080/forum/read")
-          .then((res) => res.json())
-          .then((data) => setPosts(data))
-          .then(console.log(posts));
+        fetch("http://localhost:8080/forum/read").then(() => {
+          setClickedPost((prev) => {
+            return !prev;
+          });
+        });
       });
     } else {
       const updatedPost = {
@@ -107,10 +113,11 @@ export default function ForumPost({ p, posts, setPosts, setClickedPost }) {
         },
         body: JSON.stringify(updatedPost),
       }).then(() => {
-        fetch("http://localhost:8080/forum/read")
-          .then((res) => res.json())
-          .then((data) => setPosts(data))
-          .then(console.log(posts));
+        fetch("http://localhost:8080/forum/read").then(() => {
+          setClickedPost((prev) => {
+            return !prev;
+          });
+        });
       });
     }
   };
