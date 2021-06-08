@@ -1,7 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
+import Popover from "@material-ui/core/Popover";
+import Typography from "@material-ui/core/Typography";
+import { UserContext } from "../../contexts/UserContext";
+import moment from "moment";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -12,14 +16,19 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function CreateForumPost() {
+export default function CreateForumPost({ setClickedPost, setUpdate }) {
+  const { username } = useContext(UserContext);
   const classes = useStyles();
+  const [anchorEl, setAnchorEl] = useState(null);
   const [postContent, setPostContent] = useState({
-    title: "",
-    postDetails: "",
-    date: "",
-    totalLikes: 0,
+    Title: "",
+    Content: "",
+    Date: "",
+    Likes: 0,
+    User: "",
   });
+  const open = Boolean(anchorEl);
+  const id = open ? "simple-popover" : undefined;
 
   const handleChange = (event) => {
     setPostContent({
@@ -29,24 +38,65 @@ export default function CreateForumPost() {
     console.log(postContent);
   };
 
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  const handlePost = (event) => {
+    event.preventDefault();
+    if (postContent.Title === "" || postContent.Content === "") {
+      setAnchorEl(event.currentTarget);
+    } else {
+      fetch(`http://localhost:8080/forum/add`, {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          ...postContent,
+          User: username,
+          Date: moment().format("LLL"),
+        }),
+      })
+        .then(() => {
+          setUpdate((prev) => {
+            return prev + "0";
+          });
+          setClickedPost((prev) => !prev);
+        })
+        .then(() => {
+          setPostContent({
+            Title: "",
+            Content: "",
+            Date: "",
+            Likes: 0,
+            User: "",
+          });
+        });
+    }
+  };
+
   return (
     <div style={{ display: "flex", justifyContent: "center", marginTop: "2%" }}>
       <form className={classes.root} noValidate autoComplete="off">
         <div>
           <TextField
-            id="title"
+            required
+            id="Title"
             label="Description"
             variant="filled"
             onChange={handleChange}
-            value={postContent.title}
+            value={postContent.Title}
           />
         </div>
         <TextField
-          id="postDetails"
+          required
+          id="Content"
           label="What's new?"
           multiline
           rows={4}
-          value={postContent.postDetails}
+          value={postContent.Content}
           onChange={handleChange}
           variant="filled"
         />
@@ -56,9 +106,30 @@ export default function CreateForumPost() {
             justifyContent: "center",
           }}
         >
-          <Button variant="contained" color="secondary">
+          <Button variant="contained" color="secondary" onClick={handlePost}>
             Post
           </Button>
+          <Popover
+            id={id}
+            open={open}
+            anchorEl={anchorEl}
+            onClose={handleClose}
+            anchorOrigin={{
+              vertical: "bottom",
+              horizontal: "center",
+            }}
+            transformOrigin={{
+              vertical: "top",
+              horizontal: "center",
+            }}
+          >
+            <Typography
+              style={{ padding: "20px" }}
+              className={classes.typography}
+            >
+              Fill out required fields
+            </Typography>
+          </Popover>
         </div>
       </form>
     </div>
