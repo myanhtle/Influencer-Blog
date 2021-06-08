@@ -16,7 +16,7 @@ import DataForm from "./components/dataForm";
 import LoginPage from "./components/LoginPage";
 import { UserContext } from "./contexts/UserContext";
 import AccountPage from "./components/AccountPage";
-import Blog from "./components/blog/Blog";
+import Blog from "./components/Blog";
 
 function App() {
   const { setUser } = useContext(UserContext);
