@@ -11,21 +11,12 @@ import { red } from "@material-ui/core/colors";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import ForumIcon from "@material-ui/icons/Forum";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
+import Collapse from "@material-ui/core/Collapse";
 
 const useStyles = makeStyles((theme) => ({
   root: {
     maxWidth: 800,
     width: "100%",
-  },
-  expand: {
-    transform: "rotate(0deg)",
-    marginLeft: "auto",
-    transition: theme.transitions.create("transform", {
-      duration: theme.transitions.duration.shortest,
-    }),
-  },
-  expandOpen: {
-    transform: "rotate(180deg)",
   },
   avatar: {
     backgroundColor: red[500],
@@ -35,6 +26,11 @@ const useStyles = makeStyles((theme) => ({
 export default function ForumPost() {
   const classes = useStyles();
   const [isFavorited, setIsFavorited] = useState(false);
+  const [expanded, setExpanded] = React.useState(false);
+
+  const handleExpandClick = () => {
+    setExpanded(!expanded);
+  };
 
   const handleLike = (e) => {
     e.preventDefault();
@@ -44,7 +40,14 @@ export default function ForumPost() {
   };
 
   return (
-    <div style={{ display: "flex", justifyContent: "center", marginTop: "2%" }}>
+    <div
+      style={{
+        display: "flex",
+        justifyContent: "center",
+        marginTop: "1%",
+        marginBottom: "1%",
+      }}
+    >
       <Card className={classes.root}>
         <CardHeader
           avatar={
@@ -72,10 +75,28 @@ export default function ForumPost() {
             />
           </IconButton>
           # of likes
-          <IconButton aria-label="comment">
+          <IconButton
+            onClick={handleExpandClick}
+            aria-expanded={expanded}
+            aria-label="comment"
+          >
             <ForumIcon />
           </IconButton>
         </CardActions>
+        <Collapse in={expanded} timeout="auto" unmountOnExit>
+          <CardContent>
+            <Typography
+              paragraph
+              style={{
+                borderTop: "solid",
+                borderColor: "#d3d3d3",
+                paddingTop: "2%",
+              }}
+            >
+              Comments:
+            </Typography>
+          </CardContent>
+        </Collapse>
       </Card>
     </div>
   );
