@@ -3,32 +3,22 @@ import Input from "@material-ui/core/Input";
 import React, { useRef, useEffect, useState } from "react";
 import Dialog from "@material-ui/core/Dialog";
 import Select from "@material-ui/core/Select";
+import { title } from "process";
 function DataForm() {
-  const [teacher, setTeacher] = useState("");
-  const [students, setStudents] = useState([]);
-  const [student, setStudent] = useState("");
-  const [subject, setSubject] = useState("");
-  const [classes, setClasses] = useState([]);
-  const [updateTitle, setUpdateTitle] = useState([]);
-  const [updateVal, setUpdateVal] = useState([]);
-  const [updateType, setUpdateType] = useState([]);
-  const [deleteVal, setDelete] = useState("");
-  const [start, setStart] = useState("");
-  const [end, setEnd] = useState("");
-  const [studentList, setStudentList] = useState([]);
-  const [teacherList, setTeacherList] = useState([]);
-  const [id, setID] = useState("");
-  const [classNum, setClassNum] = useState("");
-  const [classTitle, setClassTitle] = useState("");
   const [open, setOpen] = React.useState(false);
   const [openU, setOpenU] = React.useState(false);
   const [openD, setOpenD] = React.useState(false);
-  const [typeList, setTypeList] = useState([]);
-  const [subjectList, setSubjectList] = useState([]);
-  const [idList, setIDList] = useState([]);
+  // const [typeList, setTypeList] = useState([]);
   const [selectMode, setSelectMode] = useState(false);
-  const [studentIDs, setStudentIDs] = useState([]);
   const [forum, setForum] = useState([]);
+  const [content, setContent] = useState([]);
+  const [title, setTitle] = useState([]);
+  const [user, setUser] = useState("John");
+  const [likes, setLikes] = useState(0);
+  const [deleteVal, setDeleteVal] = useState([]);
+  const [update, setUpdate] = useState([]);
+  const [updateType, setUpdateType] = useState([]);
+  const [updateVal, setUpdateVal] = useState([]);
   const darkBlue = "#004981";
   const lightBlue = "#6ea8d4";
   const baseButtonStyle = {
@@ -41,7 +31,7 @@ function DataForm() {
     ...baseButtonStyle,
     backgroundColor: selectMode ? lightBlue : darkBlue,
   };
-
+  const typeList = ["Title", "Content"];
   const InputStyle = {
     backgroundColor: "#E5E5E5",
     borderRadius: "10px",
@@ -53,90 +43,51 @@ function DataForm() {
     }
     setOpen(true);
   };
-  const handleClickOpenU = () => {
-    if (typeList.length === 0) {
-      typeList.push("Teacher");
-      typeList.push("Subject");
-      typeList.push("Start");
-      typeList.push("End");
-      typeList.push("ID");
-      typeList.push("Classroom");
-      typeList.push("Title");
-    }
-    fetchIDS();
 
-    setOpenU(true);
-  };
-  const handleClickOpenD = () => {
-    fetchIDS();
-    setOpenD(true);
-  };
   const handleClose = () => {
     setOpen(false);
-    //  fetchIDS();
+    fetchForum();
   };
-  const handleCloseU = () => {
-    setOpenU(false);
-    fetchIDS();
-  };
-  const handleCloseD = () => {
-    setOpenD(false);
-    fetchIDS();
-  };
-  const handleChange = (e) => {
-    setTeacher(e.currentTarget.value);
+  const handleClickOpenD = () => {
+    if (forum.length === 0) {
+      fetchForum();
+    }
+    setOpenD(true);
   };
 
-  const handleChangeStart = (e) => {
-    setStart(e.currentTarget.value);
+  const handleCloseD = () => {
+    setOpenD(false);
+    fetchForum();
   };
-  const handleChangeEnd = (e) => {
-    setEnd(e.currentTarget.value);
+  const handleClickOpenU = () => {
+    if (forum.length === 0) {
+      fetchForum();
+    }
+    setOpenU(true);
+  };
+
+  const handleCloseU = () => {
+    setOpenU(false);
+    fetchForum();
+  };
+
+  const handleChangeDelete = (e) => {
+    setDeleteVal(e.currentTarget.value);
   };
   const handleChangeUpdate = (e) => {
-    setUpdateTitle(e.currentTarget.value);
+    setUpdate(e.currentTarget.value);
   };
   const handleChangeType = (e) => {
     setUpdateType(e.currentTarget.value);
   };
-  const handleChangeUpdateVal = (e) => {
+  const handleChangeVal = (e) => {
     setUpdateVal(e.currentTarget.value);
   };
-  const handleChangeSubject = (e) => {
-    setSubject(e.currentTarget.value);
+  const handleChangeContent = (e) => {
+    setContent(e.currentTarget.value);
   };
-  const handleChangeStudents = (e) => {
-    setStudents(e);
-  };
-  const handleChangeDelete = (e) => {
-    setDelete(e.currentTarget.value);
-  };
-  const handleChangeStudent = (e) => {
-    setStudent(e.currentTarget.value);
-  };
-  const handleChangeClassTitle = (e) => {
-    setClassTitle(e.currentTarget.value);
-  };
-  const handleChangeID = (e) => {
-    setID(e.currentTarget.value);
-  };
-  const handleChangeClassNum = (e) => {
-    setClassNum(e.currentTarget.value);
-  };
-  const addStudent = () => {
-    console.log(student);
-    students.push(student);
-    //fetchStudents();
-    console.log(studentList);
-    for (var i = 0; i < studentList.length; i++) {
-      if (studentList[i].name === student) {
-        studentIDs.push(studentList[i].id);
-        console.log(studentIDs);
-      }
-    }
-  };
-  const addTeacher = (val) => {
-    setTeacher(val);
+  const handleChangeTitle = (e) => {
+    setTitle(e.currentTarget.value);
   };
   const fetchForum = () => {
     fetch(`http://localhost:8080/forum/read`)
@@ -144,145 +95,91 @@ function DataForm() {
       .then((data) => setForum(data));
     console.log(forum);
   };
-  const fetchTeachers = () => {
-    fetch(`http://localhost:8080/teachers/read`)
-      .then((res) => res.json())
-      .then((data) => setTeacherList(data));
-  };
-  const fetchClasses = () => {
-    fetch(`http://localhost:8080/classes/read`)
-      .then((res) => res.json())
-      .then((data) => setClasses(data));
-    console.log(classes);
-  };
-  const fetchIDS = () => {
-    fetchClasses();
-    var list = [];
-    console.log(classes);
-    for (var i = 0; i < classes.length; i++) list.push(classes[i].ID);
-    setIDList(list);
-  };
-  const fetchSubjects = () => {
-    var subs = [
-      "Science",
-      "Math",
-      "Art",
-      "History",
-      "English",
-      "Health",
-      "Geography",
-      "Music",
-    ];
-    setSubjectList(subs);
-  };
-  const createClasses = (
-    teacher,
-    subject,
-    students,
-    start,
-    end,
-    id,
-    classNum,
-    classTitle,
-    studentIDs
-  ) => {
+
+  const createPost = (title, content, likes, user) => {
     var val = {
-      Teacher: teacher,
-      Subject: subject,
-      Students: students,
-      Start: start,
-      End: end,
-      ID: id,
-      Classroom: classNum,
-      Title: classTitle,
-      StudentIDs: studentIDs,
+      Title: title,
+      Content: content,
+      Likes: likes,
+      User: user,
     };
 
     var data = JSON.stringify(val);
-    //var string = val.toString();
-    // console.log(string);
-    //console.log(data);
     fetch(`http://localhost:8080/forum/add`, {
       method: "POST",
       body: data,
       headers: {
         "Content-Type": "application/json",
         Accept: "application/json",
+
+        "Access-Control-Allow-Origin": "http://localhost:3000",
       },
     })
       .then((res) => res.json())
       .then((result) => console.log(result));
-
-    setTeacher("");
-    setStart("");
-    setEnd("");
-    setSubject("");
-    setStudents([]);
-    setID("");
-    setClassNum("");
-    setClassTitle("");
-    // setClasses(classes);
   };
 
-  const deleteClass = (e) => {
-    var id = deleteVal;
-
-    // e.prClassesDefault();
-    for (var i = 0; i < classes.length; i++) {
-      if (
-        typeof classes[i].items != "undefined" &&
-        classes[i].title === deleteVal
-      ) {
-        id = classes[i].id;
-      }
-    }
-
-    // console.log(id);
-    fetch(`http://localhost:8080/classes/delete/${deleteVal}`, {
+  const deletePost = (e) => {
+    fetch(`http://localhost:8080/forum/delete/${deleteVal}`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Origin": "http://localhost:3000/",
       },
-      body: JSON.stringify({ title: id }),
+      body: JSON.stringify({ title: deleteVal }),
     })
       .then((res) => res.json())
       .then((data) => console.log(data));
-    setDelete("");
+    setDeleteVal("");
   };
-  const updateClasses = (e) => {
-    var id = "";
-    // e.prClassesDefault();
-    for (var i = 0; i < classes.length; i++) {
-      if (
-        typeof classes[i].items != "undefined" &&
-        classes[i].title === updateTitle
-      ) {
-        id = classes[i].id;
-      }
-    }
-
-    fetch(`http://localhost:8080/classes/update/${updateTitle}`, {
+  const updateforum = (e) => {
+    //   console.log(update);
+    //   console.log(updateType);
+    //   console.log(updateVal);
+    fetch(`http://localhost:8080/forum/update/${update}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        title: updateTitle,
+        title: update,
         type: updateType,
         val: updateVal,
       }),
     })
       .then((res) => res.json())
       .then((data) => console.log(data));
-    setUpdateTitle("");
+    setUpdate("");
     setUpdateType("");
     setUpdateVal("");
   };
-
+  const like = (c) => {
+    setUpdateVal("dnm");
+    setUpdateType("Likes");
+    console.log(c.Title);
+    fetch(`http://localhost:8080/forum/update/${c.Title}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        title: c.Title,
+        type: "Likes",
+        val: c.Likes + 1,
+      }),
+    })
+      .then((res) => res.json())
+      .then((data) => console.log(data));
+    setUpdate("");
+    setUpdateType("");
+    setUpdateVal("");
+  };
   return (
     <div>
+      <Button onClick={() => fetchForum()}>Update Posts</Button>
       <Button style={baseButtonStyle} onClick={handleClickOpen}>
-        Display Forum
+        Create Post
       </Button>
       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
       <Dialog
@@ -291,14 +188,30 @@ function DataForm() {
         aria-labelledby="form-dialog-title"
       >
         <form>
-          Students:
-          {forum.map((c) => (
-            <p>{c.postDetails}</p>
-          ))}
+          <Input
+            style={InputStyle}
+            start="Title"
+            placeholder="Enter the title"
+            value={title}
+            onChange={handleChangeTitle}
+          />
+          <Input
+            style={InputStyle}
+            name="Write what you want!"
+            placeholder="Write your post here!"
+            value={content}
+            onChange={handleChangeContent}
+          />
+          <Button
+            style={baseButtonStyle}
+            onClick={() => createPost(title, content, likes, user)}
+          >
+            Post
+          </Button>
         </form>
       </Dialog>
       <Button style={baseButtonStyle} onClick={handleClickOpenU}>
-        Update Class
+        Update Post
       </Button>
       <Dialog
         open={openU}
@@ -306,10 +219,10 @@ function DataForm() {
         aria-labelledby="form-dialog-title"
       >
         <form>
-          ID:
+          Title:
           <Select style={selectButtonStyle} onChange={handleChangeUpdate}>
-            {idList.map((id) => {
-              return <option value={id}> {id} </option>;
+            {forum.map((id) => {
+              return <option value={id.Title}> {id.Title} </option>;
             })}
           </Select>
           Type:
@@ -323,16 +236,16 @@ function DataForm() {
             name="newVal"
             placeholder="What should it be set to?"
             value={updateVal}
-            onChange={handleChangeUpdateVal}
+            onChange={handleChangeVal}
           />
-          <Button style={baseButtonStyle} onClick={() => updateClasses()}>
-            Update Class
+          <Button style={baseButtonStyle} onClick={() => updateforum()}>
+            Update Post
           </Button>
         </form>
       </Dialog>
       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
       <Button style={baseButtonStyle} onClick={handleClickOpenD}>
-        Delete Class
+        Delete Post
       </Button>
       <Dialog
         open={openD}
@@ -340,17 +253,28 @@ function DataForm() {
         aria-labelledby="form-dialog-title"
       >
         <form>
-          ID:
+          Title:
           <Select style={selectButtonStyle} onChange={handleChangeDelete}>
-            {idList.map((id) => {
-              return <option value={id}> {id} </option>;
+            {forum.map((id) => {
+              return <option value={id.Title}> {id.Title} </option>;
             })}
           </Select>
-          <Button style={baseButtonStyle} onClick={() => deleteClass()}>
+          <Button style={baseButtonStyle} onClick={() => deletePost()}>
             Delete Class
           </Button>
         </form>
       </Dialog>
+      <form>
+        Posts:
+        {forum.map((c) => (
+          <p>
+            Title:{c.Title + " "}
+            Content:{c.Content + " "}
+            Likes: {c.Likes + " "}
+            <Button onClick={() => like(c)}>Like</Button>
+          </p>
+        ))}
+      </form>
     </div>
   );
 }
