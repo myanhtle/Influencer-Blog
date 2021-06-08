@@ -33,6 +33,15 @@ const homePageStyles = makeStyles({
     opacity: 1,
     fontSize: "10vw",
   },
+  bottomContainer: {
+    height: "auto",
+    width: "90vw",
+    margin: "auto",
+    padding: "1rem",
+  },
+  content: {
+    padding: "1rem",
+  },
 });
 
 export default homePageStyles;
