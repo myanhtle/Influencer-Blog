@@ -1,8 +1,12 @@
 import { AppBar, Toolbar, Typography, Button } from "@material-ui/core";
 import { useHistory } from "react-router-dom";
+import { useContext } from "react"
+import {UserContext} from "../contexts/UserContext"
 
 function NavBar() {
   const history = useHistory();
+  const {isLoggedIn} = useContext(UserContext);
+
   return (
     <AppBar position="static">
       <Toolbar style={{ display: "flex", justifyContent: "space-between" }}>
@@ -17,11 +21,11 @@ function NavBar() {
           </Button>
         </div>
         <Button
-          onClick={() => history.push("/login")}
+          onClick={() => history.push(isLoggedIn? "/account" : "/login")}
           variant="contained"
           color="secondary"
         >
-          Login
+          {isLoggedIn? "My Account" : "Log In"}
         </Button>
       </Toolbar>
     </AppBar>
