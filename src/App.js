@@ -18,6 +18,7 @@ import { UserContext } from "./contexts/UserContext";
 import AccountPage from "./components/AccountPage";
 import Blog from "./components/Blog";
 
+import MerchForm from "./components/merchForm";
 function App() {
   const { setUser } = useContext(UserContext);
   firebase.auth().onAuthStateChanged((user) => {
@@ -37,6 +38,7 @@ function App() {
         <Route path="/login" component={LoginPage} />
         <Route path="/color-examples" component={ColorExamples} />
         <Route path="/account" component={AccountPage} />
+        <Route path="/merchForm" component={MerchForm} />
         <Route component={ErrorPage} />
       </Switch>
     </BrowserRouter>
