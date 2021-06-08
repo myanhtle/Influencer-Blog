@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import CardHeader from "@material-ui/core/CardHeader";
@@ -9,7 +9,6 @@ import IconButton from "@material-ui/core/IconButton";
 import Typography from "@material-ui/core/Typography";
 import { red } from "@material-ui/core/colors";
 import FavoriteIcon from "@material-ui/icons/Favorite";
-import ShareIcon from "@material-ui/icons/Share";
 import ForumIcon from "@material-ui/icons/Forum";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
 
@@ -35,14 +34,17 @@ const useStyles = makeStyles((theme) => ({
 
 export default function ForumPost() {
   const classes = useStyles();
-  const [expanded, setExpanded] = React.useState(false);
+  const [isFavorited, setIsFavorited] = useState(false);
 
-  const handleExpandClick = () => {
-    setExpanded(!expanded);
+  const handleLike = (e) => {
+    e.preventDefault();
+    setIsFavorited((prev) => {
+      return !prev;
+    });
   };
 
   return (
-    <div style={{ display: "flex", justifyContent: "center" }}>
+    <div style={{ display: "flex", justifyContent: "center", marginTop: "2%" }}>
       <Card className={classes.root}>
         <CardHeader
           avatar={
@@ -64,11 +66,13 @@ export default function ForumPost() {
           </Typography>
         </CardContent>
         <CardActions disableSpacing>
-          <IconButton aria-label="like">
-            <FavoriteIcon />
+          <IconButton aria-label="like" id="like-1" onClick={handleLike}>
+            <FavoriteIcon
+              style={isFavorited ? { fill: "gray" } : { fill: "red" }}
+            />
           </IconButton>
           # of likes
-          <IconButton aria-label="share">
+          <IconButton aria-label="comment">
             <ForumIcon />
           </IconButton>
         </CardActions>
