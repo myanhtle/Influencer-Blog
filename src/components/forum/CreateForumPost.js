@@ -43,7 +43,7 @@ export default function CreateForumPost({ posts, setPosts, setClickedPost }) {
 
   const handlePost = (event) => {
     event.preventDefault();
-    if (postContent.Title === "" || postContent.Date === "") {
+    if (postContent.Title === "" || postContent.Content === "") {
       setAnchorEl(event.currentTarget);
     } else {
       fetch(`http://localhost:8080/forum/add`, {
@@ -53,9 +53,19 @@ export default function CreateForumPost({ posts, setPosts, setClickedPost }) {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({ ...postContent, User: username }),
-      }).then(() => {
-        setClickedPost((prev) => !prev);
-      });
+      })
+        .then(() => {
+          setClickedPost((prev) => !prev);
+        })
+        .then(() => {
+          setPostContent({
+            Title: "",
+            Content: "",
+            Date: "",
+            Likes: 0,
+            User: "",
+          });
+        });
     }
   };
 
