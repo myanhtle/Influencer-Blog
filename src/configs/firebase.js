@@ -9,7 +9,7 @@ const firebaseConfig = {
   projectId: "influencer-blog-52ef5",
   storageBucket: "influencer-blog-52ef5.appspot.com",
   messagingSenderId: "177574397221",
-  appId: "1:177574397221:web:6f5f34050ec366a707c6cc"
+  appId: "1:177574397221:web:6f5f34050ec366a707c6cc",
 };
 
 firebase.initializeApp(firebaseConfig);
