@@ -9,7 +9,7 @@ import { BrowserRouter, Route, Switch } from "react-router-dom";
 // Our components
 import ErrorPage from "./components/ErrorPage";
 import NavBar from "./components/NavBar";
-import TestBlog from "./components/testBlog";
+import TestUsers from "./components/testUser";
 import Forum from "./components/forum/Forum";
 import ColorExamples from "./components/ColorExamples";
 import DataForm from "./components/dataForm";
@@ -29,7 +29,7 @@ function App() {
     <BrowserRouter>
       <NavBar />
       <Switch>
-        <Route path="/" component={TestBlog} exact />
+        <Route path="/" component={TestUsers} exact />
         <Route path="/about" component={null} />
         <Route path="/blog" component={Blog} />
         <Route path="/forum" component={Forum} />
