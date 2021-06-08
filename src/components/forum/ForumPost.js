@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import CardHeader from "@material-ui/core/CardHeader";
@@ -9,11 +9,11 @@ import IconButton from "@material-ui/core/IconButton";
 import Typography from "@material-ui/core/Typography";
 import { red } from "@material-ui/core/colors";
 import FavoriteIcon from "@material-ui/icons/Favorite";
+import EditIcon from "@material-ui/icons/Edit";
 import ForumIcon from "@material-ui/icons/Forum";
-import MoreVertIcon from "@material-ui/icons/MoreVert";
+import DeleteIcon from "@material-ui/icons/Delete";
 import Collapse from "@material-ui/core/Collapse";
-import Menu from "@material-ui/core/Menu";
-import MenuItem from "@material-ui/core/MenuItem";
+import { UserContext } from "../../contexts/UserContext";
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -25,11 +25,18 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-export default function ForumPost({ p, posts, setPosts }) {
+export default function ForumPost({
+  p,
+  posts,
+  setPosts,
+  clickedPost,
+  setClickedPost,
+}) {
+  const { username } = useContext(UserContext);
   const classes = useStyles();
   const [isFavorited, setIsFavorited] = useState(false);
-  const [expanded, setExpanded] = React.useState(false);
-  const [anchorEl, setAnchorEl] = React.useState(null);
+  const [expanded, setExpanded] = useState(false);
+  const [anchorEl, setAnchorEl] = useState(null);
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -42,6 +49,25 @@ export default function ForumPost({ p, posts, setPosts }) {
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
+
+  const handleDeletePost = (e) => {
+    e.preventDefault();
+    fetch(`http://localhost:8080/forum/delete/${p.Title}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Origin": "http://localhost:3000/",
+      },
+      body: JSON.stringify({ title: p.Title }),
+    }).then(() => {
+      setClickedPost((prev) => {
+        return !prev;
+      });
+    });
+  };
+
+  const handleEditPost = (e) => {};
 
   const handleLike = (e) => {
     e.preventDefault();
@@ -110,23 +136,26 @@ export default function ForumPost({ p, posts, setPosts }) {
             </Avatar>
           }
           action={
-            <>
-              <IconButton aria-label="settings" onClick={handleClick}>
-                <MoreVertIcon />
-              </IconButton>
-              <Menu
-                id="simple-menu"
-                anchorEl={anchorEl}
-                keepMounted
-                open={Boolean(anchorEl)}
-                onClose={handleClose}
-              >
-                <MenuItem onClick={() => console.log("delete")}>
-                  Delete
-                </MenuItem>
-                <MenuItem onClick={() => console.log("edit")}>Edit</MenuItem>
-              </Menu>
-            </>
+            username === p.User ? (
+              <>
+                <IconButton
+                  size="small"
+                  aria-label="delete"
+                  onClick={handleDeletePost}
+                >
+                  <DeleteIcon />
+                </IconButton>
+                <IconButton
+                  size="small"
+                  aria-label="edit"
+                  onClick={handleEditPost}
+                >
+                  <EditIcon />
+                </IconButton>
+              </>
+            ) : (
+              <></>
+            )
           }
           title={p.Title}
           subheader={`${p.User} posted on ${p.Date}`}
