@@ -12,6 +12,7 @@ import FavoriteIcon from "@material-ui/icons/Favorite";
 import EditIcon from "@material-ui/icons/Edit";
 import ForumIcon from "@material-ui/icons/Forum";
 import DeleteIcon from "@material-ui/icons/Delete";
+import CheckCircleIcon from "@material-ui/icons/CheckCircle";
 import Collapse from "@material-ui/core/Collapse";
 import TextField from "@material-ui/core/TextField";
 import { UserContext } from "../../contexts/UserContext";
@@ -68,6 +69,27 @@ export default function ForumPost({ p, posts, setPosts, setClickedPost }) {
       return !prev;
     });
     console.log(p.Content, posts);
+  };
+
+  const handleSaveChanges = (e) => {
+    const updatedPost = {
+      title: p.Title,
+      type: "Content",
+      val: newContents,
+    };
+    fetch(`http://localhost:8080/forum/update/${p.Title}`, {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(updatedPost),
+    }).then(() => {
+      setIsEditing(false);
+      setClickedPost((prev) => {
+        return !prev;
+      });
+    });
   };
 
   const handleLike = (e) => {
@@ -165,16 +187,27 @@ export default function ForumPost({ p, posts, setPosts, setClickedPost }) {
         />
         <CardContent>
           {isEditing ? (
-            <TextField
-              required
-              id="Content"
-              value={newContents}
-              onChange={handleChange}
-              multiline
-              rows={4}
-              variant="outlined"
-              style={{ width: "100%" }}
-            />
+            <>
+              <TextField
+                required
+                id="Content"
+                value={newContents}
+                onChange={handleChange}
+                multiline
+                rows={4}
+                variant="outlined"
+                style={{ width: "100%" }}
+              />
+              <IconButton
+                size="small"
+                aria-label="save"
+                onClick={handleSaveChanges}
+                style={{ marginLeft: "80%", marginTop: "1vh" }}
+              >
+                <CheckCircleIcon />
+                Save Changes
+              </IconButton>
+            </>
           ) : (
             <Typography variant="body2" color="textSecondary" component="p">
               {p.Content}
