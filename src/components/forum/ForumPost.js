@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import CardHeader from "@material-ui/core/CardHeader";
@@ -14,6 +14,7 @@ import MoreVertIcon from "@material-ui/icons/MoreVert";
 import Collapse from "@material-ui/core/Collapse";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
+import { UserContext } from "../../contexts/UserContext";
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -26,6 +27,7 @@ const useStyles = makeStyles(() => ({
 }));
 
 export default function ForumPost({ p, posts, setPosts }) {
+  const { username } = useContext(UserContext);
   const classes = useStyles();
   const [isFavorited, setIsFavorited] = useState(false);
   const [expanded, setExpanded] = React.useState(false);
@@ -110,23 +112,27 @@ export default function ForumPost({ p, posts, setPosts }) {
             </Avatar>
           }
           action={
-            <>
-              <IconButton aria-label="settings" onClick={handleClick}>
-                <MoreVertIcon />
-              </IconButton>
-              <Menu
-                id="simple-menu"
-                anchorEl={anchorEl}
-                keepMounted
-                open={Boolean(anchorEl)}
-                onClose={handleClose}
-              >
-                <MenuItem onClick={() => console.log("delete")}>
-                  Delete
-                </MenuItem>
-                <MenuItem onClick={() => console.log("edit")}>Edit</MenuItem>
-              </Menu>
-            </>
+            username === p.User ? (
+              <>
+                <IconButton aria-label="settings" onClick={handleClick}>
+                  <MoreVertIcon />
+                </IconButton>
+                <Menu
+                  id="simple-menu"
+                  anchorEl={anchorEl}
+                  keepMounted
+                  open={Boolean(anchorEl)}
+                  onClose={handleClose}
+                >
+                  <MenuItem onClick={() => console.log("delete")}>
+                    Delete
+                  </MenuItem>
+                  <MenuItem onClick={() => console.log("edit")}>Edit</MenuItem>
+                </Menu>
+              </>
+            ) : (
+              <></>
+            )
           }
           title={p.Title}
           subheader={`${p.User} posted on ${p.Date}`}
