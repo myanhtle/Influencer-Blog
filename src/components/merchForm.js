@@ -107,6 +107,12 @@ function MerchForm() {
       .then((res) => res.json())
       .then((data) => setCart(data));
   };
+  const fetchUserCart = () => {
+    fetchSum();
+    fetch(`http://localhost:8080/cart/read/John`)
+      .then((res) => res.json())
+      .then((data) => setCart(data));
+  };
   const fetchSum = () => {
     fetch(`http://localhost:8080/cart/sum/John`)
       .then((res) => res.json())
@@ -117,7 +123,7 @@ function MerchForm() {
     var val = {
       Name: c.Name,
       Price: c.Price,
-      User: "John",
+      User: "Samantha",
     };
     console.log(val);
     var data = JSON.stringify(val);
@@ -207,27 +213,7 @@ function MerchForm() {
     setUpdateType("");
     setUpdateVal("");
   };
-  const like = (c) => {
-    setUpdateVal("dnm");
-    setUpdateType("Likes");
-    console.log(c.Title);
-    fetch(`http://localhost:8080/merchandise/update/${c.Title}`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        title: c.Title,
-        type: "Likes",
-        val: c.Likes + 1,
-      }),
-    })
-      .then((res) => res.json())
-      .then((data) => console.log(data));
-    setUpdate("");
-    setUpdateType("");
-    setUpdateVal("");
-  };
+
   return (
     <div>
       <Button onClick={() => fetchMerch()}>Fetch Merch</Button>
@@ -355,6 +341,7 @@ function MerchForm() {
         ))}
       </form>
       <Button onClick={() => fetchCart()}>Fetch Cart</Button>
+      <Button onClick={() => fetchUserCart()}>User Cart</Button>
       <Button onClick={() => fetchSum()}>Update Sum</Button>
       <p>{sum.Sum}</p>
     </div>

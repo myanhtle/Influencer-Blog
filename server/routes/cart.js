@@ -19,6 +19,20 @@ router.get("/read", async (req, res) => {
   // console.log(cart);
   res.send(cart);
 });
+router.get("/read/:query", async (req, res) => {
+  const cart = [];
+  var name = req.params.query;
+  const snapshot = await cartRef.get();
+  // console.log(snapshot);
+  snapshot.forEach((doc) => {
+    if (doc.data().User === name) {
+      let docU = { ...doc.data(), id: doc.id };
+      cart.push(docU);
+    }
+  });
+  // console.log(cart);
+  res.send(cart);
+});
 router.get("/sum/:query", async (req, res) => {
   const cart = [];
   var sum = 0;
