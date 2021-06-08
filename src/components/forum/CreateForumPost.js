@@ -17,7 +17,7 @@ export default function CreateForumPost() {
   const [postContent, setPostContent] = useState({
     title: "",
     postDetails: "",
-    time: "",
+    date: "",
     totalLikes: 0,
   });
 
