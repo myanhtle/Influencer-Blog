@@ -8,7 +8,7 @@ function DataForm() {
   const [open, setOpen] = React.useState(false);
   const [openU, setOpenU] = React.useState(false);
   const [openD, setOpenD] = React.useState(false);
-  const [typeList, setTypeList] = useState([]);
+  // const [typeList, setTypeList] = useState([]);
   const [selectMode, setSelectMode] = useState(false);
   const [forum, setForum] = useState([]);
   const [content, setContent] = useState([]);
@@ -31,7 +31,7 @@ function DataForm() {
     ...baseButtonStyle,
     backgroundColor: selectMode ? lightBlue : darkBlue,
   };
-
+  const typeList = ["Title", "Content"];
   const InputStyle = {
     backgroundColor: "#E5E5E5",
     borderRadius: "10px",
@@ -46,6 +46,28 @@ function DataForm() {
 
   const handleClose = () => {
     setOpen(false);
+    fetchForum();
+  };
+  const handleClickOpenD = () => {
+    if (forum.length === 0) {
+      fetchForum();
+    }
+    setOpenD(true);
+  };
+
+  const handleCloseD = () => {
+    setOpenD(false);
+    fetchForum();
+  };
+  const handleClickOpenU = () => {
+    if (forum.length === 0) {
+      fetchForum();
+    }
+    setOpenU(true);
+  };
+
+  const handleCloseU = () => {
+    setOpenU(false);
     fetchForum();
   };
 
@@ -98,19 +120,6 @@ function DataForm() {
   };
 
   const deletePost = (e) => {
-    var id = deleteVal;
-
-    // e.prforumDefault();
-    for (var i = 0; i < forum.length; i++) {
-      if (
-        typeof forum[i].postDetails != "undefined" &&
-        forum[i].postDetails === deleteVal
-      ) {
-        id = forum[i].id;
-      }
-    }
-
-    // console.log(id);
     fetch(`http://localhost:8080/forum/delete/${deleteVal}`, {
       method: "DELETE",
       headers: {
@@ -118,21 +127,16 @@ function DataForm() {
         "Access-Control-Allow-Origin": "*",
         "Access-Control-Allow-Origin": "http://localhost:3000/",
       },
-      body: JSON.stringify({ title: id }),
+      body: JSON.stringify({ title: deleteVal }),
     })
       .then((res) => res.json())
       .then((data) => console.log(data));
     setDeleteVal("");
   };
   const updateforum = (e) => {
-    var id = "";
-    // e.prforumDefault();
-    for (var i = 0; i < forum.length; i++) {
-      if (typeof forum[i].items != "undefined" && forum[i].title === "") {
-        id = forum[i].id;
-      }
-    }
-
+    //   console.log(update);
+    //   console.log(updateType);
+    //   console.log(updateVal);
     fetch(`http://localhost:8080/forum/update/${update}`, {
       method: "POST",
       headers: {
@@ -150,12 +154,32 @@ function DataForm() {
     setUpdateType("");
     setUpdateVal("");
   };
-
+  const like = (c) => {
+    setUpdateVal("dnm");
+    setUpdateType("Likes");
+    console.log(c.Title);
+    fetch(`http://localhost:8080/forum/update/${c.Title}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        title: c.Title,
+        type: "Likes",
+        val: c.Likes + 1,
+      }),
+    })
+      .then((res) => res.json())
+      .then((data) => console.log(data));
+    setUpdate("");
+    setUpdateType("");
+    setUpdateVal("");
+  };
   return (
     <div>
-      <Button onClick={() => fetchForum()}>Click me</Button>
+      <Button onClick={() => fetchForum()}>Update Posts</Button>
       <Button style={baseButtonStyle} onClick={handleClickOpen}>
-        Display Forum
+        Create Post
       </Button>
       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
       <Dialog
@@ -180,25 +204,25 @@ function DataForm() {
           />
           <Button
             style={baseButtonStyle}
-            onClick={() => createPost(content, title, likes, user)}
+            onClick={() => createPost(title, content, likes, user)}
           >
             Post
           </Button>
         </form>
       </Dialog>
-      <Button style={baseButtonStyle} onClick={handleClickOpen}>
-        Update Class
+      <Button style={baseButtonStyle} onClick={handleClickOpenU}>
+        Update Post
       </Button>
       <Dialog
         open={openU}
-        onClose={handleClose}
+        onClose={handleCloseU}
         aria-labelledby="form-dialog-title"
       >
         <form>
-          ID:
+          Title:
           <Select style={selectButtonStyle} onChange={handleChangeUpdate}>
             {forum.map((id) => {
-              return <option value={id}> {id} </option>;
+              return <option value={id.Title}> {id.Title} </option>;
             })}
           </Select>
           Type:
@@ -215,32 +239,40 @@ function DataForm() {
             onChange={handleChangeVal}
           />
           <Button style={baseButtonStyle} onClick={() => updateforum()}>
-            Update Class
+            Update Post
           </Button>
         </form>
       </Dialog>
       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-      <Button style={baseButtonStyle} onClick={handleClickOpen}>
-        Delete Class
+      <Button style={baseButtonStyle} onClick={handleClickOpenD}>
+        Delete Post
       </Button>
       <Dialog
         open={openD}
-        onClose={handleClose}
+        onClose={handleCloseD}
         aria-labelledby="form-dialog-title"
       >
         <form>
-          ID:
+          Title:
           <Select style={selectButtonStyle} onChange={handleChangeDelete}>
             {forum.map((id) => {
-              return <option value={id}> {id} </option>;
+              return <option value={id.Title}> {id.Title} </option>;
             })}
           </Select>
+          <Button style={baseButtonStyle} onClick={() => deletePost()}>
+            Delete Class
+          </Button>
         </form>
       </Dialog>
       <form>
         Posts:
         {forum.map((c) => (
-          <p>{c.postDetails}</p>
+          <p>
+            Title:{c.Title + " "}
+            Content:{c.Content + " "}
+            Likes: {c.Likes + " "}
+            <Button onClick={() => like(c)}>Like</Button>
+          </p>
         ))}
       </form>
     </div>
