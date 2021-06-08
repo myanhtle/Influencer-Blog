@@ -6,7 +6,7 @@ import TestBlog from "./components/testBlog";
 import Forum from "./components/forum/Forum";
 import ColorExamples from "./components/ColorExamples";
 import DataForm from "./components/dataForm";
-
+import MerchForm from "./components/merchForm";
 function App() {
   return (
     <BrowserRouter>
@@ -19,6 +19,7 @@ function App() {
         <Route path="/dataform" component={DataForm} />
         <Route path="/login" component={null} />
         <Route path="/color-examples" component={ColorExamples} />
+        <Route path="/merchForm" component={MerchForm} />
         <Route component={ErrorPage} />
       </Switch>
     </BrowserRouter>
