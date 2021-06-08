@@ -21,6 +21,7 @@ const useStyles = makeStyles(() => ({
   root: {
     maxWidth: 800,
     width: "100%",
+    backgroundColor: "#cadeb1",
   },
   avatar: {
     backgroundColor: red[500],
@@ -216,9 +217,7 @@ export default function ForumPost({ p, posts, setPosts, setClickedPost }) {
         </CardContent>
         <CardActions disableSpacing>
           <IconButton aria-label="like" id="like-1" onClick={handleLike}>
-            <FavoriteIcon
-              style={isFavorited ? { fill: "red" } : { fill: "grey" }}
-            />
+            <FavoriteIcon style={isFavorited ? { fill: "#a30000" } : {}} />
           </IconButton>
           {p.Likes}
           <IconButton
