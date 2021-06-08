@@ -99,7 +99,6 @@ function MerchForm() {
       .then((res) => res.json())
       .then((data) => setMerch(data));
   };
-
   const createMerch = (name, price, rating, stock) => {
     var val = {
       Name: name,
