@@ -19,6 +19,7 @@ function MerchForm() {
   const [updateType, setUpdateType] = useState([]);
   const [updateVal, setUpdateVal] = useState([]);
   const [cart, setCart] = useState([]);
+  const [sum, setSum] = useState([]);
   const darkBlue = "#004981";
   const lightBlue = "#6ea8d4";
   const baseButtonStyle = {
@@ -101,9 +102,16 @@ function MerchForm() {
       .then((data) => setMerch(data));
   };
   const fetchCart = () => {
+    fetchSum();
     fetch(`http://localhost:8080/cart/read`)
       .then((res) => res.json())
       .then((data) => setCart(data));
+  };
+  const fetchSum = () => {
+    fetch(`http://localhost:8080/cart/sum/John`)
+      .then((res) => res.json())
+      .then((data) => setSum(data));
+    // console.log(sum);
   };
   const addToCart = (c) => {
     var val = {
@@ -140,6 +148,7 @@ function MerchForm() {
       .then((data) => console.log(data));
     setDeleteVal("");
   };
+
   const createMerch = (name, price, rating, stock) => {
     var val = {
       Name: name,
@@ -346,6 +355,8 @@ function MerchForm() {
         ))}
       </form>
       <Button onClick={() => fetchCart()}>Fetch Cart</Button>
+      <Button onClick={() => fetchSum()}>Update Sum</Button>
+      <p>{sum.Sum}</p>
     </div>
   );
 }
