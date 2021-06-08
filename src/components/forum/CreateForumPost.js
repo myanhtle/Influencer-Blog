@@ -14,16 +14,19 @@ const useStyles = makeStyles((theme) => ({
 
 export default function CreateForumPost() {
   const classes = useStyles();
-  const [content, setContent] = useState({
+  const [postContent, setPostContent] = useState({
     title: "",
     postDetails: "",
-    time: "",
+    date: "",
     totalLikes: 0,
   });
 
   const handleChange = (event) => {
-    setContent({ ...content, [event.currentTarget.id]: event.target.value });
-    console.log(content);
+    setPostContent({
+      ...postContent,
+      [event.currentTarget.id]: event.target.value,
+    });
+    console.log(postContent);
   };
 
   return (
@@ -35,7 +38,7 @@ export default function CreateForumPost() {
             label="Description"
             variant="filled"
             onChange={handleChange}
-            value={content.title}
+            value={postContent.title}
           />
         </div>
         <TextField
@@ -43,7 +46,7 @@ export default function CreateForumPost() {
           label="What's new?"
           multiline
           rows={4}
-          value={content.postDetails}
+          value={postContent.postDetails}
           onChange={handleChange}
           variant="filled"
         />
