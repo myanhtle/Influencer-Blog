@@ -13,6 +13,7 @@ import ColorExamples from "./components/ColorExamples";
 import DataForm from "./components/dataForm";
 import LoginPage from "./components/LoginPage";
 import { UserContext } from "./contexts/UserContext";
+import AccountPage from "./components/AccountPage"
 
 function App() {
   const { setUser } = useContext(UserContext);
@@ -32,6 +33,7 @@ function App() {
         <Route path="/dataform" component={DataForm} />
         <Route path="/login" component={LoginPage} />
         <Route path="/color-examples" component={ColorExamples} />
+        <Route path="/account" component={AccountPage} />
         <Route component={ErrorPage} />
       </Switch>
     </BrowserRouter>

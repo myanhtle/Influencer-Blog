@@ -2,6 +2,9 @@ import { TextField, Button, Card, Typography } from "@material-ui/core";
 import { useState } from "react";
 import { useLoginStyles } from "../styles/loginStyles";
 import { login, signup } from "../utils/loginUtils";
+import {useContext} from "react"
+import {UserContext} from "../contexts/UserContext"
+import {useHistory} from "react-router-dom"
 
 function LoginPage() {
   const [signUpActive, setSignUpActive] = useState(false);
@@ -10,6 +13,8 @@ function LoginPage() {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const classes = useLoginStyles();
+  const {isLoggedIn} = useContext(UserContext)
+  const history = useHistory();
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -28,6 +33,7 @@ function LoginPage() {
     }
   };
 
+  if (isLoggedIn) history.push("/account")
   return (
     <Card className={classes.loginCard}>
       <Typography variant="h6">
