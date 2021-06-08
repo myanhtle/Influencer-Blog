@@ -19,11 +19,54 @@ router.get("/read", async (req, res) => {
   // console.log(cart);
   res.send(cart);
 });
-
+router.get("/read/:query", async (req, res) => {
+  const cart = [];
+  var name = req.params.query;
+  const snapshot = await cartRef.get();
+  // console.log(snapshot);
+  snapshot.forEach((doc) => {
+    if (doc.data().User === name) {
+      let docU = { ...doc.data(), id: doc.id };
+      cart.push(docU);
+    }
+  });
+  // console.log(cart);
+  res.send(cart);
+});
+router.get("/sum/:query", async (req, res) => {
+  const cart = [];
+  var sum = 0;
+  var name = req.params.query;
+  console.log(name);
+  const snapshot = await cartRef.get();
+  // console.log(snapshot);
+  snapshot.forEach((doc) => {
+    let docU = { ...doc.data(), id: doc.id };
+    cart.push(docU);
+  });
+  // console.log(cart);
+  for (var i = 0; i < cart.length; i++) {
+    if (cart[i].User === name) {
+      sum = parseFloat(sum) + parseFloat(cart[i].Price);
+      //  console.log(cart[i].Price);
+    }
+  }
+  var val = {
+    Sum: sum,
+    User: "John",
+  };
+  console.log(val);
+  //var data = JSON.stringify(val);
+  //console.log(sum);
+  // console.log(cart);
+  // cart.push(sum);
+  res.send(val);
+});
 router.post("/add", async (req, res) => {
   // console.log(req.body);
   var input = req.body;
   const snapshot = cartRef.add(input);
+
   res.send(snapshot);
 });
 
@@ -46,6 +89,7 @@ router.delete("/delete/:query", async (req, res) => {
   const del = await db.collection("cart").doc(docToDeleteId).delete();
   res.send("DELETE Request Called");
 });
+
 router.post("/update/:query", async (req, res) => {
   var docToUpdateId = "";
   var name = req.params.query;

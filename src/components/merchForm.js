@@ -18,6 +18,9 @@ function MerchForm() {
   const [update, setUpdate] = useState([]);
   const [updateType, setUpdateType] = useState([]);
   const [updateVal, setUpdateVal] = useState([]);
+  const [cart, setCart] = useState([]);
+  const [sum, setSum] = useState([]);
+  const like = () => {}
   const darkBlue = "#004981";
   const lightBlue = "#6ea8d4";
   const baseButtonStyle = {
@@ -99,6 +102,60 @@ function MerchForm() {
       .then((res) => res.json())
       .then((data) => setMerch(data));
   };
+  const fetchCart = () => {
+    fetchSum();
+    fetch(`http://localhost:8080/cart/read`)
+      .then((res) => res.json())
+      .then((data) => setCart(data));
+  };
+  const fetchUserCart = () => {
+    fetchSum();
+    fetch(`http://localhost:8080/cart/read/John`)
+      .then((res) => res.json())
+      .then((data) => setCart(data));
+  };
+  const fetchSum = () => {
+    fetch(`http://localhost:8080/cart/sum/John`)
+      .then((res) => res.json())
+      .then((data) => setSum(data));
+    // console.log(sum);
+  };
+  const addToCart = (c) => {
+    var val = {
+      Name: c.Name,
+      Price: c.Price,
+      User: "Samantha",
+    };
+    console.log(val);
+    var data = JSON.stringify(val);
+    fetch(`http://localhost:8080/cart/add`, {
+      method: "POST",
+      body: data,
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+
+        "Access-Control-Allow-Origin": "http://localhost:3000",
+      },
+    })
+      .then((res) => res.json())
+      .then((result) => console.log(result));
+  };
+  const remove = (c) => {
+    fetch(`http://localhost:8080/cart/delete/${c.Name}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Origin": "http://localhost:3000/",
+      },
+      body: JSON.stringify({ Name: c.Name }),
+    })
+      .then((res) => res.json())
+      .then((data) => console.log(data));
+    setDeleteVal("");
+  };
+
   const createMerch = (name, price, rating, stock) => {
     var val = {
       Name: name,
@@ -157,27 +214,7 @@ function MerchForm() {
     setUpdateType("");
     setUpdateVal("");
   };
-  const like = (c) => {
-    setUpdateVal("dnm");
-    setUpdateType("Likes");
-    console.log(c.Title);
-    fetch(`http://localhost:8080/merchandise/update/${c.Title}`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        title: c.Title,
-        type: "Likes",
-        val: c.Likes + 1,
-      }),
-    })
-      .then((res) => res.json())
-      .then((data) => console.log(data));
-    setUpdate("");
-    setUpdateType("");
-    setUpdateVal("");
-  };
+
   return (
     <div>
       <Button onClick={() => fetchMerch()}>Update Posts</Button>
@@ -292,6 +329,10 @@ function MerchForm() {
           </p>
         ))}
       </form>
+      <Button onClick={() => fetchCart()}>Fetch Cart</Button>
+      <Button onClick={() => fetchUserCart()}>User Cart</Button>
+      <Button onClick={() => fetchSum()}>Update Sum</Button>
+      <p>{sum.Sum}</p>
     </div>
   );
 }
