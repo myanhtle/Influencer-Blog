@@ -36,4 +36,60 @@ router.post("/add", async (req, res) => {
   res.sendStatus(200);
 });
 
+/* Delete post from blog database */
+
+router.delete("/delete", async (req, res) => {
+  console.log(req.body);
+  const resp = await db.collection("blog").doc(req.body.id).delete();
+  console.log("Deleted document with ID: ", resp.id);
+  res.sendStatus(200);
+});
+
+/* Update post in blog database */
+
+router.post("/update", async (req, res) => {
+  const { date, messageContent, id } = req.body;
+  console.log("starting update");
+  console.log("body:", req.body);
+
+  const fieldChange = {};
+
+  if (date) {
+    fieldChange["date"] = date;
+  }
+  if (messageContent) {
+    fieldChange["messageContent"] = messageContent;
+  }
+
+  console.log("fieldChange", fieldChange);
+
+  const resp = await db.collection("blog").doc(id).update(fieldChange);
+  console.log("Updated document with ID: ", id);
+  res.sendStatus(200);
+});
+
+/* Update like count for each blog post */
+
+/*Like*/
+
+router.post("/like", async (req, res) => {
+  const { currentLikeCount, id } = req.body;
+  const resp = await db
+    .collection("blog")
+    .doc(id)
+    .update({ likes: currentLikeCount + 1 });
+  res.sendStatus(200);
+});
+
+/*Unlike*/
+
+router.post("/unlike", async (req, res) => {
+  const { currentLikeCount, id } = req.body;
+  const resp = await db
+    .collection("blog")
+    .doc(id)
+    .update({ likes: currentLikeCount - 1 });
+  res.sendStatus(200);
+});
+
 module.exports = router;
