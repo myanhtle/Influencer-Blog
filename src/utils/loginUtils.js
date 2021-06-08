@@ -24,12 +24,24 @@ const login = async (email, password) => {
  * @param {string} password the new password
  * @returns {boolean} success
  */
-const signup = async (username, email, password) => {
+const signup = async (name, username, email, password) => {
   try {
+    const { userExists } = await fetch(
+      "http://localhost:8080/users/check/" + username
+    );
+    if (userExists) return false;
     const userCredential = await firebase
       .auth()
       .createUserWithEmailAndPassword(email, password);
     await userCredential.user.updateProfile({ displayName: username });
+    await fetch(`http://localhost:8080/users/add`, {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: {username, name, email},
+    });
     return true;
   } catch (error) {
     console.log(error);

@@ -43,7 +43,7 @@ function LoginPage() {
   if (isLoggedIn) history.push("/account");
   return (
     <Card className={classes.loginCard}>
-      <Grid container spacing={12} className={classes.loginGrid}>
+      <Grid container className={classes.loginGrid}>
         <Grid item xs={7} className={classes.loginActions}>
           Content to go here later
         </Grid>
