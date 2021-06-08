@@ -15,8 +15,9 @@ export default function Forum() {
   return (
     <div>
       <CreateForumPost />
-      <ForumPost />
-      <ForumPost />
+      {posts.map((p) => (
+        <ForumPost p={p} />
+      ))}
     </div>
   );
 }

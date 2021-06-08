@@ -13,7 +13,7 @@ import ForumIcon from "@material-ui/icons/Forum";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
 import Collapse from "@material-ui/core/Collapse";
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   root: {
     maxWidth: 800,
     width: "100%",
@@ -23,7 +23,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function ForumPost() {
+export default function ForumPost({ p }) {
   const classes = useStyles();
   const [isFavorited, setIsFavorited] = useState(false);
   const [expanded, setExpanded] = React.useState(false);
@@ -52,7 +52,7 @@ export default function ForumPost() {
         <CardHeader
           avatar={
             <Avatar aria-label="user" className={classes.avatar}>
-              R
+              {p.User[0]}
             </Avatar>
           }
           action={
@@ -60,12 +60,12 @@ export default function ForumPost() {
               <MoreVertIcon />
             </IconButton>
           }
-          title="Title"
+          title={p.Title}
           subheader="June 7, 2021"
         />
         <CardContent>
           <Typography variant="body2" color="textSecondary" component="p">
-            Text for the post goes here
+            {p.Content}
           </Typography>
         </CardContent>
         <CardActions disableSpacing>
@@ -74,7 +74,7 @@ export default function ForumPost() {
               style={isFavorited ? { fill: "red" } : { fill: "grey" }}
             />
           </IconButton>
-          # of likes
+          {p.Likes}
           <IconButton
             onClick={handleExpandClick}
             aria-expanded={expanded}
