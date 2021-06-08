@@ -5,6 +5,7 @@ import Button from "@material-ui/core/Button";
 import Popover from "@material-ui/core/Popover";
 import Typography from "@material-ui/core/Typography";
 import { UserContext } from "../../contexts/UserContext";
+import moment from "moment";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -15,10 +16,10 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function CreateForumPost({ posts, setPosts, setClickedPost }) {
+export default function CreateForumPost({ setClickedPost }) {
   const { username } = useContext(UserContext);
   const classes = useStyles();
-  const [anchorEl, setAnchorEl] = React.useState(null);
+  const [anchorEl, setAnchorEl] = useState(null);
   const [postContent, setPostContent] = useState({
     Title: "",
     Content: "",
@@ -43,7 +44,7 @@ export default function CreateForumPost({ posts, setPosts, setClickedPost }) {
 
   const handlePost = (event) => {
     event.preventDefault();
-    if (postContent.Title === "" || postContent.Date === "") {
+    if (postContent.Title === "" || postContent.Content === "") {
       setAnchorEl(event.currentTarget);
     } else {
       fetch(`http://localhost:8080/forum/add`, {
@@ -52,10 +53,24 @@ export default function CreateForumPost({ posts, setPosts, setClickedPost }) {
           Accept: "application/json",
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ ...postContent, User: username }),
-      }).then(() => {
-        setClickedPost((prev) => !prev);
-      });
+        body: JSON.stringify({
+          ...postContent,
+          User: username,
+          Date: moment().format("LLL"),
+        }),
+      })
+        .then(() => {
+          setClickedPost((prev) => !prev);
+        })
+        .then(() => {
+          setPostContent({
+            Title: "",
+            Content: "",
+            Date: "",
+            Likes: 0,
+            User: "",
+          });
+        });
     }
   };
 
