@@ -16,7 +16,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function CreateForumPost({ setClickedPost }) {
+export default function CreateForumPost({ setClickedPost, setUpdate }) {
   const { username } = useContext(UserContext);
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = useState(null);
@@ -60,6 +60,9 @@ export default function CreateForumPost({ setClickedPost }) {
         }),
       })
         .then(() => {
+          setUpdate((prev) => {
+            return prev + "0";
+          });
           setClickedPost((prev) => !prev);
         })
         .then(() => {
