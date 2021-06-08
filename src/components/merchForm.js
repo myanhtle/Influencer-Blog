@@ -20,6 +20,7 @@ function MerchForm() {
   const [updateVal, setUpdateVal] = useState([]);
   const [cart, setCart] = useState([]);
   const [sum, setSum] = useState([]);
+  const like = () => {}
   const darkBlue = "#004981";
   const lightBlue = "#6ea8d4";
   const baseButtonStyle = {
