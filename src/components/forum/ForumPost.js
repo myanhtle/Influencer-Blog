@@ -12,6 +12,8 @@ import FavoriteIcon from "@material-ui/icons/Favorite";
 import ForumIcon from "@material-ui/icons/Forum";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
 import Collapse from "@material-ui/core/Collapse";
+import Menu from "@material-ui/core/Menu";
+import MenuItem from "@material-ui/core/MenuItem";
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -23,10 +25,19 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-export default function ForumPost({ p }) {
+export default function ForumPost({ p, posts, setPosts }) {
   const classes = useStyles();
   const [isFavorited, setIsFavorited] = useState(false);
   const [expanded, setExpanded] = React.useState(false);
+  const [anchorEl, setAnchorEl] = React.useState(null);
+
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
@@ -34,9 +45,52 @@ export default function ForumPost({ p }) {
 
   const handleLike = (e) => {
     e.preventDefault();
+    updateLikes();
     setIsFavorited((prev) => {
       return !prev;
     });
+  };
+
+  const updateLikes = () => {
+    if (isFavorited) {
+      const updatedPost = {
+        title: p.Title,
+        type: "Likes",
+        val: p.Likes - 1,
+      };
+      fetch(`http://localhost:8080/forum/update/${p.Title}`, {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(updatedPost),
+      }).then(() => {
+        fetch("http://localhost:8080/forum/read")
+          .then((res) => res.json())
+          .then((data) => setPosts(data))
+          .then(console.log(posts));
+      });
+    } else {
+      const updatedPost = {
+        title: p.Title,
+        type: "Likes",
+        val: p.Likes + 1,
+      };
+      fetch(`http://localhost:8080/forum/update/${p.Title}`, {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(updatedPost),
+      }).then(() => {
+        fetch("http://localhost:8080/forum/read")
+          .then((res) => res.json())
+          .then((data) => setPosts(data))
+          .then(console.log(posts));
+      });
+    }
   };
 
   return (
@@ -56,12 +110,26 @@ export default function ForumPost({ p }) {
             </Avatar>
           }
           action={
-            <IconButton aria-label="settings">
-              <MoreVertIcon />
-            </IconButton>
+            <>
+              <IconButton aria-label="settings" onClick={handleClick}>
+                <MoreVertIcon />
+              </IconButton>
+              <Menu
+                id="simple-menu"
+                anchorEl={anchorEl}
+                keepMounted
+                open={Boolean(anchorEl)}
+                onClose={handleClose}
+              >
+                <MenuItem onClick={() => console.log("delete")}>
+                  Delete
+                </MenuItem>
+                <MenuItem onClick={() => console.log("edit")}>Edit</MenuItem>
+              </Menu>
+            </>
           }
           title={p.Title}
-          subheader="June 7, 2021"
+          subheader={`${p.User} posted on ${p.Date}`}
         />
         <CardContent>
           <Typography variant="body2" color="textSecondary" component="p">

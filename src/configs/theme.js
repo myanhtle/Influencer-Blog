@@ -2,21 +2,21 @@ import { createMuiTheme } from "@material-ui/core/styles";
 
 const theme = createMuiTheme({
   palette: {
-    primary: {
-      main: "#90caf9",
-    },
     secondary: {
-      main: "#a5d6a7",
+      main: "#9CB380",
+    },
+    primary: {
+      main: "#488288",
     },
     background: {
-      main: "#fffff0",
+      main: "#F5F0F6",
     },
   },
   overrides: {
     MuiCssBaseline: {
       "@global": {
         body: {
-          backgroundColor: "#FFFFF0",
+          backgroundColor: "#F5F0F6",
         },
       },
     },
