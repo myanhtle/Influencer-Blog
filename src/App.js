@@ -1,6 +1,6 @@
 // Configs
 import "./App.css";
-import firebase from "./configs/firebase"
+import firebase from "./configs/firebase";
 
 // Module components
 import { useContext } from "react";
@@ -15,13 +15,14 @@ import ColorExamples from "./components/ColorExamples";
 import DataForm from "./components/dataForm";
 import LoginPage from "./components/LoginPage";
 import { UserContext } from "./contexts/UserContext";
-import AccountPage from "./components/AccountPage"
+import AccountPage from "./components/AccountPage";
+import Blog from "./components/Blog";
 
 function App() {
   const { setUser } = useContext(UserContext);
   firebase.auth().onAuthStateChanged((user) => {
     setUser(user);
-    console.log(user)
+    console.log(user);
   });
 
   return (
@@ -30,7 +31,7 @@ function App() {
       <Switch>
         <Route path="/" component={TestBlog} exact />
         <Route path="/about" component={null} />
-        <Route path="/blog" component={null} />
+        <Route path="/blog" component={Blog} />
         <Route path="/forum" component={Forum} />
         <Route path="/dataform" component={DataForm} />
         <Route path="/login" component={LoginPage} />
