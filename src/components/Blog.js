@@ -5,12 +5,6 @@ import { Card, CardContent, Link, Typography } from "@material-ui/core";
 export default function Blog() {
   return (
     <div>
-      <Card className="header">
-        <CardContent>
-          <Typography variant="h3">Blog Name</Typography>
-        </CardContent>
-      </Card>
-
       <div className="leftcolumn">
         <Card className="card">
           <CardContent>
@@ -53,13 +47,6 @@ export default function Blog() {
                 <Link>Post 3</Link>
               </li>
             </ul>
-          </CardContent>
-        </Card>
-
-        <Card className="card">
-          <CardContent>
-            <Typography variant="h6">Socials:</Typography>
-            <Link>Instagram</Link>
           </CardContent>
         </Card>
       </div>
