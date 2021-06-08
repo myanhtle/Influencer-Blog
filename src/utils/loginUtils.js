@@ -1,4 +1,3 @@
-import { TramOutlined } from "@material-ui/icons";
 import firebase from "../configs/firebase";
 
 /**
@@ -31,23 +30,27 @@ const signup = async (username, email, password) => {
       .auth()
       .createUserWithEmailAndPassword(email, password);
     await userCredential.user.updateProfile({ displayName: username });
-    return true
+    return true;
   } catch (error) {
     console.log(error);
     alert(error.message);
-    return false
+    return false;
   }
 };
 
+/**
+ * Deletes the account of the current user
+ * @returns {boolean} success
+ */
 const deleteAccount = async () => {
   try {
     await firebase.auth().currentUser.delete();
-    return true
+    return true;
   } catch (error) {
     console.log(error);
     alert(error.message);
-    return false
+    return false;
   }
-}
+};
 
 export { login, signup, deleteAccount };

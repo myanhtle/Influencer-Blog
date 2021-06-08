@@ -5,7 +5,7 @@ const UserContext = createContext();
 function UserContextProvider({ children }) {
   const [user, setUser] = useState();
   const [isAdmin, setIsAdmin] = useState(false);
-  
+
   useEffect(() => {
     if (!user) return null;
 
@@ -18,9 +18,9 @@ function UserContextProvider({ children }) {
   }, [user]);
 
   const isLoggedIn = user ? true : false;
-  const uid = user? user.uid : null;
-  const username = user? user.displayName : null;
-  const email = user? user.email : null;
+  const uid = user ? user.uid : null;
+  const username = user ? user.displayName : null;
+  const email = user ? user.email : null;
   return (
     <UserContext.Provider
       value={{ user, uid, username, email, isLoggedIn, isAdmin, setUser }}
