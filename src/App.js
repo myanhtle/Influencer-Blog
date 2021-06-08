@@ -9,7 +9,7 @@ import { BrowserRouter, Route, Switch } from "react-router-dom";
 // Our components
 import ErrorPage from "./components/ErrorPage";
 import NavBar from "./components/NavBar";
-import TestBlog from "./components/testBlog";
+// import TestBlog from "./components/testBlog";
 import Forum from "./components/forum/Forum";
 import ColorExamples from "./components/ColorExamples";
 import DataForm from "./components/dataForm";
@@ -17,6 +17,7 @@ import LoginPage from "./components/LoginPage";
 import { UserContext } from "./contexts/UserContext";
 import AccountPage from "./components/AccountPage";
 import Blog from "./components/Blog";
+import HomePage from "./components/HomePage"
 
 function App() {
   const { setUser } = useContext(UserContext);
@@ -29,7 +30,7 @@ function App() {
     <BrowserRouter>
       <NavBar />
       <Switch>
-        <Route path="/" component={TestBlog} exact />
+        <Route path="/" component={HomePage} exact />
         <Route path="/about" component={null} />
         <Route path="/blog" component={Blog} />
         <Route path="/forum" component={Forum} />

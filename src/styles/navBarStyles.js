@@ -4,9 +4,10 @@ const navBarStyles = makeStyles({
   navbar: {
     display: "grid",
     gridTemplateColumns: "1fr 1fr 1fr",
-    height: "3rem",
+    maxHeight: "8vh !important",
+    minHeight: "8vh !important",
   },
-  siteName: { height: "3rem", display: "flex", alignItems: "center" },
+  siteName: {height: "6vh", display: "flex", alignItems: "center" },
   navButtonsContainer: { textAlign: "center" },
   loginButtonContainer: { textAlign: "right" },
 });
