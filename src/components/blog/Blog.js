@@ -5,6 +5,8 @@ import { Button, Card, CardContent, Link, Typography } from "@material-ui/core";
 export default function Blog() {
   const [blog, setBlog] = useState([]);
   const [clicked, setClicked] = useState(false);
+  const [newPost, setNewPost] = useState(false);
+  const [editPost, setEditPost] = useState(false);
 
   useEffect(() => {
     fetch(`http://localhost:8080/blog/read`)
@@ -25,11 +27,10 @@ export default function Blog() {
 
   function handleClick() {
     const postData = {
-      title: "Icecream for Breakfast",
-      date: "2021-06-08",
+      title: "Example Title",
+      date: "2021-07-01",
       likes: 0,
-      messageContent:
-        "Couldn't resist my sugar tooth this morning. I had chocolate icecream for breakfast",
+      messageContent: "Example Text.",
     };
     fetch("http://localhost:8080/blog/add", {
       method: "POST",
@@ -54,6 +55,24 @@ export default function Blog() {
       },
       body: JSON.stringify(postId),
     });
+  }
+
+  function handleClickThree(id) {
+    const updatedPost = {
+      title: "Update",
+      date: "2021-06-14",
+      messageContent: "Updated text.",
+      id,
+    };
+    if (updatedPost)
+      fetch("http://localhost:8080/blog/update", {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(updatedPost),
+      });
   }
 
   return (
@@ -86,8 +105,15 @@ export default function Blog() {
                     marginRight: "0",
                   }}
                 >
-                  <Button variant="contained" color="secondary">
-                    edit
+                  <Button
+                    onClick={() => {
+                      handleClickThree(b.id);
+                      setClicked(true);
+                    }}
+                    variant="contained"
+                    color="secondary"
+                  >
+                    Edit
                   </Button>
                   <Button
                     onClick={() => {
@@ -97,7 +123,7 @@ export default function Blog() {
                     variant="contained"
                     color="secondary"
                   >
-                    delete
+                    Delete
                   </Button>
                 </div>
               </Typography>
