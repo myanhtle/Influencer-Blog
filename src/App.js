@@ -17,7 +17,7 @@ import LoginPage from "./components/LoginPage";
 import { UserContext } from "./contexts/UserContext";
 import AccountPage from "./components/AccountPage";
 import Blog from "./components/Blog";
-import HomePage from "./components/HomePage"
+import HomePage from "./components/HomePage";
 
 function App() {
   const { setUser } = useContext(UserContext);

@@ -24,7 +24,7 @@ function HomePage() {
               document.getElementById("featured-blog-post").scrollIntoView()
             }
           >
-            <ExpandMoreIcon className={classes.expandIcon}/>
+            <ExpandMoreIcon className={classes.expandIcon} />
           </Button>
         </Typography>
       </div>
