@@ -3,6 +3,7 @@ import {useContext} from "react"
 import {UserContext} from "../contexts/UserContext"
 import firebase from "../configs/firebase"
 import {useHistory} from "react-router-dom"
+import {deleteAccount} from "../utils/loginUtils"
 
 function AccountPage () {
   const {username, email, isAdmin, isLoggedIn} = useContext(UserContext)
@@ -14,7 +15,8 @@ function AccountPage () {
     <Typography variant="h6">Hello, {username}!</Typography>
     <Typography>Email: {email}</Typography>
     <Typography>{isAdmin? "Admin" : "User"}</Typography>
-    <Button variant="outlined" onClick={() => firebase.auth().signOut()}>Log Out</Button>
+    <Button variant="contained" onClick={() => firebase.auth().signOut()}>Log Out</Button>
+    <Button variant="outlined" onClick={() => deleteAccount()}>Delete Account</Button>
   </Card>)
 }
 
