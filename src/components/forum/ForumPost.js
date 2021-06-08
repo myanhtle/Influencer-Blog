@@ -13,6 +13,7 @@ import EditIcon from "@material-ui/icons/Edit";
 import ForumIcon from "@material-ui/icons/Forum";
 import DeleteIcon from "@material-ui/icons/Delete";
 import Collapse from "@material-ui/core/Collapse";
+import TextField from "@material-ui/core/TextField";
 import { UserContext } from "../../contexts/UserContext";
 
 const useStyles = makeStyles(() => ({
@@ -25,29 +26,20 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-export default function ForumPost({
-  p,
-  posts,
-  setPosts,
-  clickedPost,
-  setClickedPost,
-}) {
+export default function ForumPost({ p, posts, setPosts, setClickedPost }) {
   const { username } = useContext(UserContext);
   const classes = useStyles();
   const [isFavorited, setIsFavorited] = useState(false);
+  const [isEditing, setIsEditing] = useState(false);
+  const [newContents, setNewContents] = useState(p.Content);
   const [expanded, setExpanded] = useState(false);
-  const [anchorEl, setAnchorEl] = useState(null);
-
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
-
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
+  };
+
+  const handleChange = (e) => {
+    setNewContents(e.target.value);
   };
 
   const handleDeletePost = (e) => {
@@ -67,7 +59,11 @@ export default function ForumPost({
     });
   };
 
-  const handleEditPost = (e) => {};
+  const handleEditPost = (e) => {
+    setIsEditing((prev) => {
+      return !prev;
+    });
+  };
 
   const handleLike = (e) => {
     e.preventDefault();
@@ -161,9 +157,22 @@ export default function ForumPost({
           subheader={`${p.User} posted on ${p.Date}`}
         />
         <CardContent>
-          <Typography variant="body2" color="textSecondary" component="p">
-            {p.Content}
-          </Typography>
+          {isEditing ? (
+            <TextField
+              required
+              id="Content"
+              value={newContents}
+              onChange={handleChange}
+              multiline
+              rows={4}
+              variant="outlined"
+              style={{ width: "100%" }}
+            />
+          ) : (
+            <Typography variant="body2" color="textSecondary" component="p">
+              {p.Content}
+            </Typography>
+          )}
         </CardContent>
         <CardActions disableSpacing>
           <IconButton aria-label="like" id="like-1" onClick={handleLike}>
