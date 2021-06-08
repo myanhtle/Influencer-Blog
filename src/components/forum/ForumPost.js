@@ -25,7 +25,7 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-export default function ForumPost({ p }) {
+export default function ForumPost({ p, posts, setPosts }) {
   const classes = useStyles();
   const [isFavorited, setIsFavorited] = useState(false);
   const [expanded, setExpanded] = React.useState(false);
@@ -45,11 +45,52 @@ export default function ForumPost({ p }) {
 
   const handleLike = (e) => {
     e.preventDefault();
-    if (isFavorited) {
-    }
+    updateLikes();
     setIsFavorited((prev) => {
       return !prev;
     });
+  };
+
+  const updateLikes = () => {
+    if (isFavorited) {
+      const updatedPost = {
+        title: p.Title,
+        type: "Likes",
+        val: p.Likes - 1,
+      };
+      fetch(`http://localhost:8080/forum/update/${p.Title}`, {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(updatedPost),
+      }).then(() => {
+        fetch("http://localhost:8080/forum/read")
+          .then((res) => res.json())
+          .then((data) => setPosts(data))
+          .then(console.log(posts));
+      });
+    } else {
+      const updatedPost = {
+        title: p.Title,
+        type: "Likes",
+        val: p.Likes + 1,
+      };
+      fetch(`http://localhost:8080/forum/update/${p.Title}`, {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(updatedPost),
+      }).then(() => {
+        fetch("http://localhost:8080/forum/read")
+          .then((res) => res.json())
+          .then((data) => setPosts(data))
+          .then(console.log(posts));
+      });
+    }
   };
 
   return (
