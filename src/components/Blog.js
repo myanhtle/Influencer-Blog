@@ -1,12 +1,66 @@
 import React, { useState, useEffect } from "react";
 import "./Blog.css";
-import { Button, Card, CardContent, Link, Typography } from "@material-ui/core";
+import {
+  Button,
+  Card,
+  CardContent,
+  Link,
+  makeStyles,
+  Modal,
+  Backdrop,
+  Fade,
+  Typography,
+  TextField,
+} from "@material-ui/core";
+
+/* Modal */
+const useStyles = makeStyles((theme) => ({
+  modal: {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  paper: {
+    backgroundColor: theme.palette.background.paper,
+    border: "2px solid #000",
+    boxShadow: theme.shadows[5],
+    padding: theme.spacing(2, 4, 3),
+  },
+}));
+/* Modal */
 
 export default function Blog() {
   const [blog, setBlog] = useState([]);
   const [clicked, setClicked] = useState(false);
-  const [newPost, setNewPost] = useState(false);
-  const [editPost, setEditPost] = useState(false);
+  const [editID, setEditID] = useState(null);
+  const [title, setTitle] = useState(null);
+  const [body, setBody] = useState(null);
+
+  /* Modal */
+  const classes = useStyles();
+  const [open, setOpen] = useState(false);
+  const handleOpen = () => {
+    setOpen(true);
+  };
+  const handleClose = () => {
+    setOpen(false);
+  };
+  const [editOpen, setEditOpen] = useState(false);
+  const handleEditOpen = () => {
+    setEditOpen(true);
+  };
+  const handleEditClose = () => {
+    setEditOpen(false);
+  };
+  /* Modal */
+
+  const handleChange = (e, type) => {
+    if (type === "title") {
+      setTitle(e.target.value);
+    } else {
+      setBody(e.target.value);
+    }
+  };
 
   useEffect(() => {
     fetch(`http://localhost:8080/blog/read`)
@@ -26,11 +80,15 @@ export default function Blog() {
   }, [clicked]);
 
   function handleClick() {
+    const current = new Date();
+    const date = `${current.getFullYear()}-${
+      current.getMonth() + 1
+    }-${current.getDate()}`;
     const postData = {
-      title: "Example Title",
-      date: "2021-07-01",
+      title: title,
+      date,
       likes: 0,
-      messageContent: "Example Text.",
+      messageContent: body,
     };
     fetch("http://localhost:8080/blog/add", {
       method: "POST",
@@ -59,9 +117,8 @@ export default function Blog() {
 
   function handleClickThree(id) {
     const updatedPost = {
-      title: "Update",
-      date: "2021-06-14",
-      messageContent: "Updated text.",
+      title: title,
+      messageContent: body,
       id,
     };
     if (updatedPost)
@@ -75,6 +132,11 @@ export default function Blog() {
       });
   }
 
+  //image above title, no margins
+  //    dynamic routing for posts, so only one post
+  //    displays at a time
+  //footer
+
   return (
     <div className="blogBody">
       <div className="leftcolumn">
@@ -84,14 +146,58 @@ export default function Blog() {
         >
           <Button
             onClick={() => {
-              handleClick();
-              setClicked(true);
+              handleOpen();
             }}
             variant="contained"
             color="primary"
           >
             Create New Post
           </Button>
+          <Modal
+            className={classes.modal}
+            open={open}
+            onClose={handleClose}
+            closeAfterTransition
+            BackdropComponent={Backdrop}
+            BackdropProps={{
+              timeout: 500,
+            }}
+          >
+            <Fade in={open}>
+              <div className={classes.paper}>
+                <h2>Create New Post</h2>
+                <p>Fill out the following fields to create a new blog post:</p>
+                <TextField
+                  required
+                  label="Title"
+                  onChange={(e) => {
+                    handleChange(e, "title");
+                  }}
+                ></TextField>
+                <br></br>
+                <TextField
+                  required
+                  label="Body"
+                  onChange={(e) => {
+                    handleChange(e, "body");
+                  }}
+                ></TextField>
+                <br></br>
+                <br></br>
+                <Button
+                  onClick={() => {
+                    handleClick();
+                    setClicked(true);
+                    handleClose();
+                  }}
+                  variant="contained"
+                  color="primary"
+                >
+                  Confirm
+                </Button>
+              </div>
+            </Fade>
+          </Modal>
         </div>
         {blog.map((b) => (
           <Card className="card">
@@ -107,14 +213,65 @@ export default function Blog() {
                 >
                   <Button
                     onClick={() => {
-                      handleClickThree(b.id);
-                      setClicked(true);
+                      setTitle(b.title);
+                      setBody(b.messageContent);
+                      setEditID(b.id);
+                      handleEditOpen();
                     }}
                     variant="contained"
                     color="secondary"
                   >
                     Edit
                   </Button>
+
+                  <Modal
+                    className={classes.modal}
+                    open={editOpen}
+                    onClose={handleEditClose}
+                    closeAfterTransition
+                    BackdropComponent={Backdrop}
+                    BackdropProps={{
+                      timeout: 500,
+                    }}
+                  >
+                    <Fade in={editOpen}>
+                      <div className={classes.paper}>
+                        <h2>Edit Post</h2>
+                        <p>Edit the following fields to edit this blog post:</p>
+                        <TextField
+                          required
+                          helperText="Title"
+                          defaultValue={title}
+                          onChange={(e) => {
+                            handleChange(e, "title");
+                          }}
+                        ></TextField>
+                        <br></br>
+                        <TextField
+                          required
+                          helperText="Body"
+                          defaultValue={body}
+                          onChange={(e) => {
+                            handleChange(e, "body");
+                          }}
+                        ></TextField>
+                        <br></br>
+                        <br></br>
+                        <Button
+                          onClick={() => {
+                            handleClickThree(editID);
+                            setClicked(true);
+                            handleEditClose();
+                          }}
+                          variant="contained"
+                          color="primary"
+                        >
+                          Confirm
+                        </Button>
+                      </div>
+                    </Fade>
+                  </Modal>
+
                   <Button
                     onClick={() => {
                       handleClickTwo(b.id);
@@ -129,18 +286,12 @@ export default function Blog() {
               </Typography>
               <Typography variant="subtitle2">{b.date}</Typography>
               <br></br>
-              {b.image && (
-                <div>
-                  <div className="img" style={{ height: "200px" }}>
-                    Image
-                  </div>
-                  <br></br>
-                </div>
-              )}
+
               <Typography variant="body2">{b.messageContent}</Typography>
             </CardContent>
           </Card>
         ))}
+        <br></br>
       </div>
 
       <div className="rightcolumn">
