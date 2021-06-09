@@ -44,8 +44,14 @@ const homePageStyles = makeStyles({
   },
   expandIcon: {
     fontSize: "10vw",
-    color: "white"
-  }
+    color: "white",
+  },
+  aboutContainer: {
+    height: "auto",
+    width: "90vw",
+    margin: "auto",
+    align: "center",
+  },
 });
 
 export default homePageStyles;
