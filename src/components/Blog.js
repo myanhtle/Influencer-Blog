@@ -1,12 +1,58 @@
 import React, { useState, useEffect } from "react";
 import "./Blog.css";
-import { Button, Card, CardContent, Link, Typography } from "@material-ui/core";
+import {
+  Button,
+  Card,
+  CardContent,
+  Link,
+  makeStyles,
+  Modal,
+  Backdrop,
+  Fade,
+  Typography,
+  TextField,
+} from "@material-ui/core";
+
+/* Modal */
+const useStyles = makeStyles((theme) => ({
+  modal: {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  paper: {
+    backgroundColor: theme.palette.background.paper,
+    border: "2px solid #000",
+    boxShadow: theme.shadows[5],
+    padding: theme.spacing(2, 4, 3),
+  },
+}));
+/* Modal */
 
 export default function Blog() {
   const [blog, setBlog] = useState([]);
   const [clicked, setClicked] = useState(false);
-  const [newPost, setNewPost] = useState(false);
-  const [editPost, setEditPost] = useState(false);
+  const [title, setTitle] = useState(null);
+  const [body, setBody] = useState(null);
+
+  /* Modal */
+  const classes = useStyles();
+  const [open, setOpen] = useState(false);
+  const handleOpen = () => {
+    setOpen(true);
+  };
+  const handleClose = () => {
+    setOpen(false);
+  };
+  /* Modal */
+
+  const handleChange = (e, type) => {
+    if (type === "title") {
+      setTitle(e.target.value);
+    } else {
+      setBody(e.target.value);
+    }
+  };
 
   useEffect(() => {
     fetch(`http://localhost:8080/blog/read`)
@@ -26,11 +72,15 @@ export default function Blog() {
   }, [clicked]);
 
   function handleClick() {
+    const current = new Date();
+    const date = `${current.getFullYear()}-${
+      current.getMonth() + 1
+    }-${current.getDate()}`;
     const postData = {
-      title: "Example Title",
-      date: "2021-07-01",
+      title: title,
+      date,
       likes: 0,
-      messageContent: "Example Text.",
+      messageContent: body,
     };
     fetch("http://localhost:8080/blog/add", {
       method: "POST",
@@ -59,9 +109,8 @@ export default function Blog() {
 
   function handleClickThree(id) {
     const updatedPost = {
-      title: "Update",
-      date: "2021-06-14",
-      messageContent: "Updated text.",
+      title: "Updated title...",
+      messageContent: "Updated body...",
       id,
     };
     if (updatedPost)
@@ -84,14 +133,59 @@ export default function Blog() {
         >
           <Button
             onClick={() => {
-              handleClick();
-              setClicked(true);
+              handleOpen();
             }}
             variant="contained"
             color="primary"
           >
             Create New Post
           </Button>
+          <Modal
+            aria-labelledby="transition-modal-title"
+            aria-describedby="transition-modal-description"
+            className={classes.modal}
+            open={open}
+            onClose={handleClose}
+            closeAfterTransition
+            BackdropComponent={Backdrop}
+            BackdropProps={{
+              timeout: 500,
+            }}
+          >
+            <Fade in={open}>
+              <div className={classes.paper}>
+                <h2 id="transition-modal-title">Create New Post</h2>
+                <p id="transition-modal-description">
+                  Fill out the following fields to create a new blog post:
+                </p>
+                <TextField
+                  required
+                  label="Title"
+                  onChange={(e) => {
+                    handleChange(e, "title");
+                  }}
+                ></TextField>
+                <TextField
+                  required
+                  label="Body"
+                  onChange={(e) => {
+                    handleChange(e, "body");
+                  }}
+                ></TextField>
+                <Button
+                  onClick={() => {
+                    handleClick();
+                    setClicked(true);
+                    handleClose();
+                  }}
+                  variant="contained"
+                  color="primary"
+                >
+                  Confirm
+                </Button>
+              </div>
+            </Fade>
+          </Modal>
         </div>
         {blog.map((b) => (
           <Card className="card">
@@ -109,6 +203,7 @@ export default function Blog() {
                     onClick={() => {
                       handleClickThree(b.id);
                       setClicked(true);
+                      handleClose();
                     }}
                     variant="contained"
                     color="secondary"
