@@ -7,7 +7,7 @@ import CardActions from "@material-ui/core/CardActions";
 import Avatar from "@material-ui/core/Avatar";
 import IconButton from "@material-ui/core/IconButton";
 import Typography from "@material-ui/core/Typography";
-import { red } from "@material-ui/core/colors";
+import { orange } from "@material-ui/core/colors";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import EditIcon from "@material-ui/icons/Edit";
 import ForumIcon from "@material-ui/icons/Forum";
@@ -16,6 +16,7 @@ import CheckCircleIcon from "@material-ui/icons/CheckCircle";
 import Collapse from "@material-ui/core/Collapse";
 import TextField from "@material-ui/core/TextField";
 import { UserContext } from "../../contexts/UserContext";
+import Comments from "./Comments";
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -24,7 +25,7 @@ const useStyles = makeStyles(() => ({
     backgroundColor: "#dcedc7",
   },
   avatar: {
-    backgroundColor: red[500],
+    backgroundColor: orange[500],
   },
 }));
 
@@ -248,6 +249,7 @@ export default function ForumPost({ p, posts, setPosts, setClickedPost }) {
             >
               Comments:
             </Typography>
+            <Comments />
           </CardContent>
         </Collapse>
       </Card>
