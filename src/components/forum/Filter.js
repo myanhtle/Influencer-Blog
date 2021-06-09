@@ -26,14 +26,10 @@ export default function Filter({
   setClickedPost,
   sortBy,
   setSortBy,
+  filterTags,
+  setFilterTags,
 }) {
   const classes = useStyles();
-  const [filterTags, setFilterTags] = useState({
-    outdoors: false,
-    food: false,
-    travel: false,
-    lifestyle: false,
-  });
 
   const handleNewSort = (e) => {
     e.preventDefault();
@@ -56,6 +52,9 @@ export default function Filter({
     setFilterTags({
       ...filterTags,
       [e.currentTarget.id]: !filterTags[e.currentTarget.id],
+    });
+    setClickedPost((prev) => {
+      return !prev;
     });
   };
 

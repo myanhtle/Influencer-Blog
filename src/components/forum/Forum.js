@@ -39,21 +39,61 @@ export default function Forum() {
   const [clickedPost, setClickedPost] = useState(false);
   const [update, setUpdate] = useState("");
   const [sortBy, setSortBy] = useState({ new: true, hot: false });
+  const [filterTags, setFilterTags] = useState({
+    outdoors: false,
+    food: false,
+    travel: false,
+    lifestyle: false,
+  });
+
+  /**
+   *
+   * @param {array} data
+   * @returns a new array of posts that have tags according to the filters (outdoors, food, etc) set by the user
+   */
+  const filterByTag = (data) => {
+    const filteredData = [];
+    data.forEach((post) => {
+      if (filterTags.outdoors) {
+        post.Tags.includes("outdoors") && !filteredData.includes(post)
+          ? filteredData.push(post)
+          : console.log("no outdoors");
+      }
+      if (filterTags.food) {
+        post.Tags.includes("food") && !filteredData.includes(post)
+          ? filteredData.push(post)
+          : console.log("no food");
+      }
+      if (filterTags.travel) {
+        post.Tags.includes("travel") && !filteredData.includes(post)
+          ? filteredData.push(post)
+          : console.log("no travel");
+      }
+      if (filterTags.lifestyle) {
+        post.Tags.includes("lifestyle") && !filteredData.includes(post)
+          ? filteredData.push(post)
+          : console.log("no lifestyle");
+      }
+    });
+    return filteredData.length === 0 ? data : filteredData;
+  };
 
   useEffect(() => {
     fetch("http://localhost:8080/forum/read")
       .then((res) => res.json())
       .then((data) => {
+        const d = filterByTag(data);
+        console.log(d);
         if (sortBy.new) {
-          data.sort(function (a, b) {
+          d.sort(function (a, b) {
             return new Date(b.Date) - new Date(a.Date);
           });
         } else {
-          data.sort(function (a, b) {
+          d.sort(function (a, b) {
             return b.Likes - a.Likes;
           });
         }
-        setPosts(data);
+        setPosts(d);
       })
       .then(console.log(posts));
   }, [clickedPost, update]);
@@ -103,6 +143,8 @@ export default function Forum() {
         setClickedPost={setClickedPost}
         sortBy={sortBy}
         setSortBy={setSortBy}
+        filterTags={filterTags}
+        setFilterTags={setFilterTags}
       />
       {posts.map((p) => (
         <ForumPost
