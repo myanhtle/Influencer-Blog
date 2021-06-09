@@ -12,9 +12,11 @@ import { login, signup } from "../utils/loginUtils";
 import { useContext } from "react";
 import { UserContext } from "../contexts/UserContext";
 import { useHistory } from "react-router-dom";
+import logo from "../images/logo_black.png";
 
 function LoginPage() {
   const [signUpActive, setSignUpActive] = useState(false);
+  const [fullName, setFullName] = useState("");
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -29,23 +31,38 @@ function LoginPage() {
       if (password !== confirmPassword) {
         alert("Passwords do not match");
       } else {
-        signup(username, email, password).then((success) => {
-          success ? alert("Account created.") : alert("Account not created");
-        });
+        signup(fullName, username, email, password);
+        // .then((success) => {
+        //   success ? alert("Account created.") : alert("Account not created");
+        // });
       }
     } else {
-      login(email, password).then((success) => {
-        success ? alert("Logged in.") : alert("Not logged in.");
-      });
+      login(email, password);
+      // .then((success) => {
+      //   success ? alert("Logged in.") : alert("Not logged in.");
+      // });
     }
   };
 
-  if (isLoggedIn) history.push("/account");
+  if (isLoggedIn) {
+    history.push("/account");
+    return null;
+  }
   return (
     <Card className={classes.loginCard}>
-      <Grid container spacing={12} className={classes.loginGrid}>
+      <Grid container className={classes.loginGrid}>
         <Grid item xs={7} className={classes.loginActions}>
-          Content to go here later
+          <Typography variant="h5">
+            Join Camille's Corner!
+          </Typography>
+          <img
+            src={logo}
+            className={classes.loginLogo}
+            alt="Camille's Corner Logo"
+          />
+          <Typography variant="h5">
+            Create an account to post, comment, and shop!
+          </Typography>
         </Grid>
         <Grid item xs={5}>
           <CardContent className={classes.loginActions}>
@@ -54,6 +71,14 @@ function LoginPage() {
             </Typography>
 
             <form className={classes.loginForm} onSubmit={handleSubmit}>
+              {signUpActive && (
+                <TextField
+                  label="Full Name"
+                  autoComplete="name"
+                  value={fullName}
+                  onChange={(e) => setFullName(e.target.value)}
+                />
+              )}
               {signUpActive && (
                 <TextField
                   label="Username"

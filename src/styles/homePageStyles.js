@@ -45,6 +45,9 @@ const homePageStyles = makeStyles({
   expandIcon: {
     fontSize: "10vw",
     color: "white"
+  },
+  bigLogo: {
+    height: "25vh",
   }
 });
 

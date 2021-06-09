@@ -19,17 +19,29 @@ const login = async (email, password) => {
 
 /**
  * Attempts to create a new account
+ * @param {string} fullName the new name
  * @param {string} username the new username
  * @param {string} email the new email
  * @param {string} password the new password
  * @returns {boolean} success
  */
-const signup = async (username, email, password) => {
+const signup = async (fullName, username, email, password) => {
   try {
+    const res = await fetch("http://localhost:8080/users/check/" + username);
+    const { userExists } = await res.json();
+    if (userExists) throw new Error("Username is already taken");
     const userCredential = await firebase
       .auth()
       .createUserWithEmailAndPassword(email, password);
     await userCredential.user.updateProfile({ displayName: username });
+    await fetch("http://localhost:8080/users/add", {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ username, name: fullName, email }),
+    });
     return true;
   } catch (error) {
     console.log(error);

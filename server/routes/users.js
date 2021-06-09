@@ -20,12 +20,12 @@ router.get("/check/:username", async (req, res) => {
   });
   console.log(users);
   for (var i = 0; i < users.length; i++) {
+    console.log(users[i].id)
     if (users[i].id === givenUsername) {
-      res.send({ userExists: true });
-    } else {
-      res.send({ userExists: false });
+      return res.send({ userExists: true });
     }
   }
+  res.send({ userExists: false });
 });
 
 /* Get user information */
@@ -41,14 +41,13 @@ router.get("/read/:username", async (req, res) => {
 /* Create an Account */
 
 router.post("/add", async (req, res) => {
-  const { username, name, email, password } = req.body;
+  const { username, name, email } = req.body;
 
   console.log(req.body);
 
   const resp = await db.collection("users").doc(username).set({
     name,
     email,
-    password,
   });
   console.log("Added document with ID: ", username);
   res.sendStatus(200);
