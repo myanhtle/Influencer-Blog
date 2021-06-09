@@ -243,13 +243,13 @@ export default function ForumPost({ p, posts, setPosts, setClickedPost }) {
               paragraph
               style={{
                 borderTop: "solid",
-                borderColor: "#d3d3d3",
+                borderColor: "#7d9da1",
                 paddingTop: "2%",
               }}
             >
               Comments:
             </Typography>
-            <Comments />
+            <Comments p={p} setClickedPost={setClickedPost} />
           </CardContent>
         </Collapse>
       </Card>

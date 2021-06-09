@@ -69,6 +69,8 @@ router.post("/update/:query", async (req, res) => {
     const resp2 = await classRef.update({ Content: val });
   } else if (type === "Likes") {
     const resp3 = await classRef.update({ Likes: val });
+  } else if (type === "Comments") {
+    const resp4 = await classRef.update({ Comments: val });
   }
   res.send("Update");
 });
