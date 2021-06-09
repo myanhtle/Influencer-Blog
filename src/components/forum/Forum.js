@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useContext } from "react";
 import ForumPost from "./ForumPost";
 import ForumModal from "./ForumModal";
+import Filter from "./Filter";
 import { makeStyles } from "@material-ui/core/styles";
 import Tooltip from "@material-ui/core/Tooltip";
 import AddIcon from "@material-ui/icons/Add";
@@ -84,6 +85,7 @@ export default function Forum() {
           </div>
         </Fade>
       </Modal>
+      <Filter />
       {posts.map((p) => (
         <ForumPost
           p={p}

@@ -16,7 +16,11 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function CreateForumPost({ setClickedPost, setUpdate }) {
+export default function CreateForumPost({
+  postTags,
+  setClickedPost,
+  setUpdate,
+}) {
   const { user } = useContext(UserContext);
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = useState(null);
@@ -26,6 +30,7 @@ export default function CreateForumPost({ setClickedPost, setUpdate }) {
     Date: "",
     Likes: 0,
     User: "",
+    Tags: [],
   });
   const open = Boolean(anchorEl);
   const id = open ? "simple-popover" : undefined;
@@ -57,6 +62,7 @@ export default function CreateForumPost({ setClickedPost, setUpdate }) {
           ...postContent,
           User: user.displayName,
           Date: moment().format("LLL"),
+          Tags: postTags,
         }),
       })
         .then(() => {
@@ -72,6 +78,7 @@ export default function CreateForumPost({ setClickedPost, setUpdate }) {
             Date: "",
             Likes: 0,
             User: "",
+            Tags: [],
           });
         });
     }

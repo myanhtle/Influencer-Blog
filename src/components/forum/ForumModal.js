@@ -58,4 +58,9 @@ export default function Tags({ setClickedPost, setUpdate, setPosts }) {
     </div>
   );
 }
-const tags = [{ tagTitle: "outdoors" }, { tagTitle: "food" }];
+const tags = [
+  { tagTitle: "outdoors" },
+  { tagTitle: "food" },
+  { tagTitle: "travel" },
+  { tagTitle: "lifestyle" },
+];

@@ -162,22 +162,28 @@ export default function ForumPost({ p, posts, setPosts, setClickedPost }) {
             </Avatar>
           }
           action={
-            user.displayName === p.User ? (
+            user !== null ? (
               <>
-                <IconButton
-                  size="small"
-                  aria-label="delete"
-                  onClick={handleDeletePost}
-                >
-                  <DeleteIcon />
-                </IconButton>
-                <IconButton
-                  size="small"
-                  aria-label="edit"
-                  onClick={handleEditPost}
-                >
-                  <EditIcon />
-                </IconButton>
+                {user.displayName === p.User ? (
+                  <>
+                    <IconButton
+                      size="small"
+                      aria-label="delete"
+                      onClick={handleDeletePost}
+                    >
+                      <DeleteIcon />
+                    </IconButton>
+                    <IconButton
+                      size="small"
+                      aria-label="edit"
+                      onClick={handleEditPost}
+                    >
+                      <EditIcon />
+                    </IconButton>
+                  </>
+                ) : (
+                  <></>
+                )}
               </>
             ) : (
               <></>
