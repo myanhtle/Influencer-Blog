@@ -90,6 +90,7 @@ export default function CreateForumPost({
         <div>
           <TextField
             required
+            multiline
             id="Title"
             label="Description"
             variant="filled"

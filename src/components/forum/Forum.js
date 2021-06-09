@@ -85,7 +85,7 @@ export default function Forum() {
           </div>
         </Fade>
       </Modal>
-      <Filter />
+      <Filter posts={posts} setPosts={setPosts} />
       {posts.map((p) => (
         <ForumPost
           p={p}

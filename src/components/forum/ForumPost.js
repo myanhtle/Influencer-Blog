@@ -190,7 +190,9 @@ export default function ForumPost({ p, posts, setPosts, setClickedPost }) {
             )
           }
           title={p.Title}
-          subheader={`${p.User} posted on ${p.Date}`}
+          subheader={`${p.User} posted on ${p.Date} | Tags: ${p.Tags.join(
+            ", "
+          )}`}
         />
         <CardContent>
           {isEditing ? (
