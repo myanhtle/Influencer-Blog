@@ -6,6 +6,10 @@ import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import KeyboardArrowLeft from "@material-ui/icons/KeyboardArrowLeft";
 import KeyboardArrowRight from "@material-ui/icons/KeyboardArrowRight";
+import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
+import "../../images/logo_white.png";
+import { useContext } from "react";
+import { UserContext } from "../../contexts/UserContext";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -15,12 +19,11 @@ const useStyles = makeStyles((theme) => ({
   header: {
     display: "flex",
     alignItems: "center",
-    height: 50,
-    paddingLeft: theme.spacing(4),
-    backgroundColor: theme.palette.background.default,
+    height: 100,
+    paddingLeft: theme.spacing(3),
   },
   img: {
-    height: 255,
+    height: "20%",
     display: "block",
     maxWidth: 400,
     overflow: "hidden",
@@ -29,80 +32,79 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function MerchCard({ item }) {
+  const classes = useStyles();
+  const theme = useTheme();
+  const [activeStep, setActiveStep] = useState(0);
+  const { username } = useContext(UserContext);
+
   /* Creates an array of image links */
   const imgReel = [];
 
   if (item.image) {
-    item.image.forEach((img) =>
-      imgReel.push({ label: item.description, imgPath: img })
-    );
+    item.image.forEach((img) => imgReel.push({ imgPath: img }));
   } else {
-    imgReel.push({ label: item.description, imgPath: "111" });
+    imgReel.push({ imgPath: "logo_white.png" });
   }
 
   console.log(imgReel);
   /* */
 
-  const tutorialSteps = [
-    {
-      label: "San Francisco – Oakland Bay Bridge, United States",
-      imgPath:
-        "https://images.unsplash.com/photo-1537944434965-cf4679d1a598?auto=format&fit=crop&w=400&h=250&q=60",
-    },
-    {
-      label: "Bird",
-      imgPath:
-        "https://images.unsplash.com/photo-1538032746644-0212e812a9e7?auto=format&fit=crop&w=400&h=250&q=60",
-    },
-    {
-      label: "Bali, Indonesia",
-      imgPath:
-        "https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=400&h=250&q=80",
-    },
-    {
-      label: "NeONBRAND Digital Marketing, Las Vegas, United States",
-      imgPath:
-        "https://images.unsplash.com/photo-1518732714860-b62714ce0c59?auto=format&fit=crop&w=400&h=250&q=60",
-    },
-    {
-      label: "Goč, Serbia",
-      imgPath:
-        "https://images.unsplash.com/photo-1512341689857-198e7e2f3ca8?auto=format&fit=crop&w=400&h=250&q=60",
-    },
-  ];
-  const classes = useStyles();
-  const theme = useTheme();
-  const [activeStep, setActiveStep] = useState(0);
-  const maxSteps = imgReel.length;
-
+  /*Functionality for Next button*/
   const handleNext = () => {
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
   };
 
+  /*Functionality for Back button*/
   const handleBack = () => {
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
   };
 
+  /*Functionality for Cart button*/
+  const handleClick = () => {
+    const itemDetails = {
+      name: item.name,
+      price: item.price,
+      user: username,
+    };
+    console.log(itemDetails);
+    var data = JSON.stringify(itemDetails);
+    fetch(`http://localhost:8080/cart/add`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+      body: data,
+    })
+      .then((res) => res.json())
+      .then((result) => console.log(result));
+  };
+
   return (
     <div className={classes.root}>
-      <Paper square elevation={0} className={classes.header}>
-        <Typography>{imgReel[activeStep].label}</Typography>
+      <img className={classes.img} src={imgReel[activeStep].imgPath} />
+      <Paper square elevation={2} className={classes.header}>
+        <div>
+          <Typography>
+            {item.name} <br /> {item.description} <br /> ${item.price}
+          </Typography>
+          <Button onClick={() => handleClick()}>
+            <ShoppingCartIcon />
+            Add to Cart
+          </Button>
+        </div>
       </Paper>
-      <img
-        className={classes.img}
-        src={imgReel[activeStep].imgPath}
-        alt={imgReel[activeStep].label}
-      />
       <MobileStepper
-        steps={maxSteps}
+        variant="dots"
+        steps={imgReel.length}
         position="static"
-        variant="text"
         activeStep={activeStep}
+        className={classes.root}
         nextButton={
           <Button
             size="small"
             onClick={handleNext}
-            disabled={activeStep === maxSteps - 1}
+            disabled={activeStep === imgReel.length - 1}
           >
             Next
             {theme.direction === "rtl" ? (
@@ -110,6 +112,16 @@ export default function MerchCard({ item }) {
             ) : (
               <KeyboardArrowRight />
             )}
+          </Button>
+        }
+        backButton={
+          <Button size="small" onClick={handleBack} disabled={activeStep === 0}>
+            {theme.direction === "rtl" ? (
+              <KeyboardArrowRight />
+            ) : (
+              <KeyboardArrowLeft />
+            )}
+            Back
           </Button>
         }
         backButton={

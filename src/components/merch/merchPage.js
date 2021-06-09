@@ -1,6 +1,6 @@
 import React, { useRef, useEffect, useState } from "react";
 import MerchCard from "./merchCard";
-import MerchForm from "./merchForm";
+import "./merch.css";
 
 function MerchPage() {
   const [merch, setMerch] = useState([]);
@@ -15,9 +15,13 @@ function MerchPage() {
 
   return (
     <>
-      {merch.map((item) => (
-        <MerchCard item={item} />
-      ))}
+      <div className="merchCard-container">
+        {merch.map((item) => (
+          <div className="merchCard">
+            <MerchCard item={item} />
+          </div>
+        ))}
+      </div>
     </>
   );
 }
