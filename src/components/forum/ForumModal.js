@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import CreateForumPost from "./CreateForumPost";
 import Autocomplete from "@material-ui/lab/Autocomplete";
 import { makeStyles } from "@material-ui/core/styles";
@@ -14,6 +14,13 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Tags({ setClickedPost, setUpdate, setPosts }) {
   const classes = useStyles();
+  const [postTags, setPostTags] = useState([]);
+
+  const handleChange = (val) => {
+    console.log(val);
+    const temp = val.map((tag) => tag.tagTitle);
+    setPostTags(temp);
+  };
 
   return (
     <div className={classes.root}>
@@ -26,10 +33,11 @@ export default function Tags({ setClickedPost, setUpdate, setPosts }) {
       >
         <Autocomplete
           multiple
+          disableCloseOnSelect
           id="tags-standard"
+          onChange={(e, val) => handleChange(val)}
           options={tags}
           getOptionLabel={(option) => option.tagTitle}
-          defaultValue={[tags[0]]}
           renderInput={(params) => (
             <TextField
               {...params}
@@ -42,6 +50,7 @@ export default function Tags({ setClickedPost, setUpdate, setPosts }) {
       </div>
 
       <CreateForumPost
+        postTags={postTags}
         setClickedPost={setClickedPost}
         setUpdate={setUpdate}
         setPosts={setPosts}

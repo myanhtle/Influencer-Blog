@@ -21,7 +21,7 @@ const useStyles = makeStyles(() => ({
   root: {
     maxWidth: 800,
     width: "100%",
-    backgroundColor: "#cadeb1",
+    backgroundColor: "#dcedc7",
   },
   avatar: {
     backgroundColor: red[500],

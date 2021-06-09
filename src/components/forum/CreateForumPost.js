@@ -17,7 +17,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function CreateForumPost({ setClickedPost, setUpdate }) {
-  const { username } = useContext(UserContext);
+  const { user } = useContext(UserContext);
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = useState(null);
   const [postContent, setPostContent] = useState({
@@ -55,7 +55,7 @@ export default function CreateForumPost({ setClickedPost, setUpdate }) {
         },
         body: JSON.stringify({
           ...postContent,
-          User: username,
+          User: user.displayName,
           Date: moment().format("LLL"),
         }),
       })
