@@ -30,14 +30,16 @@ function LoginPage() {
       if (password !== confirmPassword) {
         alert("Passwords do not match");
       } else {
-        signup(fullName, username, email, password).then((success) => {
-          success ? alert("Account created.") : alert("Account not created");
-        });
+        signup(fullName, username, email, password)
+        // .then((success) => {
+        //   success ? alert("Account created.") : alert("Account not created");
+        // });
       }
     } else {
-      login(email, password).then((success) => {
-        success ? alert("Logged in.") : alert("Not logged in.");
-      });
+      login(email, password)
+      // .then((success) => {
+      //   success ? alert("Logged in.") : alert("Not logged in.");
+      // });
     }
   };
 
