@@ -23,7 +23,7 @@ import Blog from "./components/blogs/Blog";
 import HomePage from "./components/HomePage";
 import MerchPage from "./components/merch/merchPage";
 import About from "./components/About";
-import MerchForm from "./components/merchForm";
+// import MerchForm from "./components/merchForm";
 import Footer from "./components/Footer"
 
 function App() {
