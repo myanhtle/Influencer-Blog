@@ -52,9 +52,7 @@ function LoginPage() {
     <Card className={classes.loginCard}>
       <Grid container className={classes.loginGrid}>
         <Grid item xs={7} className={classes.loginActions}>
-          <Typography variant="h5">
-            Join Camille's Corner!
-          </Typography>
+          <Typography variant="h5">Join Camille's Corner!</Typography>
           <img
             src={logo}
             className={classes.loginLogo}
