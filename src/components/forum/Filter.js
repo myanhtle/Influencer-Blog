@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
@@ -20,8 +20,36 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Filter() {
+export default function Filter({
+  posts,
+  setPosts,
+  setClickedPost,
+  sortBy,
+  setSortBy,
+}) {
   const classes = useStyles();
+  const [filterTags, setFilterTags] = useState({
+    outdoors: false,
+    food: false,
+    travel: false,
+    lifestyle: false,
+  });
+
+  const handleNewSort = (e) => {
+    e.preventDefault();
+    setSortBy({ new: true, hot: false });
+    setClickedPost((prev) => {
+      return !prev;
+    });
+  };
+
+  const handleHotSort = (e) => {
+    e.preventDefault();
+    setSortBy({ new: false, hot: true });
+    setClickedPost((prev) => {
+      return !prev;
+    });
+  };
 
   return (
     <div
@@ -32,10 +60,18 @@ export default function Filter() {
         <Grid item xs={7}>
           <Paper className={classes.paper}>
             <ButtonGroup>
-              <Button variant="contained" color="primary">
+              <Button
+                variant="contained"
+                color="primary"
+                onClick={handleNewSort}
+              >
                 New
               </Button>
-              <Button variant="contained" color="primary">
+              <Button
+                variant="contained"
+                color="primary"
+                onClick={handleHotSort}
+              >
                 Hot
               </Button>
             </ButtonGroup>
