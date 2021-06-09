@@ -4,6 +4,16 @@ import React, { useRef, useEffect, useState } from "react";
 import Dialog from "@material-ui/core/Dialog";
 import Select from "@material-ui/core/Select";
 import { title } from "process";
+import { loadStripe } from "@stripe/stripe-js";
+import { Elements } from "@stripe/react-stripe-js";
+import CheckoutForm from "./CheckoutForm";
+
+// Make sure to call loadStripe outside of a component’s render to avoid
+// recreating the Stripe object on every render.
+// loadStripe is initialized with a fake API key.
+// Sign in to see examples pre-filled with your key.
+const promise = loadStripe("pk_test_TYooMQauvdEDq54NiTphI7jx");
+
 function MerchForm() {
   const [open, setOpen] = React.useState(false);
   const [openU, setOpenU] = React.useState(false);
@@ -348,6 +358,9 @@ function MerchForm() {
       <Button onClick={() => fetchSum()}>Update Sum</Button>
       <Button onClick={() => clearCart()}>Clear Cart</Button>
       <p>{sum.Sum}</p>
+      <Elements stripe={promise}>
+        <CheckoutForm />
+      </Elements>
     </div>
   );
 }

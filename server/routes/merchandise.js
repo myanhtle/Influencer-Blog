@@ -74,4 +74,5 @@ router.post("/update/:query", async (req, res) => {
   }
   res.send("Update");
 });
+
 module.exports = router;

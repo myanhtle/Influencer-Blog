@@ -1,6 +1,6 @@
 var express = require("express");
 var router = express.Router();
-
+const stripe = require("stripe")("sk_test_4eC39HqLyjWDarjtT1zdp7dc");
 var db = require("../firebase");
 const cartRef = db.collection("cart");
 /* GET users listing. */
@@ -67,7 +67,26 @@ router.post("/add", async (req, res) => {
 
   res.send(snapshot);
 });
-
+const sumCalc = async (req, res) => {
+  const cart = [];
+  var sum = 0;
+  var name = req.params.query;
+  //console.log(name);
+  const snapshot = await cartRef.get();
+  // console.log(snapshot);
+  snapshot.forEach((doc) => {
+    let docU = { ...doc.data(), id: doc.id };
+    cart.push(docU);
+  });
+  // console.log(cart);
+  for (var i = 0; i < cart.length; i++) {
+    if (cart[i].User === name) {
+      sum = parseFloat(sum) + parseFloat(cart[i].Price);
+      //  console.log(cart[i].Price);
+    }
+  }
+  return sum;
+};
 router.delete("/delete/:query", async (req, res) => {
   var docToDeleteId = "";
   var name = req.params.query;
@@ -128,5 +147,18 @@ router.post("/update/:query", async (req, res) => {
     const resp4 = await classRef.update({ Stock: val });
   }
   res.send("Update");
+});
+
+//Stripe
+router.post("/create-payment-intent", async (req, res) => {
+  const { items } = req.body;
+  // Create a PaymentIntent with the order amount and currency
+  const paymentIntent = await stripe.paymentIntents.create({
+    amount: sumCalc(),
+    currency: "usd",
+  });
+  res.send({
+    clientSecret: paymentIntent.client_secret,
+  });
 });
 module.exports = router;
