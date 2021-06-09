@@ -115,7 +115,7 @@ function MerchForm() {
       .then((data) => setCart(data));
   };
   const fetchSum = () => {
-    fetch(`http://localhost:8080/cart/sum/John`)
+    fetch(`http://localhost:8080/cart/sum/Samantha`)
       .then((res) => res.json())
       .then((data) => setSum(data));
     // console.log(sum);
@@ -149,11 +149,24 @@ function MerchForm() {
         "Access-Control-Allow-Origin": "*",
         "Access-Control-Allow-Origin": "http://localhost:3000/",
       },
-      body: JSON.stringify({ Name: c.Name }),
+      body: JSON.stringify({ Title: c.User }),
     })
       .then((res) => res.json())
       .then((data) => console.log(data));
     setDeleteVal("");
+  };
+  const clearCart = () => {
+    fetch(`http://localhost:8080/cart/delete/all`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Origin": "http://localhost:3000/",
+      },
+      body: JSON.stringify({ title: "John" }),
+    })
+      .then((res) => res.json())
+      .then((data) => console.log(data));
   };
 
   const createMerch = (name, price, rating, stock) => {
@@ -193,6 +206,7 @@ function MerchForm() {
       .then((data) => console.log(data));
     setDeleteVal("");
   };
+
   const updatemerch = (e) => {
     //   console.log(update);
     //   console.log(updateType);
@@ -332,6 +346,7 @@ function MerchForm() {
       <Button onClick={() => fetchCart()}>Fetch Cart</Button>
       <Button onClick={() => fetchUserCart()}>User Cart</Button>
       <Button onClick={() => fetchSum()}>Update Sum</Button>
+      <Button onClick={() => clearCart()}>Clear Cart</Button>
       <p>{sum.Sum}</p>
     </div>
   );

@@ -23,21 +23,19 @@ router.get("/read/:query", async (req, res) => {
   const cart = [];
   var name = req.params.query;
   const snapshot = await cartRef.get();
-  // console.log(snapshot);
   snapshot.forEach((doc) => {
     if (doc.data().User === name) {
       let docU = { ...doc.data(), id: doc.id };
       cart.push(docU);
     }
   });
-  // console.log(cart);
   res.send(cart);
 });
 router.get("/sum/:query", async (req, res) => {
   const cart = [];
   var sum = 0;
   var name = req.params.query;
-  console.log(name);
+  //console.log(name);
   const snapshot = await cartRef.get();
   // console.log(snapshot);
   snapshot.forEach((doc) => {
@@ -71,22 +69,33 @@ router.post("/add", async (req, res) => {
 });
 
 router.delete("/delete/:query", async (req, res) => {
-  console.log("Please");
   var docToDeleteId = "";
   var name = req.params.query;
+  var user = req.body.title;
   console.log(name);
+  console.log(user);
   const cart = [];
   const snapshot = await db.collection("cart").get();
-  // console.log(snapshot);
+  var dele;
+
   snapshot.forEach((doc) => {
-    let docU = { ...doc.data(), id: doc.id };
-    cart.push(docU);
+    if (doc.data().User === user) {
+      let docU = { ...doc.data(), id: doc.id };
+      cart.push(docU);
+    }
   });
-  for (var i = 0; i < cart.length; i++) {
-    if (cart[i].Name === name) docToDeleteId = cart[i].id;
+  if (name === "all") {
+    for (var i = 0; i < cart.length; i++) {
+      docToDeleteId = cart[i].id;
+      dele = await db.collection("cart").doc(docToDeleteId).delete();
+    }
+  } else {
+    for (var i = 0; i < cart.length; i++) {
+      if (cart[i].Name === name) docToDeleteId = cart[i].id;
+    }
+    //console.log(docToDeleteId);
+    const del = await db.collection("cart").doc(docToDeleteId).delete();
   }
-  //console.log(docToDeleteId);
-  const del = await db.collection("cart").doc(docToDeleteId).delete();
   res.send("DELETE Request Called");
 });
 
