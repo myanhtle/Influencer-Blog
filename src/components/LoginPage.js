@@ -41,7 +41,10 @@ function LoginPage() {
     }
   };
 
-  if (isLoggedIn) history.push("/account");
+  if (isLoggedIn) {
+    history.push("/account");
+    return null
+  }
   return (
     <Card className={classes.loginCard}>
       <Grid container className={classes.loginGrid}>

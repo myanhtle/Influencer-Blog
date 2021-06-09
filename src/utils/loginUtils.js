@@ -27,21 +27,20 @@ const login = async (email, password) => {
  */
 const signup = async (fullName, username, email, password) => {
   try {
-    const { userExists } = await fetch(
-      "http://localhost:8080/users/check/" + username
-    );
-    if (userExists) return false;
+    const res = await fetch("http://localhost:8080/users/check/" + username);
+    const { userExists } = await res.json();
+    if (userExists) throw new Error("Username is already taken");
     const userCredential = await firebase
       .auth()
       .createUserWithEmailAndPassword(email, password);
     await userCredential.user.updateProfile({ displayName: username });
-    await fetch(`http://localhost:8080/users/add`, {
+    await fetch("http://localhost:8080/users/add", {
       method: "POST",
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
       },
-      body: {username, name: fullName, email},
+      body: JSON.stringify({ username, name: fullName, email }),
     });
     return true;
   } catch (error) {
