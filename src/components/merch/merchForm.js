@@ -6,7 +6,7 @@ import Select from "@material-ui/core/Select";
 import { title } from "process";
 import { loadStripe } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
-import CheckoutForm from "./CheckoutForm";
+import CheckoutForm from "../CheckoutForm";
 
 // Make sure to call loadStripe outside of a component’s render to avoid
 // recreating the Stripe object on every render.
@@ -30,7 +30,7 @@ function MerchForm() {
   const [updateVal, setUpdateVal] = useState([]);
   const [cart, setCart] = useState([]);
   const [sum, setSum] = useState([]);
-  const like = () => {}
+  const like = () => {};
   const darkBlue = "#004981";
   const lightBlue = "#6ea8d4";
   const baseButtonStyle = {
