@@ -6,11 +6,13 @@ import firebase from "./configs/firebase";
 import { useContext } from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 
-// Our components
+// Testing documents
+// import TestBlog from "./components/testBlog";
+// import TestUsers from "./components/testUser";
+
+// Our active components
 import ErrorPage from "./components/ErrorPage";
 import NavBar from "./components/NavBar";
-// import TestBlog from "./components/testBlog";
-import TestUsers from "./components/testUser";
 import Forum from "./components/forum/Forum";
 import ColorExamples from "./components/ColorExamples";
 import DataForm from "./components/dataForm";
@@ -19,8 +21,10 @@ import { UserContext } from "./contexts/UserContext";
 import AccountPage from "./components/AccountPage";
 import Blog from "./components/Blog";
 import HomePage from "./components/HomePage";
+import MerchPage from "./components/merch/merchPage";
+import MerchForm from "./components/merch/merchForm";
 import About from "./components/About";
-import MerchForm from "./components/merchForm";
+
 function App() {
   const { setUser } = useContext(UserContext);
   firebase.auth().onAuthStateChanged((user) => {
@@ -39,7 +43,7 @@ function App() {
         <Route path="/login" component={LoginPage} />
         <Route path="/color-examples" component={ColorExamples} />
         <Route path="/account" component={AccountPage} />
-        <Route path="/merchForm" component={MerchForm} />
+        <Route path="/merchForm" component={MerchPage} />
         <Route component={ErrorPage} />
       </Switch>
     </BrowserRouter>
