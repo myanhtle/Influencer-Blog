@@ -24,11 +24,12 @@ import HomePage from "./components/HomePage";
 import MerchPage from "./components/merch/merchPage";
 import MerchForm from "./components/merch/merchForm";
 
+import About from "./components/About";
+import MerchForm from "./components/merchForm";
 function App() {
   const { setUser } = useContext(UserContext);
   firebase.auth().onAuthStateChanged((user) => {
     setUser(user);
-    console.log(user);
   });
 
   return (
@@ -36,7 +37,7 @@ function App() {
       <NavBar />
       <Switch>
         <Route path="/" component={HomePage} exact />
-        <Route path="/about" component={null} />
+        <Route path="/about" component={About} />
         <Route path="/blog" component={Blog} />
         <Route path="/forum" component={Forum} />
         <Route path="/dataform" component={DataForm} />
