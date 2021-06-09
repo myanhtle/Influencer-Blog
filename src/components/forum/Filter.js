@@ -51,6 +51,14 @@ export default function Filter({
     });
   };
 
+  const handleCheck = (e) => {
+    console.log(e.currentTarget.id);
+    setFilterTags({
+      ...filterTags,
+      [e.currentTarget.id]: !filterTags[e.currentTarget.id],
+    });
+  };
+
   return (
     <div
       className={classes.root}
@@ -77,22 +85,42 @@ export default function Filter({
             </ButtonGroup>
             <FormGroup row>
               <FormControlLabel
-                control={<Checkbox name="checkedB" color="primary" />}
+                control={
+                  <Checkbox
+                    id="outdoors"
+                    onChange={handleCheck}
+                    color="primary"
+                  />
+                }
                 label="Outdoors"
                 style={{ paddingTop: "2%", paddingRight: "10%" }}
               />
               <FormControlLabel
-                control={<Checkbox name="checkedB" color="primary" />}
+                control={
+                  <Checkbox id="food" onChange={handleCheck} color="primary" />
+                }
                 label="Food"
                 style={{ paddingTop: "2%", paddingRight: "10%" }}
               />
               <FormControlLabel
-                control={<Checkbox name="checkedB" color="primary" />}
+                control={
+                  <Checkbox
+                    id="travel"
+                    onChange={handleCheck}
+                    color="primary"
+                  />
+                }
                 label="Travel"
                 style={{ paddingTop: "2%", paddingRight: "10%" }}
               />
               <FormControlLabel
-                control={<Checkbox name="checkedB" color="primary" />}
+                control={
+                  <Checkbox
+                    id="lifestyle"
+                    onChange={handleCheck}
+                    color="primary"
+                  />
+                }
                 label="Lifestyle"
                 style={{ paddingTop: "2%" }}
               />
