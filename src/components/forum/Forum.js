@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useContext } from "react";
 import ForumPost from "./ForumPost";
 import ForumModal from "./ForumModal";
+import Filter from "./Filter";
 import { makeStyles } from "@material-ui/core/styles";
 import Tooltip from "@material-ui/core/Tooltip";
 import AddIcon from "@material-ui/icons/Add";
@@ -37,11 +38,23 @@ export default function Forum() {
   const [posts, setPosts] = useState([]);
   const [clickedPost, setClickedPost] = useState(false);
   const [update, setUpdate] = useState("");
+  const [sortBy, setSortBy] = useState({ new: true, hot: false });
 
   useEffect(() => {
     fetch("http://localhost:8080/forum/read")
       .then((res) => res.json())
-      .then((data) => setPosts(data))
+      .then((data) => {
+        if (sortBy.new) {
+          data.sort(function (a, b) {
+            return new Date(b.Date) - new Date(a.Date);
+          });
+        } else {
+          data.sort(function (a, b) {
+            return b.Likes - a.Likes;
+          });
+        }
+        setPosts(data);
+      })
       .then(console.log(posts));
   }, [clickedPost, update]);
 
@@ -84,6 +97,13 @@ export default function Forum() {
           </div>
         </Fade>
       </Modal>
+      <Filter
+        posts={posts}
+        setPosts={setPosts}
+        setClickedPost={setClickedPost}
+        sortBy={sortBy}
+        setSortBy={setSortBy}
+      />
       {posts.map((p) => (
         <ForumPost
           p={p}

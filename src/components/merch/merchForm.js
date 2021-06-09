@@ -4,6 +4,16 @@ import React, { useRef, useEffect, useState } from "react";
 import Dialog from "@material-ui/core/Dialog";
 import Select from "@material-ui/core/Select";
 import { title } from "process";
+import { loadStripe } from "@stripe/stripe-js";
+import { Elements } from "@stripe/react-stripe-js";
+import CheckoutForm from "../CheckoutForm";
+
+// Make sure to call loadStripe outside of a component’s render to avoid
+// recreating the Stripe object on every render.
+// loadStripe is initialized with a fake API key.
+// Sign in to see examples pre-filled with your key.
+const promise = loadStripe("pk_test_TYooMQauvdEDq54NiTphI7jx");
+
 function MerchForm() {
   const [open, setOpen] = React.useState(false);
   const [openU, setOpenU] = React.useState(false);
@@ -20,7 +30,7 @@ function MerchForm() {
   const [updateVal, setUpdateVal] = useState([]);
   const [cart, setCart] = useState([]);
   const [sum, setSum] = useState([]);
-  const like = () => {}
+  const like = () => {};
   const darkBlue = "#004981";
   const lightBlue = "#6ea8d4";
   const baseButtonStyle = {
@@ -115,7 +125,7 @@ function MerchForm() {
       .then((data) => setCart(data));
   };
   const fetchSum = () => {
-    fetch(`http://localhost:8080/cart/sum/John`)
+    fetch(`http://localhost:8080/cart/sum/Samantha`)
       .then((res) => res.json())
       .then((data) => setSum(data));
     // console.log(sum);
@@ -149,11 +159,24 @@ function MerchForm() {
         "Access-Control-Allow-Origin": "*",
         "Access-Control-Allow-Origin": "http://localhost:3000/",
       },
-      body: JSON.stringify({ Name: c.Name }),
+      body: JSON.stringify({ Title: c.User }),
     })
       .then((res) => res.json())
       .then((data) => console.log(data));
     setDeleteVal("");
+  };
+  const clearCart = () => {
+    fetch(`http://localhost:8080/cart/delete/all`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Origin": "http://localhost:3000/",
+      },
+      body: JSON.stringify({ title: "John" }),
+    })
+      .then((res) => res.json())
+      .then((data) => console.log(data));
   };
 
   const createMerch = (name, price, rating, stock) => {
@@ -193,6 +216,7 @@ function MerchForm() {
       .then((data) => console.log(data));
     setDeleteVal("");
   };
+
   const updatemerch = (e) => {
     //   console.log(update);
     //   console.log(updateType);
@@ -332,7 +356,11 @@ function MerchForm() {
       <Button onClick={() => fetchCart()}>Fetch Cart</Button>
       <Button onClick={() => fetchUserCart()}>User Cart</Button>
       <Button onClick={() => fetchSum()}>Update Sum</Button>
+      <Button onClick={() => clearCart()}>Clear Cart</Button>
       <p>{sum.Sum}</p>
+      <Elements stripe={promise}>
+        <CheckoutForm />
+      </Elements>
     </div>
   );
 }

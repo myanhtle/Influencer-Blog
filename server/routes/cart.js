@@ -1,6 +1,6 @@
 var express = require("express");
 var router = express.Router();
-
+const stripe = require("stripe")("sk_test_4eC39HqLyjWDarjtT1zdp7dc");
 var db = require("../firebase");
 const cartRef = db.collection("cart");
 /* GET users listing. */
@@ -23,21 +23,19 @@ router.get("/read/:query", async (req, res) => {
   const cart = [];
   var name = req.params.query;
   const snapshot = await cartRef.get();
-  // console.log(snapshot);
   snapshot.forEach((doc) => {
     if (doc.data().User === name) {
       let docU = { ...doc.data(), id: doc.id };
       cart.push(docU);
     }
   });
-  // console.log(cart);
   res.send(cart);
 });
 router.get("/sum/:query", async (req, res) => {
   const cart = [];
   var sum = 0;
   var name = req.params.query;
-  console.log(name);
+  //console.log(name);
   const snapshot = await cartRef.get();
   // console.log(snapshot);
   snapshot.forEach((doc) => {
@@ -69,24 +67,54 @@ router.post("/add", async (req, res) => {
 
   res.send(snapshot);
 });
-
-router.delete("/delete/:query", async (req, res) => {
-  console.log("Please");
-  var docToDeleteId = "";
-  var name = req.params.query;
-  console.log(name);
+const sumCalc = async (req, res) => {
   const cart = [];
-  const snapshot = await db.collection("cart").get();
+  var sum = 0;
+  var name = req.params.query;
+  //console.log(name);
+  const snapshot = await cartRef.get();
   // console.log(snapshot);
   snapshot.forEach((doc) => {
     let docU = { ...doc.data(), id: doc.id };
     cart.push(docU);
   });
+  // console.log(cart);
   for (var i = 0; i < cart.length; i++) {
-    if (cart[i].Name === name) docToDeleteId = cart[i].id;
+    if (cart[i].User === name) {
+      sum = parseFloat(sum) + parseFloat(cart[i].Price);
+      //  console.log(cart[i].Price);
+    }
   }
-  //console.log(docToDeleteId);
-  const del = await db.collection("cart").doc(docToDeleteId).delete();
+  return sum;
+};
+router.delete("/delete/:query", async (req, res) => {
+  var docToDeleteId = "";
+  var name = req.params.query;
+  var user = req.body.title;
+  console.log(name);
+  console.log(user);
+  const cart = [];
+  const snapshot = await db.collection("cart").get();
+  var dele;
+
+  snapshot.forEach((doc) => {
+    if (doc.data().User === user) {
+      let docU = { ...doc.data(), id: doc.id };
+      cart.push(docU);
+    }
+  });
+  if (name === "all") {
+    for (var i = 0; i < cart.length; i++) {
+      docToDeleteId = cart[i].id;
+      dele = await db.collection("cart").doc(docToDeleteId).delete();
+    }
+  } else {
+    for (var i = 0; i < cart.length; i++) {
+      if (cart[i].Name === name) docToDeleteId = cart[i].id;
+    }
+    //console.log(docToDeleteId);
+    const del = await db.collection("cart").doc(docToDeleteId).delete();
+  }
   res.send("DELETE Request Called");
 });
 
@@ -119,5 +147,18 @@ router.post("/update/:query", async (req, res) => {
     const resp4 = await classRef.update({ Stock: val });
   }
   res.send("Update");
+});
+
+//Stripe
+router.post("/create-payment-intent", async (req, res) => {
+  const { items } = req.body;
+  // Create a PaymentIntent with the order amount and currency
+  const paymentIntent = await stripe.paymentIntents.create({
+    amount: sumCalc(),
+    currency: "usd",
+  });
+  res.send({
+    clientSecret: paymentIntent.client_secret,
+  });
 });
 module.exports = router;
