@@ -17,8 +17,7 @@ function AccountPage() {
       style={{
         width: "25vw",
         padding: "1rem",
-        margin: "auto",
-        marginTop: "1rem",
+        margin: "5vh auto 5vh auto",
       }}
     >
       <Typography variant="h6">Hello, {username}!</Typography>
