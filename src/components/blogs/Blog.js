@@ -135,7 +135,7 @@ export default function Blog() {
   //image above title, no margins
   //    dynamic routing for posts, so only one post
   //    displays at a time
-  //footer
+  //
 
   return (
     <div className="blogBody">
@@ -201,6 +201,12 @@ export default function Blog() {
         </div>
         {blog.map((b) => (
           <Card className="card">
+            {b.image && (
+              <div>
+                <img className="img" src={b.image}></img>
+                <br></br>
+              </div>
+            )}
             <CardContent>
               <Typography variant="h6">
                 {b.title}

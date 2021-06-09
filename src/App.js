@@ -17,7 +17,7 @@ import DataForm from "./components/dataForm";
 import LoginPage from "./components/LoginPage";
 import { UserContext } from "./contexts/UserContext";
 import AccountPage from "./components/AccountPage";
-import Blog from "./components/Blog";
+import Blog from "./components/blogs/Blog";
 import HomePage from "./components/HomePage";
 
 import MerchForm from "./components/merchForm";
