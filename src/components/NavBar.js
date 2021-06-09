@@ -22,7 +22,9 @@ function NavBar() {
           Camille's Corner
         </Typography>
         <div className={classes.navButtonsContainer}>
-          <Button onClick={() => history.push("/")}>Home</Button>
+          <Button variant="outlined" onClick={() => history.push("/")}>
+            Home
+          </Button>
           <Button onClick={() => history.push("/about")}>About</Button>
           <Button onClick={() => history.push("/blog")}>Blog</Button>
           <Button onClick={() => history.push("/forum")}>Forum</Button>

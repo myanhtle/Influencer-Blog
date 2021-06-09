@@ -7,8 +7,17 @@ const navBarStyles = makeStyles({
     maxHeight: "8vh !important",
     minHeight: "8vh !important",
   },
-  siteName: {height: "6vh", display: "flex", alignItems: "center" },
-  navButtonsContainer: { textAlign: "center" },
+  siteName: { height: "6vh", display: "flex", alignItems: "center" },
+  navButtonsContainer: {
+    textAlign: "center",
+    "& .MuiButton-root": {
+      color: "white",
+      margin: "0 0.5rem 0 0.5rem",
+      border: "1px solid white",
+      paddingLeft: "1rem",
+      paddingRight: "1rem",
+    },
+  },
   loginButtonContainer: { textAlign: "right" },
 });
 
