@@ -54,8 +54,19 @@ const signup = async (fullName, username, email, password) => {
  * Deletes the account of the current user
  * @returns {boolean} success
  */
-const deleteAccount = async () => {
+const deleteCurrentUser = async () => {
+  if (!window.confirm("Are you sure you want to delete your account?"))
+    return false;
   try {
+    const username = firebase.auth().currentUser.displayName;
+    await fetch("http://localhost:8080/users/delete", {
+      method: "DELETE",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ username }),
+    });
     await firebase.auth().currentUser.delete();
     return true;
   } catch (error) {
@@ -65,4 +76,4 @@ const deleteAccount = async () => {
   }
 };
 
-export { login, signup, deleteAccount };
+export { login, signup, deleteCurrentUser as deleteAccount };

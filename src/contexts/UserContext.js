@@ -9,6 +9,7 @@ function UserContextProvider({ children }) {
   const uid = user ? user.uid : null;
   const username = user ? user.displayName : null;
   const email = user ? user.email : null;
+  const fullName = user ? user.displayName : null;
 
   // useEffect(() => {
   //   if (!user) return null;
@@ -23,7 +24,16 @@ function UserContextProvider({ children }) {
 
   return (
     <UserContext.Provider
-      value={{ user, uid, username, email, isLoggedIn, isAdmin, setUser }}
+      value={{
+        user,
+        uid,
+        username,
+        email,
+        fullName,
+        isLoggedIn,
+        isAdmin,
+        setUser,
+      }}
     >
       {children}
     </UserContext.Provider>
