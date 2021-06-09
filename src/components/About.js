@@ -3,45 +3,20 @@ import headerImage from "../images/homepage_image.png";
 import homePageStyles from "../styles/homePageStyles";
 import { useHistory } from "react-router-dom";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
-import logo from "../images/logo_white.png";
 
-function HomePage() {
+function About() {
   const classes = homePageStyles();
   const history = useHistory();
   return (
     <div className={classes.homepage}>
-      <div className={classes.headerImgContainer}>
-        <img
-          className={classes.headerImg}
-          src={headerImage}
-          alt="The Camille Connection"
-        />
-      </div>
-      <div className={classes.welcomeTextContainer}>
-        <Typography variant="h1" className={classes.welcomeText}>
-          <div>
-            <img
-              src={logo}
-              className={classes.bigLogo}
-              alt="Camille's Corner Logo"
-            />
-            <br />
-            Welcome
-            <br />
-            <Button
-              onClick={() =>
-                document.getElementById("featured-blog-post").scrollIntoView()
-              }
-            >
-              <ExpandMoreIcon className={classes.expandIcon} />
-            </Button>
-          </div>
-        </Typography>
-      </div>
+      <Typography variant="h1" align="center">
+        Its All About Camille!
+      </Typography>
+
       <Grid container className={classes.bottomContainer}>
         <Grid item xs={9} className={classes.content}>
           <Card id="featured-blog-post" className={classes.content}>
-            <Typography variant="h4">Featured Post</Typography>
+            <Typography variant="h4">About</Typography>
             <Typography>
               Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec
               risus quam, bibendum at arcu vitae, mattis cursus velit.
@@ -87,26 +62,13 @@ function HomePage() {
         </Grid>
         <Grid item xs={3} className={classes.content}>
           <Card className={classes.content}>
-            <Typography variant="h4">About Camille</Typography>
-            <Typography>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec
-              risus quam, bibendum at arcu vitae, mattis cursus velit.
-              Suspendisse ullamcorper nunc at eros luctus iaculis. Donec id
-              neque commodo, posuere lacus a, accumsan massa. Proin in faucibus
-              lacus, in pellentesque libero. Ut venenatis nunc a mauris
-              hendrerit, vel efficitur nisl mattis. In ullamcorper, orci a
-              finibus bibendum, mauris lacus feugiat neque, et congue nunc odio
-              a nibh. Aliquam ut sagittis eros. Fusce finibus augue augue, id
-              mollis justo porta in. Nam nec mauris pellentesque nulla
-              scelerisque elementum.
-            </Typography>
-            <Button
-              variant="contained"
-              color="primary"
-              onClick={() => history.push("/about")}
-            >
-              Learn more
-            </Button>
+            <div className={classes.headerImgContainer}>
+              <img
+                className={classes.headerImg}
+                src={headerImage}
+                alt="The Camille Connection"
+              />
+            </div>
           </Card>
         </Grid>
       </Grid>
@@ -114,4 +76,4 @@ function HomePage() {
   );
 }
 
-export default HomePage;
+export default About;

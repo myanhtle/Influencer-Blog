@@ -7,7 +7,7 @@ import CardActions from "@material-ui/core/CardActions";
 import Avatar from "@material-ui/core/Avatar";
 import IconButton from "@material-ui/core/IconButton";
 import Typography from "@material-ui/core/Typography";
-import { red } from "@material-ui/core/colors";
+import { orange } from "@material-ui/core/colors";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import EditIcon from "@material-ui/icons/Edit";
 import ForumIcon from "@material-ui/icons/Forum";
@@ -16,19 +16,21 @@ import CheckCircleIcon from "@material-ui/icons/CheckCircle";
 import Collapse from "@material-ui/core/Collapse";
 import TextField from "@material-ui/core/TextField";
 import { UserContext } from "../../contexts/UserContext";
+import Comments from "./Comments";
 
 const useStyles = makeStyles(() => ({
   root: {
     maxWidth: 800,
     width: "100%",
+    backgroundColor: "#dcedc7",
   },
   avatar: {
-    backgroundColor: red[500],
+    backgroundColor: orange[500],
   },
 }));
 
 export default function ForumPost({ p, posts, setPosts, setClickedPost }) {
-  const { username } = useContext(UserContext);
+  const { user, isLoggedIn } = useContext(UserContext);
   const classes = useStyles();
   const [isFavorited, setIsFavorited] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
@@ -161,29 +163,37 @@ export default function ForumPost({ p, posts, setPosts, setClickedPost }) {
             </Avatar>
           }
           action={
-            username === p.User ? (
+            isLoggedIn ? (
               <>
-                <IconButton
-                  size="small"
-                  aria-label="delete"
-                  onClick={handleDeletePost}
-                >
-                  <DeleteIcon />
-                </IconButton>
-                <IconButton
-                  size="small"
-                  aria-label="edit"
-                  onClick={handleEditPost}
-                >
-                  <EditIcon />
-                </IconButton>
+                {user.displayName === p.User ? (
+                  <>
+                    <IconButton
+                      size="small"
+                      aria-label="delete"
+                      onClick={handleDeletePost}
+                    >
+                      <DeleteIcon />
+                    </IconButton>
+                    <IconButton
+                      size="small"
+                      aria-label="edit"
+                      onClick={handleEditPost}
+                    >
+                      <EditIcon />
+                    </IconButton>
+                  </>
+                ) : (
+                  <></>
+                )}
               </>
             ) : (
               <></>
             )
           }
           title={p.Title}
-          subheader={`${p.User} posted on ${p.Date}`}
+          subheader={`${p.User} posted on ${p.Date} | Tags: ${p.Tags.join(
+            ", "
+          )}`}
         />
         <CardContent>
           {isEditing ? (
@@ -216,9 +226,7 @@ export default function ForumPost({ p, posts, setPosts, setClickedPost }) {
         </CardContent>
         <CardActions disableSpacing>
           <IconButton aria-label="like" id="like-1" onClick={handleLike}>
-            <FavoriteIcon
-              style={isFavorited ? { fill: "red" } : { fill: "grey" }}
-            />
+            <FavoriteIcon style={isFavorited ? { fill: "#a30000" } : {}} />
           </IconButton>
           {p.Likes}
           <IconButton
@@ -241,6 +249,7 @@ export default function ForumPost({ p, posts, setPosts, setClickedPost }) {
             >
               Comments:
             </Typography>
+            <Comments />
           </CardContent>
         </Collapse>
       </Card>

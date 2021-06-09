@@ -6,7 +6,8 @@ import { useHistory } from "react-router-dom";
 import { deleteAccount } from "../utils/loginUtils";
 
 function AccountPage() {
-  const { username, email, isAdmin, isLoggedIn } = useContext(UserContext);
+  const { username, email, fullName, isAdmin, isLoggedIn } =
+    useContext(UserContext);
   const history = useHistory();
 
   if (!isLoggedIn) history.push("/login");
@@ -21,14 +22,19 @@ function AccountPage() {
       }}
     >
       <Typography variant="h6">Hello, {username}!</Typography>
+      <br />
+      <Typography>Name: {fullName}</Typography>
       <Typography>Email: {email}</Typography>
       <Typography>{isAdmin ? "Admin" : "User"}</Typography>
-      <Button variant="contained" onClick={() => firebase.auth().signOut()}>
-        Log Out
-      </Button>
-      <Button variant="outlined" onClick={() => deleteAccount()}>
-        Delete Account
-      </Button>
+      <br />
+      <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
+        <Button variant="contained" onClick={() => firebase.auth().signOut()}>
+          Log Out
+        </Button>
+        <Button variant="outlined" onClick={() => deleteAccount()}>
+          Delete Account
+        </Button>
+      </div>
     </Card>
   );
 }
