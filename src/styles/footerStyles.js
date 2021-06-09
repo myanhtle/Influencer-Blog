@@ -10,6 +10,9 @@ const footerStyles = makeStyles({
     "& .MuiTypography-root": {
       color: "white",
     },
+    "& a": {
+      color: "white"
+    }
   },
   footerRight: {
     margin: "auto 3rem auto auto",
