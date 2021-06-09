@@ -44,11 +44,11 @@ const homePageStyles = makeStyles({
   },
   expandIcon: {
     fontSize: "10vw",
-    color: "white"
+    color: "white",
   },
   bigLogo: {
     height: "25vh",
-  }
+  },
 });
 
 export default homePageStyles;

@@ -19,7 +19,7 @@ import { UserContext } from "./contexts/UserContext";
 import AccountPage from "./components/AccountPage";
 import Blog from "./components/Blog";
 import HomePage from "./components/HomePage";
-
+import About from "./components/About";
 import MerchForm from "./components/merchForm";
 function App() {
   const { setUser } = useContext(UserContext);
@@ -32,7 +32,7 @@ function App() {
       <NavBar />
       <Switch>
         <Route path="/" component={HomePage} exact />
-        <Route path="/about" component={null} />
+        <Route path="/about" component={About} />
         <Route path="/blog" component={Blog} />
         <Route path="/forum" component={Forum} />
         <Route path="/dataform" component={DataForm} />
