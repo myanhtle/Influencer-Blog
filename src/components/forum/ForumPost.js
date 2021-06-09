@@ -29,7 +29,7 @@ const useStyles = makeStyles(() => ({
 }));
 
 export default function ForumPost({ p, posts, setPosts, setClickedPost }) {
-  const { user } = useContext(UserContext);
+  const { user, isLoggedIn } = useContext(UserContext);
   const classes = useStyles();
   const [isFavorited, setIsFavorited] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
@@ -162,7 +162,7 @@ export default function ForumPost({ p, posts, setPosts, setClickedPost }) {
             </Avatar>
           }
           action={
-            user !== null ? (
+            isLoggedIn ? (
               <>
                 {user.displayName === p.User ? (
                   <>
