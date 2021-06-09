@@ -1,4 +1,4 @@
-import React from "react";
+import { useState } from "react";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 import MobileStepper from "@material-ui/core/MobileStepper";
 import Paper from "@material-ui/core/Paper";
@@ -29,6 +29,20 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function MerchCard({ item }) {
+  /* Creates an array of image links */
+  const imgReel = [];
+
+  if (item.image) {
+    item.image.forEach((img) =>
+      imgReel.push({ label: item.description, imgPath: img })
+    );
+  } else {
+    imgReel.push({ label: item.description, imgPath: "111" });
+  }
+
+  console.log(imgReel);
+  /* */
+
   const tutorialSteps = [
     {
       label: "San Francisco – Oakland Bay Bridge, United States",
@@ -58,8 +72,8 @@ export default function MerchCard({ item }) {
   ];
   const classes = useStyles();
   const theme = useTheme();
-  const [activeStep, setActiveStep] = React.useState(0);
-  const maxSteps = tutorialSteps.length;
+  const [activeStep, setActiveStep] = useState(0);
+  const maxSteps = imgReel.length;
 
   const handleNext = () => {
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
@@ -72,12 +86,12 @@ export default function MerchCard({ item }) {
   return (
     <div className={classes.root}>
       <Paper square elevation={0} className={classes.header}>
-        <Typography>{tutorialSteps[activeStep].label}</Typography>
+        <Typography>{imgReel[activeStep].label}</Typography>
       </Paper>
       <img
         className={classes.img}
-        src={tutorialSteps[activeStep].imgPath}
-        alt={tutorialSteps[activeStep].label}
+        src={imgReel[activeStep].imgPath}
+        alt={imgReel[activeStep].label}
       />
       <MobileStepper
         steps={maxSteps}
