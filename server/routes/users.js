@@ -50,8 +50,19 @@ router.post("/add", async (req, res) => {
     email,
     password,
   });
-
   console.log("Added document with ID: ", username);
+  res.sendStatus(200);
+});
+
+/* Delete an Account */
+
+router.delete("/delete", async (req, res) => {
+  const { username } = req.body;
+  console.log(req.body);
+
+  const resp = await db.collection("users").doc(username).delete();
+
+  console.log(username, " has been deleted");
   res.sendStatus(200);
 });
 

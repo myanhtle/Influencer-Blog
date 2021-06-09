@@ -10,11 +10,11 @@ function TestUsers() {
   //   );
   // }
 
-  function handleClickNine() {
-    fetch(`http://localhost:8080/users/read/${username}`).then((res) =>
-      res.json()
-    );
-  }
+  // function handleClickNine() {
+  //   fetch(`http://localhost:8080/users/read/${username}`).then((res) =>
+  //     res.json()
+  //   );
+  // }
 
   // function handleClickTen() {
   //   const userData = {
@@ -34,7 +34,22 @@ function TestUsers() {
   //   });
   // }
 
-  return <Button onClick={() => handleClickNine()}>Hello</Button>;
+  function handleClickEleven() {
+    const userData = {
+      username: "aer6xrk",
+    };
+
+    fetch("http://localhost:8080/users/delete", {
+      method: "DELETE",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(userData),
+    });
+  }
+
+  return <Button onClick={() => handleClickEleven()}>Hello</Button>;
 }
 
 export default TestUsers;
