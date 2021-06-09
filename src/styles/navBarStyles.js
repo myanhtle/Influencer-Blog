@@ -18,6 +18,10 @@ const navBarStyles = makeStyles({
     },
   },
   loginButtonContainer: { textAlign: "right" },
+  navDropdown: {
+    "& .MuiPaper-root": {width: "8rem"},
+    "& li": {margin: "auto"}
+  }
 });
 
 export default navBarStyles;
