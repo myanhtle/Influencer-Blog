@@ -13,8 +13,8 @@
 /* Create two unequal columns that floats next to each other */
 /* Left column */
 .leftcolumn {
-  float: left;
-  width: 75%;
+  margin: 0 auto;
+  width: 60%;
 }
 
 /* Right column */
@@ -27,9 +27,9 @@
 /* Image */
 .img {
   background-color: #aaa;
-  height: 50%;
+  height: 200px;
   width: 106%;
-  object-fit: contain;
+  object-fit: cover;
   object-position: center top;
   margin-top: -3%;
   margin-left: -3%;

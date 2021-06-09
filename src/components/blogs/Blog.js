@@ -4,7 +4,6 @@ import {
   Button,
   Card,
   CardContent,
-  Link,
   makeStyles,
   Modal,
   Backdrop,
@@ -12,6 +11,7 @@ import {
   Typography,
   TextField,
 } from "@material-ui/core";
+import CreateButton from "./CreateButton";
 
 /* Modal */
 const useStyles = makeStyles((theme) => ({
@@ -38,13 +38,6 @@ export default function Blog() {
 
   /* Modal */
   const classes = useStyles();
-  const [open, setOpen] = useState(false);
-  const handleOpen = () => {
-    setOpen(true);
-  };
-  const handleClose = () => {
-    setOpen(false);
-  };
   const [editOpen, setEditOpen] = useState(false);
   const handleEditOpen = () => {
     setEditOpen(true);
@@ -132,73 +125,17 @@ export default function Blog() {
       });
   }
 
-  //image above title, no margins
-  //    dynamic routing for posts, so only one post
-  //    displays at a time
-  //
-
   return (
     <div className="blogBody">
       <div className="leftcolumn">
         <br></br>
-        <div
-          style={{ marginLeft: "35%", marginRight: "35%", textAlign: "center" }}
-        >
-          <Button
-            onClick={() => {
-              handleOpen();
-            }}
-            variant="contained"
-            color="primary"
-          >
-            Create New Post
-          </Button>
-          <Modal
-            className={classes.modal}
-            open={open}
-            onClose={handleClose}
-            closeAfterTransition
-            BackdropComponent={Backdrop}
-            BackdropProps={{
-              timeout: 500,
-            }}
-          >
-            <Fade in={open}>
-              <div className={classes.paper}>
-                <h2>Create New Post</h2>
-                <p>Fill out the following fields to create a new blog post:</p>
-                <TextField
-                  required
-                  label="Title"
-                  onChange={(e) => {
-                    handleChange(e, "title");
-                  }}
-                ></TextField>
-                <br></br>
-                <TextField
-                  required
-                  label="Body"
-                  onChange={(e) => {
-                    handleChange(e, "body");
-                  }}
-                ></TextField>
-                <br></br>
-                <br></br>
-                <Button
-                  onClick={() => {
-                    handleClick();
-                    setClicked(true);
-                    handleClose();
-                  }}
-                  variant="contained"
-                  color="primary"
-                >
-                  Confirm
-                </Button>
-              </div>
-            </Fade>
-          </Modal>
-        </div>
+
+        <CreateButton
+          handleChange={handleChange}
+          handleClick={handleClick}
+          setClicked={setClicked}
+        />
+
         {blog.map((b) => (
           <Card className="card">
             {b.image && (
@@ -297,26 +234,6 @@ export default function Blog() {
             </CardContent>
           </Card>
         ))}
-        <br></br>
-      </div>
-
-      <div className="rightcolumn">
-        <Card className="card">
-          <CardContent>
-            <Typography variant="h6">Table of Contents:</Typography>
-            <ul>
-              <li>
-                <Link>Post 1</Link>
-              </li>
-              <li>
-                <Link>Post 2</Link>
-              </li>
-              <li>
-                <Link>Post 3</Link>
-              </li>
-            </ul>
-          </CardContent>
-        </Card>
         <br></br>
       </div>
     </div>
