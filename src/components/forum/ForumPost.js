@@ -21,6 +21,7 @@ const useStyles = makeStyles(() => ({
   root: {
     maxWidth: 800,
     width: "100%",
+    backgroundColor: "#dcedc7",
   },
   avatar: {
     backgroundColor: red[500],
@@ -28,7 +29,7 @@ const useStyles = makeStyles(() => ({
 }));
 
 export default function ForumPost({ p, posts, setPosts, setClickedPost }) {
-  const { username } = useContext(UserContext);
+  const { user } = useContext(UserContext);
   const classes = useStyles();
   const [isFavorited, setIsFavorited] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
@@ -161,22 +162,28 @@ export default function ForumPost({ p, posts, setPosts, setClickedPost }) {
             </Avatar>
           }
           action={
-            username === p.User ? (
+            user !== null ? (
               <>
-                <IconButton
-                  size="small"
-                  aria-label="delete"
-                  onClick={handleDeletePost}
-                >
-                  <DeleteIcon />
-                </IconButton>
-                <IconButton
-                  size="small"
-                  aria-label="edit"
-                  onClick={handleEditPost}
-                >
-                  <EditIcon />
-                </IconButton>
+                {user.displayName === p.User ? (
+                  <>
+                    <IconButton
+                      size="small"
+                      aria-label="delete"
+                      onClick={handleDeletePost}
+                    >
+                      <DeleteIcon />
+                    </IconButton>
+                    <IconButton
+                      size="small"
+                      aria-label="edit"
+                      onClick={handleEditPost}
+                    >
+                      <EditIcon />
+                    </IconButton>
+                  </>
+                ) : (
+                  <></>
+                )}
               </>
             ) : (
               <></>
@@ -216,9 +223,7 @@ export default function ForumPost({ p, posts, setPosts, setClickedPost }) {
         </CardContent>
         <CardActions disableSpacing>
           <IconButton aria-label="like" id="like-1" onClick={handleLike}>
-            <FavoriteIcon
-              style={isFavorited ? { fill: "red" } : { fill: "grey" }}
-            />
+            <FavoriteIcon style={isFavorited ? { fill: "#a30000" } : {}} />
           </IconButton>
           {p.Likes}
           <IconButton
