@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import {
   Card,
   CardContent,
@@ -15,6 +15,7 @@ import CreateIcon from "@material-ui/icons/Create";
 import DeleteIcon from "@material-ui/icons/Delete";
 import CheckIcon from "@material-ui/icons/Check";
 import "./Blog.css";
+import {UserContext} from "../../contexts/UserContext"
 
 /* Modal */
 const useStyles = makeStyles((theme) => ({
@@ -39,6 +40,7 @@ export default function Blogs({ match }) {
   const [editID, setEditID] = useState(null);
   const [title, setTitle] = useState(null);
   const [body, setBody] = useState(null);
+  const {isAdmin} = useContext(UserContext);
 
   /* Modal */
   const classes = useStyles();
@@ -117,7 +119,7 @@ export default function Blogs({ match }) {
           <CardContent>
             <Typography variant="h6">
               {blog.title}
-              <div
+              {(isAdmin && <div
                 style={{
                   float: "right",
                   marginLeft: "auto",
@@ -133,6 +135,7 @@ export default function Blogs({ match }) {
                   }}
                   variant="contained"
                   color="secondary"
+                  style={{marginRight: ".5rem"}}
                 >
                   <CreateIcon />
                 </Button>
@@ -199,7 +202,7 @@ export default function Blogs({ match }) {
                 >
                   <DeleteIcon />
                 </Button>
-              </div>
+              </div>)}
             </Typography>
             <Typography variant="subtitle2">{blog.date}</Typography>
             <br></br>
