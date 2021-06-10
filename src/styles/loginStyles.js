@@ -6,17 +6,15 @@ const useLoginStyles = makeStyles({
   loginCard: {
     width: "80vw",
     margin: "5vh auto 5vh auto",
-    height: "82vh",
   },
   loginDisplay: {
     margin: "auto",
     padding: "5vh",
     textAlign: "center",
-    border: "3px solid " + theme.palette.primary.dark,
     borderRight: "none",
     display: "flex",
     flexDirection: "column",
-    height: "100%",
+    minHeight: "82vh",
     backgroundImage:
       "radial-gradient(" +
       theme.palette.secondary.light +
@@ -28,10 +26,10 @@ const useLoginStyles = makeStyles({
     margin: "auto",
     padding: "5vh",
     textAlign: "center",
-    border: "3px solid " + theme.palette.primary.dark,
     borderLeft: "none",
     display: "flex",
     flexDirection: "column",
+    justifyContent: "center",
     height: "100%",
   },
   loginForm: {
