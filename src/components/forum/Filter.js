@@ -7,8 +7,8 @@ import ButtonGroup from "@material-ui/core/ButtonGroup";
 import Checkbox from "@material-ui/core/Checkbox";
 import FormGroup from "@material-ui/core/FormGroup";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
-import FavoriteBorder from "@material-ui/icons/FavoriteBorder";
-import Favorite from "@material-ui/icons/Favorite";
+import CloudIcon from "@material-ui/icons/Cloud";
+import CloudOutlinedIcon from "@material-ui/icons/CloudOutlined";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -99,8 +99,8 @@ export default function Filter({
                     id="outdoors"
                     onChange={handleCheck}
                     color="primary"
-                    icon={<FavoriteBorder />}
-                    checkedIcon={<Favorite />}
+                    icon={<CloudOutlinedIcon />}
+                    checkedIcon={<CloudIcon />}
                   />
                 }
                 label="Outdoors"
@@ -108,7 +108,13 @@ export default function Filter({
               />
               <FormControlLabel
                 control={
-                  <Checkbox id="food" onChange={handleCheck} color="primary" />
+                  <Checkbox
+                    id="food"
+                    onChange={handleCheck}
+                    color="primary"
+                    icon={<CloudOutlinedIcon />}
+                    checkedIcon={<CloudIcon />}
+                  />
                 }
                 label="Food"
                 style={{ paddingTop: "2%", paddingRight: "10%" }}
@@ -119,6 +125,8 @@ export default function Filter({
                     id="travel"
                     onChange={handleCheck}
                     color="primary"
+                    icon={<CloudOutlinedIcon />}
+                    checkedIcon={<CloudIcon />}
                   />
                 }
                 label="Travel"
@@ -130,6 +138,8 @@ export default function Filter({
                     id="lifestyle"
                     onChange={handleCheck}
                     color="primary"
+                    icon={<CloudOutlinedIcon />}
+                    checkedIcon={<CloudIcon />}
                   />
                 }
                 label="Lifestyle"
