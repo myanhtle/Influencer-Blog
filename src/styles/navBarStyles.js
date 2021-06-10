@@ -6,7 +6,7 @@ const navBarStyles = makeStyles({
     display: "grid",
     gridTemplateColumns: "20rem 1fr 20rem",
     [theme.breakpoints.down("md")]: {
-      gridTemplateColumns: "5rem 1fr 5rem",
+      gridTemplateColumns: "10rem 1fr 10rem",
     },
     maxHeight: "8vh !important",
     minHeight: "8vh !important",
