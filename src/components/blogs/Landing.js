@@ -36,12 +36,14 @@ export default function Landing() {
   return (
     <div style={{ textAlign: "center" }}>
       <h1>Welcome to my Blog</h1>
+      <CreateNewButton />
+      <p>or</p>
       <TextField label="Search" />
-      <h3>Sort by:</h3>
       <Button onClick={fetchBlogs} color="primary" variant="contained">
         Search
       </Button>
-      <CreateNewButton />
+      <h3>Sort by:</h3>
+      <p>(insert sorting functions here...)</p>
       <div>
         <List style={{ marginLeft: "20%", marginRight: "20%" }}>
           {blog.map((b) => (
