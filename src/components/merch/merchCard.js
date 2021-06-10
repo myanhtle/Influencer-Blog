@@ -146,6 +146,8 @@ export default function MerchCard({ item }) {
   const handleClick = () => {
     const itemDetails = {
       name: item.name,
+      description: item.description,
+      images: item.image,
       price: item.price,
       user: username,
     };
