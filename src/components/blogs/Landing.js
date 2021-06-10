@@ -15,6 +15,9 @@ import CreateNewButton from "./CreateButton";
 //search bar
 //links to different blogs (done)
 
+//have featured blogs on landing page
+//sidebar with all blogs, links
+
 export default function Landing() {
   const [blog, setBlog] = useState(null);
   const [search, setSearch] = useState(null);
