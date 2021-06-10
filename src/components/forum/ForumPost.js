@@ -49,6 +49,10 @@ export default function ForumPost({ p, posts, setPosts, setClickedPost }) {
     setNewContents(e.target.value);
   };
 
+  /**
+   * handles deleting a post on the forum by using DELETE request
+   * @param {*} e
+   */
   const handleDeletePost = (e) => {
     e.preventDefault();
     fetch(`http://localhost:8080/forum/delete/${p.Title}`, {
@@ -66,6 +70,10 @@ export default function ForumPost({ p, posts, setPosts, setClickedPost }) {
     });
   };
 
+  /**
+   * set isEditing state to the opposite of its previous state in order to indicate whether user is editing or not
+   * @param {*} e
+   */
   const handleEditPost = (e) => {
     setIsEditing((prev) => {
       return !prev;
@@ -73,6 +81,10 @@ export default function ForumPost({ p, posts, setPosts, setClickedPost }) {
     console.log(p.Content, posts);
   };
 
+  /**
+   * Saves changes made to a post
+   * @param {*} e
+   */
   const handleSaveChanges = (e) => {
     const updatedPost = {
       title: p.Title,
@@ -94,6 +106,10 @@ export default function ForumPost({ p, posts, setPosts, setClickedPost }) {
     });
   };
 
+  /**
+   * calls updateLikes()
+   * @param {*} e
+   */
   const handleLike = (e) => {
     e.preventDefault();
     updateLikes();
@@ -102,6 +118,9 @@ export default function ForumPost({ p, posts, setPosts, setClickedPost }) {
     });
   };
 
+  /**
+   * updates the total number of likes on a post depending on whether user clicks or unclicks the heart icon
+   */
   const updateLikes = () => {
     if (isFavorited) {
       const updatedPost = {
@@ -236,6 +255,7 @@ export default function ForumPost({ p, posts, setPosts, setClickedPost }) {
           >
             <ForumIcon />
           </IconButton>
+          {p.Comments.length}
         </CardActions>
         <Collapse in={expanded} timeout="auto" unmountOnExit>
           <CardContent>
@@ -243,13 +263,13 @@ export default function ForumPost({ p, posts, setPosts, setClickedPost }) {
               paragraph
               style={{
                 borderTop: "solid",
-                borderColor: "#d3d3d3",
+                borderColor: "#7d9da1",
                 paddingTop: "2%",
               }}
             >
               Comments:
             </Typography>
-            <Comments />
+            <Comments p={p} setClickedPost={setClickedPost} />
           </CardContent>
         </Collapse>
       </Card>

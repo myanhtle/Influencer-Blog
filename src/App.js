@@ -22,9 +22,10 @@ import AccountPage from "./components/AccountPage";
 import Blog from "./components/blogs/Blog";
 import HomePage from "./components/HomePage";
 import MerchPage from "./components/merch/merchPage";
+import Cart from "./components/merch/cart";
 import About from "./components/About";
 // import MerchForm from "./components/merchForm";
-import Footer from "./components/Footer"
+import Footer from "./components/Footer";
 
 function App() {
   const { setUser } = useContext(UserContext);
@@ -42,9 +43,10 @@ function App() {
         <Route path="/forum" component={Forum} />
         <Route path="/dataform" component={DataForm} />
         <Route path="/login" component={LoginPage} />
-        <Route path="/color-examples" component={ColorExamples} />
+        {/* <Route path="/color-examples" component={ColorExamples} /> */}
+        <Route path="/cart" component={Cart} />
         <Route path="/account" component={AccountPage} />
-        <Route path="/merchForm" component={MerchPage} />
+        <Route path="/shop" component={MerchPage} />
         <Route component={ErrorPage} />
       </Switch>
       <Footer />

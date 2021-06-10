@@ -7,7 +7,7 @@ import Button from "@material-ui/core/Button";
 import KeyboardArrowLeft from "@material-ui/icons/KeyboardArrowLeft";
 import KeyboardArrowRight from "@material-ui/icons/KeyboardArrowRight";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
-import "../../images/logo_white.png";
+import logo from "../../images/logo_black.png";
 import { useContext } from "react";
 import { UserContext } from "../../contexts/UserContext";
 
@@ -17,13 +17,12 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
   },
   header: {
-    display: "flex",
-    alignItems: "center",
-    height: 100,
+    paddingTop: "10%",
+    height: 150,
     paddingLeft: theme.spacing(3),
   },
   img: {
-    height: "20%",
+    height: 600,
     display: "block",
     maxWidth: 400,
     overflow: "hidden",
@@ -35,6 +34,7 @@ export default function MerchCard({ item }) {
   const classes = useStyles();
   const theme = useTheme();
   const [activeStep, setActiveStep] = useState(0);
+  const [added, setAdded] = useState(false);
   const { username } = useContext(UserContext);
 
   /* Creates an array of image links */
@@ -43,7 +43,7 @@ export default function MerchCard({ item }) {
   if (item.image) {
     item.image.forEach((img) => imgReel.push({ imgPath: img }));
   } else {
-    imgReel.push({ imgPath: "logo_white.png" });
+    imgReel.push({ imgPath: logo });
   }
 
   console.log(imgReel);
@@ -66,6 +66,7 @@ export default function MerchCard({ item }) {
       price: item.price,
       user: username,
     };
+
     console.log(itemDetails);
     var data = JSON.stringify(itemDetails);
     fetch(`http://localhost:8080/cart/add`, {
@@ -78,6 +79,8 @@ export default function MerchCard({ item }) {
     })
       .then((res) => res.json())
       .then((result) => console.log(result));
+
+    setAdded(true);
   };
 
   return (
@@ -88,10 +91,13 @@ export default function MerchCard({ item }) {
           <Typography>
             {item.name} <br /> {item.description} <br /> ${item.price}
           </Typography>
-          <Button onClick={() => handleClick()}>
-            <ShoppingCartIcon />
-            Add to Cart
-          </Button>
+          <div className="addToCart-container">
+            {added === false ? (
+              <Button onClick={() => handleClick()}>Add to Bag</Button>
+            ) : (
+              <Button disabled>Added to Bag</Button>
+            )}
+          </div>
         </div>
       </Paper>
       <MobileStepper
@@ -112,16 +118,6 @@ export default function MerchCard({ item }) {
             ) : (
               <KeyboardArrowRight />
             )}
-          </Button>
-        }
-        backButton={
-          <Button size="small" onClick={handleBack} disabled={activeStep === 0}>
-            {theme.direction === "rtl" ? (
-              <KeyboardArrowRight />
-            ) : (
-              <KeyboardArrowLeft />
-            )}
-            Back
           </Button>
         }
         backButton={
