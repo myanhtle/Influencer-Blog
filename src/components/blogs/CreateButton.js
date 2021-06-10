@@ -100,6 +100,7 @@ export default function CreateButton() {
             <TextField
               required
               multiline
+              rowsMax={20}
               label="Body"
               onChange={(e) => {
                 handleChange(e, "body");
