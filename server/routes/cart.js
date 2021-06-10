@@ -161,7 +161,7 @@ router.post("/update/:query", async (req, res) => {
 });
 /**
  * [sumCalc description]
- * returns the current sum of the user, for use by Stripe Needs to be fixed lol
+ * returns the current sum of the provider user, used by Stripe
  */
 const sumCalc = async (req, res) => {
   const cart = [];
