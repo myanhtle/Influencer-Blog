@@ -48,6 +48,10 @@ export default function CreateForumPost({
     setAnchorEl(null);
   };
 
+  /**
+   * makes POST request to db in order to make a new post to forum
+   * @param {*} event
+   */
   const handlePost = (event) => {
     event.preventDefault();
     if (postContent.Title === "" || postContent.Content === "") {

@@ -7,6 +7,8 @@ import ButtonGroup from "@material-ui/core/ButtonGroup";
 import Checkbox from "@material-ui/core/Checkbox";
 import FormGroup from "@material-ui/core/FormGroup";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
+import FavoriteBorder from "@material-ui/icons/FavoriteBorder";
+import Favorite from "@material-ui/icons/Favorite";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -31,6 +33,10 @@ export default function Filter({
 }) {
   const classes = useStyles();
 
+  /**
+   * Sorts posts by most recent
+   * @param {*} e
+   */
   const handleNewSort = (e) => {
     e.preventDefault();
     setSortBy({ new: true, hot: false });
@@ -39,6 +45,10 @@ export default function Filter({
     });
   };
 
+  /**
+   * sorts posts my most popular
+   * @param {*} e
+   */
   const handleHotSort = (e) => {
     e.preventDefault();
     setSortBy({ new: false, hot: true });
@@ -89,6 +99,8 @@ export default function Filter({
                     id="outdoors"
                     onChange={handleCheck}
                     color="primary"
+                    icon={<FavoriteBorder />}
+                    checkedIcon={<Favorite />}
                   />
                 }
                 label="Outdoors"
