@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Blog from "./Blog";
-import { TextField } from "@material-ui/core";
+import { Button, TextField } from "@material-ui/core";
 
 //recent posts
 //filters
@@ -32,6 +32,12 @@ export default function Landing() {
       <h1>Welcome to my Blog</h1>
       <TextField label="Search" />
       <h3>Sort by:</h3>
+      <Button color="primary" variant="contained">
+        Search
+      </Button>
+      {blog.map((b) => (
+        <div></div>
+      ))}
     </div>
   );
 }
