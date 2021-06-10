@@ -4,7 +4,8 @@ import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import moment from "moment";
 import { UserContext } from "../../contexts/UserContext";
-import { Comment, Form, Header } from "semantic-ui-react";
+import { Comment } from "semantic-ui-react";
+import { nanoid } from "nanoid";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -16,12 +17,13 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function Comments({ p, setClickedPost }) {
-  const { user } = useContext(UserContext);
+  const { user, isLoggedIn } = useContext(UserContext);
   const classes = useStyles();
   const [newComment, setNewComment] = useState({
     User: "",
     Content: "",
     Date: "",
+    ID: "",
   });
 
   /**
@@ -47,6 +49,7 @@ export default function Comments({ p, setClickedPost }) {
           ...newComment,
           Date: moment().format("LLL"),
           User: user.displayName,
+          ID: nanoid(),
         },
       ],
     };
@@ -62,7 +65,38 @@ export default function Comments({ p, setClickedPost }) {
         User: "",
         Content: "",
         Date: "",
+        ID: "",
       });
+      setClickedPost((prev) => {
+        return !prev;
+      });
+    });
+  };
+
+  /**
+   * deletes comment user posted
+   * @param {*} e event
+   */
+  const handleDeleteComment = (e) => {
+    console.log("delete");
+    e.preventDefault();
+    const updatedComments = p.Comments.filter(
+      (c) => c.ID !== e.currentTarget.id
+    );
+    console.log(updatedComments);
+    const updatedPost = {
+      title: p.Title,
+      type: "Comments",
+      val: updatedComments,
+    };
+    fetch(`http://localhost:8080/forum/update/${p.Title}`, {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(updatedPost),
+    }).then(() => {
       setClickedPost((prev) => {
         return !prev;
       });
@@ -71,15 +105,27 @@ export default function Comments({ p, setClickedPost }) {
 
   return (
     <div>
-      {p.Comments.map((comment) => (
+      {p.Comments.map((comment, index) => (
         <div style={{ paddingBottom: "1%" }}>
           <Comment>
             <Comment.Content>
               <Comment.Author as="a" style={{ color: "#436063" }}>
-                <b>{comment.User} </b>
+                <b>{comment.User} </b>{" "}
                 <i frame style={{ color: "grey", fontSize: "12px" }}>
                   {comment.Date}
                 </i>
+                <button
+                  onClick={handleDeleteComment}
+                  id={comment.ID}
+                  style={{
+                    backgroundColor: "Transparent",
+                    border: "none",
+                    cursor: "pointer",
+                    color: "#4b6d70",
+                  }}
+                >
+                  delete
+                </button>
               </Comment.Author>
               <Comment.Metadata></Comment.Metadata>
               <Comment.Text>{comment.Content}</Comment.Text>
