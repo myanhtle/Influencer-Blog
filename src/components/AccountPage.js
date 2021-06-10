@@ -13,9 +13,10 @@ function AccountPage() {
   if (!isLoggedIn) history.push("/login");
 
   return (
+    <div style={{minHeight: "65vh"}}>
     <Card
       style={{
-        width: "25vw",
+        width: "50vw",
         padding: "1rem",
         margin: "5vh auto 5vh auto",
       }}
@@ -35,6 +36,8 @@ function AccountPage() {
         </Button>
       </div>
     </Card>
+    </div>
+
   );
 }
 
