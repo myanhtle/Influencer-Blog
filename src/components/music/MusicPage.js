@@ -1,17 +1,19 @@
 import { Typography, Button, Card, Grid } from "@material-ui/core";
 import headerImage from "../../images/musicpageimg.jpg";
 import musicPageStyles from "../../styles/musicStyles";
+import headerImageStyles from "../../styles/headerImageStyles";
 
 function HomePage() {
   const classes = musicPageStyles();
+  const header = headerImageStyles();
 
   return (
     <div>
-      <div className={classes.headerImgContainer}>
-        <img className={classes.headerImg} src={headerImage} alt="Music" />
+      <div className={header.headerImgContainer}>
+        <img className={header.headerImg} src={headerImage} alt="Music" />
       </div>
-      <div className={classes.welcomeTextContainer}>
-        <Typography variant="h1" className={classes.welcomeText}>
+      <div className={header.headerTextContainer}>
+        <Typography variant="h1" className={header.headerText}>
           <div>Jam with Cam!</div>
         </Typography>
       </div>
@@ -20,7 +22,7 @@ function HomePage() {
         playlists
       </div>
       <Grid container className={classes.bottomContainer}>
-        <Grid item xs={4} className={classes.content}>
+        <Grid item lg={4} sm={6} xs={12} className={classes.content}>
           <Card
             id="playlist1"
             className={classes.content}
@@ -36,7 +38,7 @@ function HomePage() {
             ></iframe>
           </Card>
         </Grid>
-        <Grid item xs={4} className={classes.content}>
+        <Grid item lg={4} sm={6} xs={12} className={classes.content}>
           <Card
             id="playlist2"
             className={classes.content}
@@ -52,7 +54,7 @@ function HomePage() {
             ></iframe>
           </Card>
         </Grid>
-        <Grid item xs={4} className={classes.content}>
+        <Grid item lg={4} sm={6} xs={12} className={classes.content}>
           <Card
             id="playlist3"
             className={classes.content}
