@@ -36,11 +36,11 @@ router.get("/read", async (req, res) => {
 router.get("/read/:query", async (req, res) => {
   const cart = [];
   /**name should be the passed in parameter, the name of the user whose cart is being accessed */
-  var name = req.params.query;
+  var username = req.params.query;
   const snapshot = await cartRef.get();
   /**traversal and push to cart see get(/read) for more specifics */
   snapshot.forEach((doc) => {
-    if (doc.data().User === name) {
+    if (doc.data().user === username) {
       let docU = { ...doc.data(), id: doc.id };
       cart.push(docU);
     }
@@ -58,21 +58,21 @@ router.get("/sum/:query", async (req, res) => {
   /**sum stores the current sum of the carts contents  */
   var sum = 0;
   /**name is the parameter passed in representing the name of the user whose cart you are acessing */
-  var name = req.params.query;
+  var username = req.params.query;
   const snapshot = await cartRef.get();
   snapshot.forEach((doc) => {
     let docU = { ...doc.data(), id: doc.id };
     cart.push(docU);
   });
   for (var i = 0; i < cart.length; i++) {
-    if (cart[i].User === name) {
-      sum = parseFloat(sum) + parseFloat(cart[i].Price);
+    if (cart[i].user === username) {
+      sum = parseFloat(sum) + parseFloat(cart[i].price);
     }
   }
   /**val is a json structured variable to be returned through res.send to the client application */
   var val = {
-    Sum: sum,
-    User: name,
+    sum: sum,
+    user: username,
   };
   res.send(val);
 });
