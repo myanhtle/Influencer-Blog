@@ -56,9 +56,9 @@ function HomePage() {
       <Grid container className={classes.bottomContainer}>
         {/* Most Recent Blog Post */}
         <Grid item xs={12} lg={9} className={classes.content}>
+          <Typography variant="h3">Latest Post</Typography>
+          <br />
           <Card id="featured-blog-post" className={classes.content}>
-            <Typography variant="h5">Latest Post</Typography>
-            <br />
             {blogPosts && (
               <>
                 <Typography variant="h4">
@@ -78,6 +78,8 @@ function HomePage() {
 
         {/* About Text */}
         <Grid item xs={12} lg={3} className={classes.content}>
+        <Typography variant="h3"><br /></Typography>
+        <br />
           <Card className={classes.content}>
             <Typography variant="h4">About Camille</Typography>
             <br />

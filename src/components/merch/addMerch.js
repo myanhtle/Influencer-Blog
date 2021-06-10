@@ -14,8 +14,8 @@ const useStyles = makeStyles({
     borderRadius: 3,
     border: 0,
     color: "#FDC700", // text color
-    height: 60,
-    width: 346,
+    padding: "1rem",
+    width: "100%",
     boxShadow: "0 3px 5px 2px rgba(255, 105, 135, .3)",
     fontSize: "18px",
   },
@@ -70,7 +70,8 @@ export default function AddMerch() {
   console.log(imageTextBoxes);
 
   return (
-    <div>
+    <div style={{    maxWidth: "25rem",
+    width: "100vw", margin: "auto"}}>
       <Button
         variant="outlined"
         color="primary"

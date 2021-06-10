@@ -51,6 +51,9 @@ const homePageStyles = makeStyles({
     "& .MuiButton-root": {
       maxWidth: "15rem",
     },
+    "& h3": {
+      paddingLeft: ".5rem"
+    }
   },
   expandIcon: {
     fontSize: "10vw",
