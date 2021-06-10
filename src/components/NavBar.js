@@ -41,7 +41,7 @@ function NavBar() {
           <Hidden mdDown>Camille's Corner</Hidden>
         </Typography>
 
-        <Hidden mdDown>
+        <Hidden smDown>
           <div className={classes.navButtonsContainer}>
             {routes.map((route) => {
               return (

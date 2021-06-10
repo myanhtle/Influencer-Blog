@@ -52,7 +52,7 @@ router.delete("/delete/:query", async (req, res) => {
     merchandise.push(docU);
   });
   for (var i = 0; i < merchandise.length; i++) {
-    if (merchandise[i].Name === name) docToDeleteId = merchandise[i].id;
+    if (merchandise[i].name === name) docToDeleteId = merchandise[i].id;
   }
   const del = await db.collection("merchandise").doc(docToDeleteId).delete();
   res.send("DELETE Request Called");
@@ -66,9 +66,9 @@ router.delete("/delete/:query", async (req, res) => {
  * body.val: the value you want it to be changed to
  * body.type: the field you are editing
  */
-router.post("/update/:query", async (req, res) => {
+router.post("/update", async (req, res) => {
   var docToUpdateId = "";
-  var name = req.params.query;
+  var name = req.body.title;
   var val = req.body.val;
   var type = req.body.type;
   const merchandise = [];
@@ -80,16 +80,16 @@ router.post("/update/:query", async (req, res) => {
   });
 
   for (var i = 0; i < merchandise.length; i++) {
-    if (merchandise[i].Name === name) docToUpdateId = merchandise[i].id;
+    if (merchandise[i].name === name) docToUpdateId = merchandise[i].id;
   }
 
   const classRef = merchandiseRef.doc(docToUpdateId);
-  if (type === "Name") {
-    const resp = await classRef.update({ Name: val });
-  } else if (type === "Price") {
-    const resp2 = await classRef.update({ Price: val });
-  } else if (type === "Rating") {
-    const resp3 = await classRef.update({ Rating: val });
+  if (type === "name") {
+    const resp = await classRef.update({ name: val });
+  } else if (type === "price") {
+    const resp2 = await classRef.update({ price: val });
+  } else if (type === "description") {
+    const resp3 = await classRef.update({ description: val });
   } else if (type === "Stock") {
     const resp4 = await classRef.update({ Stock: val });
   }
