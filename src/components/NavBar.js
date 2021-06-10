@@ -25,8 +25,8 @@ function NavBar() {
     { name: "About", route: "/about" },
     { name: "Blog", route: "/blog" },
     { name: "Forum", route: "/forum" },
-    { name: "Shop", route: "/shop" },
-    { name: "Music", route: "/music"}
+    { name: "Music", route: "/music"},
+    { name: "Shop", route: "/shop" }
   ];
 
   return (
