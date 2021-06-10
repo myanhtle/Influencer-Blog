@@ -18,8 +18,19 @@ import CreateNewButton from "./CreateButton";
 export default function Landing() {
   const [blog, setBlog] = useState(null);
   const [search, setSearch] = useState(null);
+  const [sort, setSort] = useState("descendingDate");
 
-  const sortBlogs = (data, sort) => {
+  const filterSortBlogs = (data, search, sort) => {
+    if (search) {
+      let data2 = [];
+      for (let i = 0; i < data.length; i++) {
+        if (data[i].title.toLowerCase().includes(search.toLowerCase())) {
+          data2.push(data[i]);
+        }
+      }
+      data = data2;
+    }
+
     if (sort === "descendingDate") {
       data.sort((a, b) => {
         let da = a.date; //to order posts so
@@ -28,29 +39,23 @@ export default function Landing() {
         if (da > db) return -1;
         return 0;
       });
+    } else if (sort === "ascendingDate") {
+      data.sort((a, b) => {
+        let da = a.date; //to order posts so
+        let db = b.date; //older ones are first
+        if (da < db) return -1;
+        if (da > db) return 1;
+        return 0;
+      });
     }
+    return data;
   };
 
   const fetchBlogs = () => {
     fetch(`http://localhost:8080/blog/read`)
       .then((res) => res.json())
       .then((data) => {
-        /*
-        if (search) {
-          let data2 = [];
-          for (let i = 0; i < data.length; i++) {
-            console.log(search);
-            console.log(data[i].title);
-            console.log(data[i].title.indexOf(search));
-            if (data[i].title.includes(search)) {
-              data2.push(data[i]);
-            }
-          }
-          data = data2;
-        }
-        */
-        sortBlogs(data, "descendingDate");
-        console.log(data);
+        data = filterSortBlogs(data, search, sort);
         setBlog(data);
       });
   };
@@ -69,23 +74,62 @@ export default function Landing() {
         <SearchIcon /> Search
       </Button>
 
+      <br></br>
       {blog && (
         <div>
           <h3>Sort results by:</h3>
-          <p>(insert sorting functions here...)</p>
+          <Button
+            onClick={(e) => {
+              e.stopPropagation();
+              setSort("descendingDate");
+              console.log(sort);
+              fetchBlogs();
+            }}
+            color="primary"
+            variant="contained"
+          >
+            New
+          </Button>
+          <Button
+            onClick={(e) => {
+              e.stopPropagation();
+              setSort("ascendingDate");
+              console.log(sort);
+              fetchBlogs();
+            }}
+            color="primary"
+            variant="contained"
+          >
+            Old
+          </Button>
+          <br></br>
+          <br></br>
           <div>
             <List style={{ marginLeft: "20%", marginRight: "20%" }}>
               {blog.map((b) => (
-                <ListItem style={{ outline: "2px solid black" }}>
-                  <ListItemText primary={b.title} secondary={b.date} />
-                  <Link to={`/blog/${b.id}`}>View</Link>
-                </ListItem>
+                <div>
+                  <ListItem key={b.id} style={{ outline: "2px solid black" }}>
+                    <ListItemText primary={b.title} secondary={b.date} />
+                    <Link to={`/blog/${b.id}`}>View</Link>
+                  </ListItem>
+                  <br></br>
+                </div>
               ))}
             </List>
           </div>
         </div>
       )}
-      <br></br>
+      {blog === null && (
+        <div>
+          <br></br>
+          <br></br>
+          <br></br>
+          <br></br>
+          <br></br>
+          <br></br>
+          <br></br>
+        </div>
+      )}
     </div>
   );
 }
