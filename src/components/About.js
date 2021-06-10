@@ -14,7 +14,7 @@ function About() {
       </Typography>
 
       <Grid container className={classes.bottomContainer}>
-        <Grid item xs={9} className={classes.content}>
+        <Grid item xs={12} lg={9} className={classes.content}>
           <Card id="featured-blog-post" className={classes.content}>
             <Typography variant="h4">About Camille's Corner</Typography>
             <Typography>
@@ -34,23 +34,23 @@ function About() {
             <br />
             <Typography variant="h4">About Camille Cooper</Typography>
             <Typography>
-              Camille is a recent college graduate from UVA
-              currently traveling from city to city exploring what urban life
-              offers while taking advantage of any opportunity to get back to
-              the great outdoors. Educated as a chemical engineer, Camille threw
-              that into the wind to pursue software development and adventure.
-              Exclusively working for new start-ups as a freelancer, she has
-              been able to have extended stays in NYC, Denver, SF, Seattle, and
-              Barcelona. She hopes to go next to Austin or London, but, in
-              truth, with her, you never know where she’ll be next. Known to be
-              spontaneous and indecisive, Camille chose this life because it
-              allows her to explore every option that life provides. She loves
-              being a digital nomad because each new city brings new stories and
-              opportunities. She never realized that documenting this way of
-              life would garner such a large following for which she is grateful
-              every day. Her goal is to promote adventures and positivity. One
-              day she hopes to go to every national park. Her hobbies include
-              hiking, climbing, yoga, snowboarding, and anything with music.
+              Camille is a recent college graduate from UVA currently traveling
+              from city to city exploring what urban life offers while taking
+              advantage of any opportunity to get back to the great outdoors.
+              Educated as a chemical engineer, Camille threw that into the wind
+              to pursue software development and adventure. Exclusively working
+              for new start-ups as a freelancer, she has been able to have
+              extended stays in NYC, Denver, SF, Seattle, and Barcelona. She
+              hopes to go next to Austin or London, but, in truth, with her, you
+              never know where she’ll be next. Known to be spontaneous and
+              indecisive, Camille chose this life because it allows her to
+              explore every option that life provides. She loves being a digital
+              nomad because each new city brings new stories and opportunities.
+              She never realized that documenting this way of life would garner
+              such a large following for which she is grateful every day. Her
+              goal is to promote adventures and positivity. One day she hopes to
+              go to every national park. Her hobbies include hiking, climbing,
+              yoga, snowboarding, and anything with music.
             </Typography>
             <br />
             <Typography variant="h4">Fun Facts</Typography>
@@ -65,7 +65,7 @@ function About() {
             </Typography>
           </Card>
         </Grid>
-        <Grid item xs={3} className={classes.content}>
+        <Grid item xs={12} lg={3} className={classes.content}>
           <Card className={classes.content}>
             <div className={classes.headerImgContainer}>
               <img

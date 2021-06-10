@@ -20,7 +20,6 @@ function HomePage() {
 
   return (
     <div className={classes.homepage}>
-
       {/* Header Image */}
       <div className={classes.headerImgContainer}>
         <img
@@ -29,7 +28,7 @@ function HomePage() {
           alt="The Camille Connection"
         />
       </div>
-      
+
       {/* Header Text */}
       <div className={classes.welcomeTextContainer}>
         <Typography variant="h1" className={classes.welcomeText}>
@@ -56,7 +55,7 @@ function HomePage() {
       {/* Page Content */}
       <Grid container className={classes.bottomContainer}>
         {/* Most Recent Blog Post */}
-        <Grid item xs={9} className={classes.content}>
+        <Grid item xs={12} lg={9} className={classes.content}>
           <Card id="featured-blog-post" className={classes.content}>
             <Typography variant="h5">Latest Post</Typography>
             <br />
@@ -65,7 +64,9 @@ function HomePage() {
                 <Typography variant="h4">
                   {blogPosts[blogPosts.length - 1].title}
                 </Typography>
-                <Typography variant="h6">{blogPosts[blogPosts.length - 1].date}</Typography>
+                <Typography variant="h6">
+                  {blogPosts[blogPosts.length - 1].date}
+                </Typography>
                 <br />
                 <Typography>
                   {blogPosts[blogPosts.length - 1].messageContent}
@@ -76,7 +77,7 @@ function HomePage() {
         </Grid>
 
         {/* About Text */}
-        <Grid item xs={3} className={classes.content}>
+        <Grid item xs={12} lg={3} className={classes.content}>
           <Card className={classes.content}>
             <Typography variant="h4">About Camille</Typography>
             <br />
@@ -98,7 +99,6 @@ function HomePage() {
             </Button>
           </Card>
         </Grid>
-
       </Grid>
     </div>
   );
