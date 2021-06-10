@@ -13,6 +13,7 @@ import { useContext, useState } from "react";
 import { UserContext } from "../contexts/UserContext";
 import logo from "../images/logo_white.png";
 import navBarStyles from "../styles/navBarStyles";
+import LocalMallIcon from "@material-ui/icons/LocalMall";
 
 function NavBar() {
   const history = useHistory();
@@ -29,7 +30,7 @@ function NavBar() {
 
   return (
     <AppBar position="static">
-      <Toolbar className={classes.navbar}>
+      <Toolbar className={classes.navbdar}>
         <Typography variant="h4" className={classes.siteName}>
           <img
             src={logo}
@@ -46,6 +47,13 @@ function NavBar() {
           <Button onClick={() => history.push("/shop")}>Shop</Button>
           <Button onClick={() => history.push("/color-examples")}>
             Colors
+          </Button>
+          <Button
+            className={classes.cart}
+            onClick={() => history.push("/cart")}
+          >
+            <LocalMallIcon />
+            <span className={classes.cartCount}>5</span>
           </Button>
         </div>
 
@@ -94,7 +102,7 @@ function NavBar() {
               );
             })}
           </Menu>
-        </Hidden>
+        </Hidden> */}
         <div className={classes.loginButtonContainer}>
           <Button
             onClick={() => history.push(isLoggedIn ? "/account" : "/login")}
@@ -103,7 +111,7 @@ function NavBar() {
           >
             {isLoggedIn ? "My Account" : "Log In"}
           </Button>
-        </div> */}
+        </div>
       </Toolbar>
     </AppBar>
   );
