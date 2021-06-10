@@ -47,7 +47,7 @@ const homePageStyles = makeStyles({
     color: "white",
   },
   bigLogo: {
-    height: "25vh",
+    maxHeight: "calc(2163/4320*92vw/4)"
   },
 });
 

@@ -42,7 +42,7 @@ function App() {
         <Route path="/forum" component={Forum} />
         <Route path="/dataform" component={DataForm} />
         <Route path="/login" component={LoginPage} />
-        <Route path="/color-examples" component={ColorExamples} />
+        {/* <Route path="/color-examples" component={ColorExamples} /> */}
         <Route path="/account" component={AccountPage} />
         <Route path="/shop" component={MerchPage} />
         <Route component={ErrorPage} />
