@@ -4,6 +4,7 @@ import Playlists from "./Playlist";
 import Albums from "./Albums";
 import headerImage from "../../images/musicpageimg.jpg";
 import musicPageStyles from "../../styles/musicStyles";
+import headerImageStyles from "../../styles/headerImageStyles";
 import CircularProgress from "@material-ui/core/CircularProgress";
 
 function HomePage() {
