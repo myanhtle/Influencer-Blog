@@ -192,7 +192,7 @@ export default function Blogs({ match }) {
                     handleClickTwo(blog.id);
                     setClicked(true);
                     alert("Post deleted successfully!");
-                    history.push("/blog/");
+                    history.push("/blog");
                   }}
                   variant="contained"
                   color="secondary"
