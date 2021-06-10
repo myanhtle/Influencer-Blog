@@ -8,6 +8,7 @@ import {
   Fade,
   TextField,
   Backdrop,
+  Link,
   makeStyles,
 } from "@material-ui/core";
 import { useHistory } from "react-router-dom";
@@ -34,6 +35,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Blogs({ match }) {
   const history = useHistory();
+  const [blogs, setBlogs] = useState(null);
   const [blog, setBlog] = useState(null);
   const [clicked, setClicked] = useState(false);
   const [editID, setEditID] = useState(null);
@@ -63,6 +65,7 @@ export default function Blogs({ match }) {
     fetch(`http://localhost:8080/blog/read`)
       .then((res) => res.json())
       .then((data) => {
+        setBlogs(data);
         for (let i = 0; i < data.length; i++) {
           if (data[i].id === match.params.id) {
             setBlog(data[i]);
@@ -106,107 +109,130 @@ export default function Blogs({ match }) {
 
   return (
     blog && (
-      <div className="leftcolumn">
-        <Card className="card">
-          {blog.image && (
-            <div>
-              <img className="img" src={blog.image}></img>
-              <br></br>
-            </div>
-          )}
-          <CardContent>
-            <Typography variant="h6">
-              {blog.title}
-              <div
-                style={{
-                  float: "right",
-                  marginLeft: "auto",
-                  marginRight: "0",
-                }}
-              >
-                <Button
-                  onClick={() => {
-                    setTitle(blog.title);
-                    setBody(blog.messageContent);
-                    setEditID(blog.id);
-                    handleEditOpen();
-                  }}
-                  variant="contained"
-                  color="secondary"
-                >
-                  <CreateIcon />
-                </Button>
-
-                <Modal
-                  className={classes.modal}
-                  open={editOpen}
-                  onClose={handleEditClose}
-                  closeAfterTransition
-                  BackdropComponent={Backdrop}
-                  BackdropProps={{
-                    timeout: 500,
-                  }}
-                >
-                  <Fade in={editOpen}>
-                    <div className={classes.paper}>
-                      <h2>Edit Post</h2>
-                      <p>Edit the following fields to edit this blog post:</p>
-                      <TextField
-                        required
-                        helperText="Title"
-                        defaultValue={title}
-                        onChange={(e) => {
-                          handleChange(e, "title");
-                        }}
-                      ></TextField>
-                      <br></br>
-                      <TextField
-                        required
-                        multiline
-                        rowsMax={20}
-                        helperText="Body"
-                        defaultValue={body}
-                        onChange={(e) => {
-                          handleChange(e, "body");
-                        }}
-                      ></TextField>
-                      <br></br>
-                      <br></br>
-                      <Button
-                        onClick={() => {
-                          handleClickThree(editID);
-                          setClicked(true);
-                          handleEditClose();
-                        }}
-                        variant="contained"
-                        color="primary"
-                      >
-                        <CheckIcon />
-                      </Button>
-                    </div>
-                  </Fade>
-                </Modal>
-
-                <Button
-                  onClick={() => {
-                    handleClickTwo(blog.id);
-                    setClicked(true);
-                    alert("Post deleted successfully!");
-                    history.push("/blog");
-                  }}
-                  variant="contained"
-                  color="secondary"
-                >
-                  <DeleteIcon />
-                </Button>
+      <div>
+        <div className="leftcolumn">
+          <Card className="card">
+            {blog.image && (
+              <div>
+                <img className="img" src={blog.image}></img>
+                <br></br>
               </div>
-            </Typography>
-            <Typography variant="subtitle2">{blog.date}</Typography>
-            <br></br>
+            )}
+            <CardContent>
+              <Typography variant="h6">
+                {blog.title}
+                <div
+                  style={{
+                    float: "right",
+                    marginLeft: "auto",
+                    marginRight: "0",
+                  }}
+                >
+                  <Button
+                    onClick={() => {
+                      setTitle(blog.title);
+                      setBody(blog.messageContent);
+                      setEditID(blog.id);
+                      handleEditOpen();
+                    }}
+                    variant="contained"
+                    color="secondary"
+                  >
+                    <CreateIcon />
+                  </Button>
 
-            <Typography variant="body2">{blog.messageContent}</Typography>
-          </CardContent>
-        </Card>
+                  <Modal
+                    className={classes.modal}
+                    open={editOpen}
+                    onClose={handleEditClose}
+                    closeAfterTransition
+                    BackdropComponent={Backdrop}
+                    BackdropProps={{
+                      timeout: 500,
+                    }}
+                  >
+                    <Fade in={editOpen}>
+                      <div className={classes.paper}>
+                        <h2>Edit Post</h2>
+                        <p>Edit the following fields to edit this blog post:</p>
+                        <TextField
+                          required
+                          helperText="Title"
+                          defaultValue={title}
+                          onChange={(e) => {
+                            handleChange(e, "title");
+                          }}
+                        ></TextField>
+                        <br></br>
+                        <TextField
+                          required
+                          multiline
+                          rowsMax={20}
+                          helperText="Body"
+                          defaultValue={body}
+                          onChange={(e) => {
+                            handleChange(e, "body");
+                          }}
+                        ></TextField>
+                        <br></br>
+                        <br></br>
+                        <Button
+                          onClick={() => {
+                            handleClickThree(editID);
+                            setClicked(true);
+                            handleEditClose();
+                          }}
+                          variant="contained"
+                          color="primary"
+                        >
+                          <CheckIcon />
+                        </Button>
+                      </div>
+                    </Fade>
+                  </Modal>
+
+                  <Button
+                    onClick={() => {
+                      handleClickTwo(blog.id);
+                      setClicked(true);
+                      alert("Post deleted successfully!");
+                      history.push("/blog");
+                    }}
+                    variant="contained"
+                    color="secondary"
+                  >
+                    <DeleteIcon />
+                  </Button>
+                </div>
+              </Typography>
+              <Typography variant="subtitle2">{blog.date}</Typography>
+              <br></br>
+
+              <Typography variant="body2">{blog.messageContent}</Typography>
+            </CardContent>
+          </Card>
+        </div>
+        <div className="rightcolumn">
+          <Card className="card">
+            <CardContent style={{ textAlign: "center" }}>
+              <h3>Check out these other blogs:</h3>
+              {blogs.map((b) => (
+                <div>
+                  <Button
+                    href={`/blog/${b.id}`}
+                    variant="contained"
+                    color="secondary"
+                    style={{ color: "white" }}
+                  >
+                    {b.title}
+                  </Button>
+                  <br></br>
+                  <br></br>
+                </div>
+              ))}
+            </CardContent>
+          </Card>
+        </div>
       </div>
     )
   );

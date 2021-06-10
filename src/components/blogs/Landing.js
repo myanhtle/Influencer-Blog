@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import {
   Button,
+  Card,
+  CardContent,
   TextField,
   List,
   ListItem,
@@ -82,8 +84,7 @@ export default function Landing() {
         <div>
           <h3>Sort results by:</h3>
           <Button
-            onClick={(e) => {
-              e.stopPropagation();
+            onClick={() => {
               setSort("descendingDate");
               console.log(sort);
               fetchBlogs();
@@ -94,8 +95,7 @@ export default function Landing() {
             New
           </Button>
           <Button
-            onClick={(e) => {
-              e.stopPropagation();
+            onClick={() => {
               setSort("ascendingDate");
               console.log(sort);
               fetchBlogs();
@@ -111,9 +111,22 @@ export default function Landing() {
             <List style={{ marginLeft: "20%", marginRight: "20%" }}>
               {blog.map((b) => (
                 <div>
-                  <ListItem key={b.id} style={{ outline: "2px solid black" }}>
-                    <ListItemText primary={b.title} secondary={b.date} />
-                    <Link to={`/blog/${b.id}`}>View</Link>
+                  <ListItem
+                    key={b.id}
+                    style={{
+                      outline: "2px solid black",
+                    }}
+                  >
+                    <ListItemText
+                      style={{}}
+                      primary={b.title}
+                      secondary={b.date}
+                    />
+                    <Button variant="contained" color="secondary">
+                      <Link style={{ color: "white" }} to={`/blog/${b.id}`}>
+                        View
+                      </Link>
+                    </Button>
                   </ListItem>
                   <br></br>
                 </div>
