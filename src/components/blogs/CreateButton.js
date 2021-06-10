@@ -7,6 +7,7 @@ import {
   TextField,
   makeStyles,
 } from "@material-ui/core";
+import AddIcon from "@material-ui/icons/Add";
 import "./Blog.css";
 
 const useStyles = makeStyles((theme) => ({
@@ -72,7 +73,7 @@ export default function CreateButton() {
         color="primary"
         size="large"
       >
-        Create New Post
+        <AddIcon /> Create New Post
       </Button>
       <Modal
         className={classes.modal}

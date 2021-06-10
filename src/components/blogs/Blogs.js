@@ -160,6 +160,7 @@ export default function Blogs({ match }) {
                       <br></br>
                       <TextField
                         required
+                        multiline
                         helperText="Body"
                         defaultValue={body}
                         onChange={(e) => {
