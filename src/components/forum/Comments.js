@@ -75,7 +75,7 @@ export default function Comments({ p, setClickedPost }) {
 
   /**
    * deletes comment user posted
-   * @param {*} e
+   * @param {*} e event
    */
   const handleDeleteComment = (e) => {
     console.log("delete");

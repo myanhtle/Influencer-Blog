@@ -51,7 +51,7 @@ export default function ForumPost({ p, posts, setPosts, setClickedPost }) {
 
   /**
    * handles deleting a post on the forum by using DELETE request
-   * @param {*} e
+   * @param {*} e event
    */
   const handleDeletePost = (e) => {
     e.preventDefault();
@@ -72,7 +72,7 @@ export default function ForumPost({ p, posts, setPosts, setClickedPost }) {
 
   /**
    * set isEditing state to the opposite of its previous state in order to indicate whether user is editing or not
-   * @param {*} e
+   * @param {*} e event
    */
   const handleEditPost = (e) => {
     setIsEditing((prev) => {
@@ -83,7 +83,7 @@ export default function ForumPost({ p, posts, setPosts, setClickedPost }) {
 
   /**
    * Saves changes made to a post
-   * @param {*} e
+   * @param {*} e event
    */
   const handleSaveChanges = (e) => {
     const updatedPost = {
@@ -108,7 +108,7 @@ export default function ForumPost({ p, posts, setPosts, setClickedPost }) {
 
   /**
    * calls updateLikes()
-   * @param {*} e
+   * @param {*} e event
    */
   const handleLike = (e) => {
     e.preventDefault();
@@ -123,11 +123,18 @@ export default function ForumPost({ p, posts, setPosts, setClickedPost }) {
    */
   const updateLikes = () => {
     if (isFavorited) {
-      const updatedPost = {
-        title: p.Title,
-        type: "Likes",
-        val: p.Likes - 1,
-      };
+      const updatedPost =
+        p.Likes - 1 < 0
+          ? {
+              title: p.Title,
+              type: "Likes",
+              val: 0,
+            }
+          : {
+              title: p.Title,
+              type: "Likes",
+              val: p.Likes - 1,
+            };
       fetch(`http://localhost:8080/forum/update/${p.Title}`, {
         method: "POST",
         headers: {

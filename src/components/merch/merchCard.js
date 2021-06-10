@@ -6,10 +6,11 @@ import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import KeyboardArrowLeft from "@material-ui/icons/KeyboardArrowLeft";
 import KeyboardArrowRight from "@material-ui/icons/KeyboardArrowRight";
-import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 import logo from "../../images/logo_black.png";
 import { useContext } from "react";
 import { UserContext } from "../../contexts/UserContext";
+import DeleteIcon from "@material-ui/icons/Delete";
+import EditIcon from "@material-ui/icons/Edit";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -18,7 +19,7 @@ const useStyles = makeStyles((theme) => ({
   },
   header: {
     paddingTop: "10%",
-    height: 150,
+    height: 175,
     paddingLeft: theme.spacing(3),
   },
   img: {
@@ -91,12 +92,23 @@ export default function MerchCard({ item }) {
           <Typography>
             {item.name} <br /> {item.description} <br /> ${item.price}
           </Typography>
-          <div className="addToCart-container">
-            {added === false ? (
-              <Button onClick={() => handleClick()}>Add to Bag</Button>
-            ) : (
-              <Button disabled>Added to Bag</Button>
-            )}
+          <br />
+          <div className="merchCard-functionContainer">
+            <div className="editMerch-container">
+              <Button>
+                <DeleteIcon />
+              </Button>
+              <Button>
+                <EditIcon />
+              </Button>
+            </div>
+            <div className="addToCart-container">
+              {added === false ? (
+                <Button onClick={() => handleClick()}>Add to Bag</Button>
+              ) : (
+                <Button disabled>Added to Bag</Button>
+              )}
+            </div>
           </div>
         </div>
       </Paper>
