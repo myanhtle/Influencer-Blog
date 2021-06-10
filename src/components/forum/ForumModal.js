@@ -12,7 +12,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Tags({ setClickedPost, setUpdate, setPosts }) {
+export default function Tags({ setClickedPost, setUpdate, setPosts, setOpen }) {
   const classes = useStyles();
   const [postTags, setPostTags] = useState([]);
 
@@ -54,6 +54,7 @@ export default function Tags({ setClickedPost, setUpdate, setPosts }) {
         setClickedPost={setClickedPost}
         setUpdate={setUpdate}
         setPosts={setPosts}
+        setOpen={setOpen}
       />
     </div>
   );
