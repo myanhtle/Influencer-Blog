@@ -44,6 +44,7 @@ function NavBar() {
           <Button onClick={() => history.push("/about")}>About</Button>
           <Button onClick={() => history.push("/blog")}>Blog</Button>
           <Button onClick={() => history.push("/forum")}>Forum</Button>
+          <Button onClick={() => history.push("/music")}>Music</Button>
           <Button onClick={() => history.push("/shop")}>Shop</Button>
           <Button onClick={() => history.push("/color-examples")}>
             Colors

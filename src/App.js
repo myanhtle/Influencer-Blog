@@ -26,6 +26,7 @@ import Cart from "./components/merch/cart";
 import About from "./components/About";
 // import MerchForm from "./components/merchForm";
 import Footer from "./components/Footer";
+import MusicPage from "./components/music/MusicPage";
 
 function App() {
   const { setUser } = useContext(UserContext);
@@ -47,6 +48,7 @@ function App() {
         <Route path="/cart" component={Cart} />
         <Route path="/account" component={AccountPage} />
         <Route path="/shop" component={MerchPage} />
+        <Route path="/music" component={MusicPage} />
         <Route component={ErrorPage} />
       </Switch>
       <Footer />
