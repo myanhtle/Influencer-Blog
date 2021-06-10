@@ -46,8 +46,10 @@ function NavBar() {
           <Button onClick={() => history.push("/shop")}>Shop</Button>
           <Button onClick={() => history.push("/color-examples")}>
             Colors
+          </Button>
+        </div>
 
-        <Hidden mdDown>
+        {/* <Hidden mdDown>
           <div className={classes.navButtonsContainer}>
             {routes.map((route) => {
               return (
@@ -81,7 +83,10 @@ function NavBar() {
             {routes.map((route) => {
               return (
                 <MenuItem
-                  onClick={() => {history.push(route.route); setMenuOpen(false)}}
+                  onClick={() => {
+                    history.push(route.route);
+                    setMenuOpen(false);
+                  }}
                   key={route.name}
                 >
                   {route.name}
@@ -98,7 +103,7 @@ function NavBar() {
           >
             {isLoggedIn ? "My Account" : "Log In"}
           </Button>
-        </div>
+        </div> */}
       </Toolbar>
     </AppBar>
   );
