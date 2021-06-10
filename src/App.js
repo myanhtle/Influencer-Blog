@@ -19,7 +19,8 @@ import DataForm from "./components/dataForm";
 import LoginPage from "./components/LoginPage";
 import { UserContext } from "./contexts/UserContext";
 import AccountPage from "./components/AccountPage";
-import Blog from "./components/blogs/Blog";
+import Landing from "./components/blogs/Landing";
+import Blog from "./components/blogs/Blogs";
 import HomePage from "./components/HomePage";
 import MerchPage from "./components/merch/merchPage";
 import Cart from "./components/merch/cart";
@@ -40,7 +41,8 @@ function App() {
       <Switch>
         <Route path="/" component={HomePage} exact />
         <Route path="/about" component={About} />
-        <Route path="/blog" component={Blog} />
+        <Route exact path="/blog" component={Landing} />
+        <Route exact path="/blog/:id" component={Blog} />
         <Route path="/forum" component={Forum} />
         <Route path="/dataform" component={DataForm} />
         <Route path="/login" component={LoginPage} />
