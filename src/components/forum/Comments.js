@@ -24,10 +24,18 @@ export default function Comments({ p, setClickedPost }) {
     Date: "",
   });
 
+  /**
+   * sets newComment state to what user is typing
+   * @param {*} e (event)
+   */
   const handleCommenting = (e) => {
     setNewComment({ ...newComment, Content: e.target.value });
   };
 
+  /**
+   * post comment to database and display on forum
+   * @param {*} event
+   */
   const handlePost = (event) => {
     event.preventDefault();
     const updatedPost = {
@@ -50,6 +58,11 @@ export default function Comments({ p, setClickedPost }) {
       },
       body: JSON.stringify(updatedPost),
     }).then(() => {
+      setNewComment({
+        User: "",
+        Content: "",
+        Date: "",
+      });
       setClickedPost((prev) => {
         return !prev;
       });
@@ -58,19 +71,23 @@ export default function Comments({ p, setClickedPost }) {
 
   return (
     <div>
-      {JSON.stringify(p.Comments)}
-      <Comment>
-        <Comment.Content>
-          <Comment.Author as="a" style={{ color: "#436063" }}>
-            <b>Matt </b>
-            <i frame style={{ color: "grey", fontSize: "12px" }}>
-              Today at 5:42PM
-            </i>
-          </Comment.Author>
-          <Comment.Metadata></Comment.Metadata>
-          <Comment.Text>How artistic!</Comment.Text>
-        </Comment.Content>
-      </Comment>
+      {p.Comments.map((comment) => (
+        <div style={{ paddingBottom: "1%" }}>
+          <Comment>
+            <Comment.Content>
+              <Comment.Author as="a" style={{ color: "#436063" }}>
+                <b>{comment.User} </b>
+                <i frame style={{ color: "grey", fontSize: "12px" }}>
+                  {comment.Date}
+                </i>
+              </Comment.Author>
+              <Comment.Metadata></Comment.Metadata>
+              <Comment.Text>{comment.Content}</Comment.Text>
+            </Comment.Content>
+          </Comment>
+        </div>
+      ))}
+
       <form className={classes.root} noValidate autoComplete="off">
         <div>
           <TextField
