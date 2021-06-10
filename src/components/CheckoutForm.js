@@ -16,7 +16,7 @@ export default function CheckoutForm() {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ items: [{ id: "xl-tshirt" }] }),
+        body: JSON.stringify({ User: "John" }),
       })
       .then((res) => {
         return res.json();
