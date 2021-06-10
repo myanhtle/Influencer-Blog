@@ -38,6 +38,14 @@ function NavBar() {
           />
           <Hidden mdDown>Camille's Corner</Hidden>
         </Typography>
+        <div className={classes.navButtonsContainer}>
+          <Button onClick={() => history.push("/")}>Home</Button>
+          <Button onClick={() => history.push("/about")}>About</Button>
+          <Button onClick={() => history.push("/blog")}>Blog</Button>
+          <Button onClick={() => history.push("/forum")}>Forum</Button>
+          <Button onClick={() => history.push("/shop")}>Shop</Button>
+          <Button onClick={() => history.push("/color-examples")}>
+            Colors
 
         <Hidden mdDown>
           <div className={classes.navButtonsContainer}>

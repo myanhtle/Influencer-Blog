@@ -24,7 +24,7 @@ import HomePage from "./components/HomePage";
 import MerchPage from "./components/merch/merchPage";
 import About from "./components/About";
 // import MerchForm from "./components/merchForm";
-import Footer from "./components/Footer"
+import Footer from "./components/Footer";
 
 function App() {
   const { setUser } = useContext(UserContext);
@@ -44,7 +44,7 @@ function App() {
         <Route path="/login" component={LoginPage} />
         {/* <Route path="/color-examples" component={ColorExamples} /> */}
         <Route path="/account" component={AccountPage} />
-        <Route path="/merchForm" component={MerchPage} />
+        <Route path="/shop" component={MerchPage} />
         <Route component={ErrorPage} />
       </Switch>
       <Footer />
