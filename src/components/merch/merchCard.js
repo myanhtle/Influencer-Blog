@@ -7,7 +7,7 @@ import Button from "@material-ui/core/Button";
 import KeyboardArrowLeft from "@material-ui/icons/KeyboardArrowLeft";
 import KeyboardArrowRight from "@material-ui/icons/KeyboardArrowRight";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
-import "../../images/logo_white.png";
+import logo from "../../images/logo_black.png";
 import { useContext } from "react";
 import { UserContext } from "../../contexts/UserContext";
 
@@ -17,13 +17,12 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
   },
   header: {
-    display: "flex",
-    alignItems: "center",
+    paddingTop: "10%",
     height: 150,
     paddingLeft: theme.spacing(3),
   },
   img: {
-    height: "20%",
+    height: 600,
     display: "block",
     maxWidth: 400,
     overflow: "hidden",
@@ -44,7 +43,7 @@ export default function MerchCard({ item }) {
   if (item.image) {
     item.image.forEach((img) => imgReel.push({ imgPath: img }));
   } else {
-    imgReel.push({ imgPath: "logo_white.png" });
+    imgReel.push({ imgPath: logo });
   }
 
   console.log(imgReel);
@@ -92,11 +91,13 @@ export default function MerchCard({ item }) {
           <Typography>
             {item.name} <br /> {item.description} <br /> ${item.price}
           </Typography>
-          {added === false ? (
-            <Button onClick={() => handleClick()}>Add to Bag</Button>
-          ) : (
-            <Button disabled>Added to Bag</Button>
-          )}
+          <div className="addToCart-container">
+            {added === false ? (
+              <Button onClick={() => handleClick()}>Add to Bag</Button>
+            ) : (
+              <Button disabled>Added to Bag</Button>
+            )}
+          </div>
         </div>
       </Paper>
       <MobileStepper
