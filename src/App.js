@@ -42,7 +42,7 @@ function App() {
         <Route path="/" component={HomePage} exact />
         <Route path="/about" component={About} />
         <Route path="/blog" component={Landing} />
-        <Route path="/blog:id" component={Blog} />
+        <Route path="/blog/:id" component={Blog} />
         <Route path="/forum" component={Forum} />
         <Route path="/dataform" component={DataForm} />
         <Route path="/login" component={LoginPage} />
