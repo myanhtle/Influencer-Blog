@@ -22,6 +22,7 @@ import AccountPage from "./components/AccountPage";
 import Blog from "./components/blogs/Blog";
 import HomePage from "./components/HomePage";
 import MerchPage from "./components/merch/merchPage";
+import Cart from "./components/merch/cart";
 import About from "./components/About";
 // import MerchForm from "./components/merchForm";
 import Footer from "./components/Footer";
@@ -43,6 +44,7 @@ function App() {
         <Route path="/dataform" component={DataForm} />
         <Route path="/login" component={LoginPage} />
         {/* <Route path="/color-examples" component={ColorExamples} /> */}
+        <Route path="/cart" component={Cart} />
         <Route path="/account" component={AccountPage} />
         <Route path="/shop" component={MerchPage} />
         <Route component={ErrorPage} />
