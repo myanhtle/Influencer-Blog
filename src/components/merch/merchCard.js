@@ -19,7 +19,7 @@ const useStyles = makeStyles((theme) => ({
   header: {
     display: "flex",
     alignItems: "center",
-    height: 100,
+    height: 150,
     paddingLeft: theme.spacing(3),
   },
   img: {
@@ -35,6 +35,7 @@ export default function MerchCard({ item }) {
   const classes = useStyles();
   const theme = useTheme();
   const [activeStep, setActiveStep] = useState(0);
+  const [added, setAdded] = useState(false);
   const { username } = useContext(UserContext);
 
   /* Creates an array of image links */
@@ -66,6 +67,7 @@ export default function MerchCard({ item }) {
       price: item.price,
       user: username,
     };
+
     console.log(itemDetails);
     var data = JSON.stringify(itemDetails);
     fetch(`http://localhost:8080/cart/add`, {
@@ -78,6 +80,8 @@ export default function MerchCard({ item }) {
     })
       .then((res) => res.json())
       .then((result) => console.log(result));
+
+    setAdded(true);
   };
 
   return (
@@ -88,10 +92,11 @@ export default function MerchCard({ item }) {
           <Typography>
             {item.name} <br /> {item.description} <br /> ${item.price}
           </Typography>
-          <Button onClick={() => handleClick()}>
-            <ShoppingCartIcon />
-            Add to Cart
-          </Button>
+          {added === false ? (
+            <Button onClick={() => handleClick()}>Add to Bag</Button>
+          ) : (
+            <Button disabled>Added to Bag</Button>
+          )}
         </div>
       </Paper>
       <MobileStepper
@@ -112,16 +117,6 @@ export default function MerchCard({ item }) {
             ) : (
               <KeyboardArrowRight />
             )}
-          </Button>
-        }
-        backButton={
-          <Button size="small" onClick={handleBack} disabled={activeStep === 0}>
-            {theme.direction === "rtl" ? (
-              <KeyboardArrowRight />
-            ) : (
-              <KeyboardArrowLeft />
-            )}
-            Back
           </Button>
         }
         backButton={
