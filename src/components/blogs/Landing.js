@@ -7,6 +7,7 @@ import {
   ListItem,
   ListItemText,
 } from "@material-ui/core";
+import SearchIcon from "@material-ui/icons/Search";
 import CreateNewButton from "./CreateButton";
 
 //recent posts
@@ -40,14 +41,12 @@ export default function Landing() {
       <p>or</p>
       <TextField label="Search" />
       <Button onClick={fetchBlogs} color="primary" variant="contained">
-        Search
+        <SearchIcon /> Search
       </Button>
       <p>
         (search bar does not work, clicking Search button with return all blog
         results.)
       </p>
-      <br></br>
-      <br></br>
       {blog && (
         <div>
           <h3>Sort results by:</h3>
@@ -64,6 +63,7 @@ export default function Landing() {
           </div>
         </div>
       )}
+      <br></br>
     </div>
   );
 }
