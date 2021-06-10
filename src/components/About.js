@@ -3,7 +3,12 @@ import headerImage from "../images/forest.jpg";
 import camilleImage from "../images/camille1.jpg";
 import homePageStyles from "../styles/homePageStyles";
 import headerImageStyles from "../styles/headerImageStyles";
-
+import { useHistory } from "react-router-dom";
+import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
+import virgoImage from "../images/Virgo.png";
+import musicImage from "../images/music.png";
+import natureImage from "../images/nature.png";
+import rooftopImage from "../images/rooftop.png";
 function About() {
   const classes = homePageStyles();
   const header = headerImageStyles();
@@ -21,25 +26,26 @@ function About() {
       </div>
 
       <Grid container className={classes.bottomContainer}>
-        <Grid item xs={12} lg={9} className={classes.content}>
+        <Grid item xs={6} className={classes.content}>
           <Card id="featured-blog-post" className={classes.content}>
-            <Typography variant="h4">About Camille's Corner</Typography>
-            <Typography>
-              Camille’s Corner started back in the summer of 2019 when Camille
-              first moved to NYC for an internship. Sitting behind a screen all
-              day in the middle of a giant concrete jungle made her long for the
-              proper outdoors. Hopelessly stuck between being drawn to the
-              culture of cities and the allure of Mother Nature, Camille decided
-              to bridge the two worlds through adventure and discovery, adopting
-              a digital nomad life that took her across the country. The name of
-              the blog comes from the corner in her room where Camille hung up
-              tapestries that depicted beautiful landscapes juxtaposed against
-              her Soho apartment. The goal of Camille’s Corner is to show others
-              that in every city, nature offers an escape, and no one has to
-              choose only one world.
-            </Typography>
-            <br />
-            <Typography variant="h4">About Camille Cooper</Typography>
+            <img
+              width="100px"
+              height="100px"
+              src={musicImage}
+              alt="The Camille Connection"
+            />{" "}
+            &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+            &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+            &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+            &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+            <img
+              width="100px"
+              height="100px"
+              margin="200px"
+              src={natureImage}
+              alt="The Camille Connection"
+            />
+            <Typography variant="h4">About Camille</Typography>
             <Typography>
               Camille is a recent college graduate from UVA currently traveling
               from city to city exploring what urban life offers while taking
@@ -59,34 +65,41 @@ function About() {
               go to every national park. Her hobbies include hiking, climbing,
               yoga, snowboarding, and anything with music.
             </Typography>
-            <br />
-            <Typography variant="h4">Fun Facts</Typography>
-            <Typography>
-              <ul>
-                <li>Camille is a Virgo Libra</li>
-                <li>
-                  Her favorite parts of nature are trees, mountains, and rivers
-                </li>
-                <li>Her favorite parts of cities are music and rooftops</li>
-              </ul>
-            </Typography>
           </Card>
         </Grid>
-        <Grid item xs={12} lg={3} className={classes.content}>
+        <Grid item xs={5} className={classes.content}>
           <Card className={classes.content}>
-            Image to go here
-            {/* <CardActionArea>
-            <CardMedia image={"../images/camille1.jpg"} style={{height: "500px"}}/>
-
-            </CardActionArea> */}
-            
-            {/* <div className={classes.headerImgContainer}>
-              <img
-                // className={classes.headerImg}
-                src={camilleImage}
-                alt="The Camille Connection"
-              />
-            </div> */}
+            <img
+              src={virgoImage}
+              height="90px"
+              width="90px"
+              alt="The Camille Connection"
+            />
+            &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+            &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+            &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp;
+            &nbsp;&nbsp;
+            <img
+              src={rooftopImage}
+              height="90px"
+              width="90px"
+              alt="The Camille Connection"
+            />
+            <Typography variant="h4">About Camille's Corner</Typography>
+            <Typography>
+              Camille’s Corner started back in the summer of 2019 when Camille
+              first moved to NYC for an internship. Sitting behind a screen all
+              day in the middle of a giant concrete jungle made her long for the
+              proper outdoors. Hopelessly stuck between being drawn to the
+              culture of cities and the allure of Mother Nature, Camille decided
+              to bridge the two worlds through adventure and discovery, adopting
+              a digital nomad life that took her across the country. The name of
+              the blog comes from the corner in her room where Camille hung up
+              tapestries that depicted beautiful landscapes juxtaposed against
+              her Soho apartment. The goal of Camille’s Corner is to show others
+              that in every city, nature offers an escape, and no one has to
+              choose only one world.
+            </Typography>
           </Card>
         </Grid>
       </Grid>

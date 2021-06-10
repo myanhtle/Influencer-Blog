@@ -1,5 +1,6 @@
 import React, { useRef, useEffect, useState } from "react";
 import MerchCard from "./merchCard";
+import AddMerch from "./addMerch";
 import "./merch.css";
 
 function MerchPage() {
@@ -22,6 +23,7 @@ function MerchPage() {
           </div>
         ))}
       </div>
+      <AddMerch />
     </>
   );
 }
