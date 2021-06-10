@@ -1,17 +1,24 @@
-import { Typography, Button, Card, Grid } from "@material-ui/core";
-import headerImage from "../images/homepage_image.png";
+import { Typography, Card, Grid, CardMedia, CardActionArea } from "@material-ui/core";
+import headerImage from "../images/forest.jpg";
+import camilleImage from "../images/camille1.jpg";
 import homePageStyles from "../styles/homePageStyles";
-import { useHistory } from "react-router-dom";
-import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
+import headerImageStyles from "../styles/headerImageStyles";
 
 function About() {
   const classes = homePageStyles();
-  const history = useHistory();
+  const header = headerImageStyles();
+
   return (
     <div className={classes.homepage}>
-      <Typography variant="h1" align="center">
-        Its All About Camille!
-      </Typography>
+
+      <div className={header.headerImgContainer}>
+        <img className={header.headerImg} src={headerImage} alt="Forest" />
+      </div>
+      <div className={header.headerTextContainer}>
+        <Typography variant="h1" className={header.headerText}>
+          <div>Its All About Camille!</div>
+        </Typography>
+      </div>
 
       <Grid container className={classes.bottomContainer}>
         <Grid item xs={12} lg={9} className={classes.content}>
@@ -67,13 +74,19 @@ function About() {
         </Grid>
         <Grid item xs={12} lg={3} className={classes.content}>
           <Card className={classes.content}>
-            <div className={classes.headerImgContainer}>
+            Image to go here
+            {/* <CardActionArea>
+            <CardMedia image={"../images/camille1.jpg"} style={{height: "500px"}}/>
+
+            </CardActionArea> */}
+            
+            {/* <div className={classes.headerImgContainer}>
               <img
-                className={classes.headerImg}
-                src={headerImage}
+                // className={classes.headerImg}
+                src={camilleImage}
                 alt="The Camille Connection"
               />
-            </div>
+            </div> */}
           </Card>
         </Grid>
       </Grid>
