@@ -99,6 +99,7 @@ export default function CreateButton() {
             <br></br>
             <TextField
               required
+              multiline
               label="Body"
               onChange={(e) => {
                 handleChange(e, "body");

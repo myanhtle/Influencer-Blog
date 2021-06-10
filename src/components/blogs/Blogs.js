@@ -10,6 +10,7 @@ import {
   Backdrop,
   makeStyles,
 } from "@material-ui/core";
+import { useHistory } from "react-router-dom";
 import CreateIcon from "@material-ui/icons/Create";
 import DeleteIcon from "@material-ui/icons/Delete";
 import CheckIcon from "@material-ui/icons/Check";
@@ -32,6 +33,7 @@ const useStyles = makeStyles((theme) => ({
 /* Modal */
 
 export default function Blogs({ match }) {
+  const history = useHistory();
   const [blog, setBlog] = useState(null);
   const [clicked, setClicked] = useState(false);
   const [editID, setEditID] = useState(null);
@@ -188,6 +190,8 @@ export default function Blogs({ match }) {
                   onClick={() => {
                     handleClickTwo(blog.id);
                     setClicked(true);
+                    alert("Post deleted successfully!");
+                    history.push("/blog/");
                   }}
                   variant="contained"
                   color="secondary"
