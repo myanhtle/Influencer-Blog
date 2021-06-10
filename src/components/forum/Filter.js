@@ -35,7 +35,7 @@ export default function Filter({
 
   /**
    * Sorts posts by most recent
-   * @param {*} e
+   * @param {*} e event
    */
   const handleNewSort = (e) => {
     e.preventDefault();
@@ -47,7 +47,7 @@ export default function Filter({
 
   /**
    * sorts posts my most popular
-   * @param {*} e
+   * @param {*} e event
    */
   const handleHotSort = (e) => {
     e.preventDefault();
