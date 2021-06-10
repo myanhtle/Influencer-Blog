@@ -21,6 +21,9 @@ const useLoginStyles = makeStyles({
       ", " +
       theme.palette.secondary.main +
       " )",
+    [theme.breakpoints.down("xs")]: {
+      order: 2,
+    },
   },
   loginActions: {
     margin: "auto",
@@ -31,6 +34,9 @@ const useLoginStyles = makeStyles({
     flexDirection: "column",
     justifyContent: "center",
     height: "100%",
+    [theme.breakpoints.down("xs")]: {
+      order: 1,
+    },
   },
   loginForm: {
     display: "flex",

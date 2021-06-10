@@ -51,7 +51,7 @@ function LoginPage() {
   return (
     <Card className={classes.loginCard}>
       <Grid container className={classes.loginGrid}>
-        <Grid item xs={12} md={7} className={classes.loginDisplay}>
+        <Grid item xs={12} sm={6} lg={7} className={classes.loginDisplay}>
           <Typography variant="h5">Join Camille's Corner!</Typography>
           <img
             src={logo}
@@ -62,7 +62,7 @@ function LoginPage() {
             Create an account to post, comment, and shop!
           </Typography>
         </Grid>
-        <Grid item xs={12} md={5}>
+        <Grid item xs={12} sm={6} lg={5}>
           <CardContent className={classes.loginActions}>
             <Typography variant="h6">
               {signUpActive ? "Sign Up" : "Log In"}
