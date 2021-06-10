@@ -48,6 +48,7 @@ const musicPageStyles = makeStyles({
     justifyContent: "center",
     marginTop: "2%",
     fontSize: "3vh",
+    color: "#4b6b6e",
   },
 });
 

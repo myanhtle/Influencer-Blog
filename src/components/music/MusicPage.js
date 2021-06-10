@@ -6,7 +6,7 @@ function HomePage() {
   const classes = musicPageStyles();
 
   return (
-    <div className={classes.homepage}>
+    <div>
       <div className={classes.headerImgContainer}>
         <img className={classes.headerImg} src={headerImage} alt="Music" />
       </div>
