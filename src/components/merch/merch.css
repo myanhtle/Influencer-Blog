@@ -7,7 +7,7 @@
   padding: 10px;
 }
 
-.addToCart-container {
+.merchCard-functionContainer {
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
 }

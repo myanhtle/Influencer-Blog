@@ -28,7 +28,7 @@ export default function AddMerch() {
   const [description, setDescription] = useState();
   const [price, setPrice] = useState();
   const [stock, setStock] = useState();
-  const [images, setImages] = useState([]);
+  const image = [];
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -43,7 +43,7 @@ export default function AddMerch() {
       name,
       description,
       price,
-      images,
+      image,
       stock,
     };
 
@@ -61,21 +61,13 @@ export default function AddMerch() {
     setOpen(false);
   };
 
+  const imageTextBoxes = ["textbox"];
+
   const handleAddImage = () => {
-    return (
-      <TextField
-        autoFocus
-        margin="dense"
-        id="image"
-        label="Image Address"
-        fullWidth
-        onChange={(event) => image.push(event.target.value)}
-      />
-    );
+    imageTextBoxes.push("textbox");
   };
 
-  const image = [];
-  setImages(image);
+  console.log(imageTextBoxes);
 
   return (
     <div>
@@ -140,17 +132,20 @@ export default function AddMerch() {
           />
           <br></br>
           <br></br>
-          {/* <TextField
-            autoFocus
-            margin="dense"
-            id="image"
-            label="Image Address"
-            fullWidth
-            onChange={(event) => image.push(event.target.value)}
-          />
+          {imageTextBoxes.map((textbox) => (
+            <TextField
+              autoFocus
+              margin="dense"
+              id="image"
+              label="Image Address"
+              fullWidth
+              onChange={(event) => image.push(event.target.value)}
+            />
+          ))}
+
           <Button onClick={() => handleAddImage()}>
             <AddIcon />
-          </Button> */}
+          </Button>
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose} color="secondary">
