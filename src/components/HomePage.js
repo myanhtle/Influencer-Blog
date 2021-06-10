@@ -88,18 +88,18 @@ function HomePage() {
         <Grid item xs={3} className={classes.content}>
           <Card className={classes.content}>
             <Typography variant="h4">About Camille</Typography>
+            <br />
             <Typography>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec
-              risus quam, bibendum at arcu vitae, mattis cursus velit.
-              Suspendisse ullamcorper nunc at eros luctus iaculis. Donec id
-              neque commodo, posuere lacus a, accumsan massa. Proin in faucibus
-              lacus, in pellentesque libero. Ut venenatis nunc a mauris
-              hendrerit, vel efficitur nisl mattis. In ullamcorper, orci a
-              finibus bibendum, mauris lacus feugiat neque, et congue nunc odio
-              a nibh. Aliquam ut sagittis eros. Fusce finibus augue augue, id
-              mollis justo porta in. Nam nec mauris pellentesque nulla
-              scelerisque elementum.
+            Camille is a recent college graduate from UVA
+              currently traveling from city to city exploring what urban life
+              offers while taking advantage of any opportunity to get back to
+              the great outdoors. 
+              <br /> <br />
+              The goal of Camille’s Corner is to show others
+              that in every city, nature offers an escape, and no one has to
+              choose only one world.
             </Typography>
+            <br />
             <Button
               variant="contained"
               color="primary"

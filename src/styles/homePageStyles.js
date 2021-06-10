@@ -41,6 +41,13 @@ const homePageStyles = makeStyles({
   },
   content: {
     padding: "1rem",
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    "& > *" : {
+      textAlign: "left",
+      width: "100%"
+    }
   },
   expandIcon: {
     fontSize: "10vw",

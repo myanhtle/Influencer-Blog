@@ -16,47 +16,52 @@ function About() {
       <Grid container className={classes.bottomContainer}>
         <Grid item xs={9} className={classes.content}>
           <Card id="featured-blog-post" className={classes.content}>
-            <Typography variant="h4">About</Typography>
+            <Typography variant="h4">About Camille's Corner</Typography>
             <Typography>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec
-              risus quam, bibendum at arcu vitae, mattis cursus velit.
-              Suspendisse ullamcorper nunc at eros luctus iaculis. Donec id
-              neque commodo, posuere lacus a, accumsan massa. Proin in faucibus
-              lacus, in pellentesque libero. Ut venenatis nunc a mauris
-              hendrerit, vel efficitur nisl mattis. In ullamcorper, orci a
-              finibus bibendum, mauris lacus feugiat neque, et congue nunc odio
-              a nibh. Aliquam ut sagittis eros. Fusce finibus augue augue, id
-              mollis justo porta in. Nam nec mauris pellentesque nulla
-              scelerisque elementum. Vestibulum id massa varius, consequat
-              turpis et, eleifend urna. Phasellus feugiat odio tortor. Ut ex
-              magna, consectetur in lectus eget, pellentesque molestie erat.
-              Vivamus vitae tempus nunc. Sed sit amet nibh ut felis hendrerit
-              sagittis. Pellentesque quis vulputate purus. Suspendisse lacinia
-              nibh sit amet magna volutpat mattis. Quisque eu nisi libero. Donec
-              semper justo nulla, at maximus metus pellentesque sed. Praesent
-              tempus mollis lobortis. Curabitur volutpat sem suscipit urna
-              dignissim, tristique facilisis est hendrerit. Vivamus ac blandit
-              massa. Aenean ullamcorper, sem in porta viverra, risus mi mollis
-              leo, non rhoncus tortor elit ac lacus. Aliquam cursus dignissim
-              magna quis tincidunt. In imperdiet rhoncus ex, vel maximus sapien.
-              Nullam sodales diam et luctus gravida. Proin varius vulputate
-              purus vel tincidunt. In tincidunt quam vitae tortor consequat
-              volutpat. Donec facilisis at dui a placerat. Morbi convallis nunc
-              quis iaculis ullamcorper. Etiam lacus nisi, lobortis eget pharetra
-              quis, vehicula et ante. Nunc vel iaculis sem. Donec ultricies
-              neque sapien, non consequat tellus efficitur ac. Integer mollis
-              viverra mauris, nec porttitor felis dignissim nec. Quisque vel
-              egestas felis. Aliquam erat volutpat. Nam ac porta augue. Quisque
-              vitae semper magna. Etiam egestas rutrum commodo. Morbi lobortis
-              placerat sapien id fringilla. Class aptent taciti sociosqu ad
-              litora torquent per conubia nostra, per inceptos himenaeos. Donec
-              ac ante eget magna mattis luctus. Mauris eros nisl, blandit at
-              sodales ac, mattis ut nibh. Nullam justo neque, accumsan quis
-              facilisis non, euismod at ligula. Nulla facilisi. Maecenas quis
-              lobortis orci, sed imperdiet est. Etiam mollis urna et lorem
-              eleifend elementum. Integer velit purus, venenatis quis sagittis
-              eget, blandit imperdiet nulla. Aliquam et pharetra metus. Praesent
-              purus ipsum, rhoncus nec sem non, iaculis blandit magna.
+              Camille’s Corner started back in the summer of 2019 when Camille
+              first moved to NYC for an internship. Sitting behind a screen all
+              day in the middle of a giant concrete jungle made her long for the
+              proper outdoors. Hopelessly stuck between being drawn to the
+              culture of cities and the allure of Mother Nature, Camille decided
+              to bridge the two worlds through adventure and discovery, adopting
+              a digital nomad life that took her across the country. The name of
+              the blog comes from the corner in her room where Camille hung up
+              tapestries that depicted beautiful landscapes juxtaposed against
+              her Soho apartment. The goal of Camille’s Corner is to show others
+              that in every city, nature offers an escape, and no one has to
+              choose only one world.
+            </Typography>
+            <br />
+            <Typography variant="h4">About Camille Cooper</Typography>
+            <Typography>
+              Camille is a recent college graduate from UVA
+              currently traveling from city to city exploring what urban life
+              offers while taking advantage of any opportunity to get back to
+              the great outdoors. Educated as a chemical engineer, Camille threw
+              that into the wind to pursue software development and adventure.
+              Exclusively working for new start-ups as a freelancer, she has
+              been able to have extended stays in NYC, Denver, SF, Seattle, and
+              Barcelona. She hopes to go next to Austin or London, but, in
+              truth, with her, you never know where she’ll be next. Known to be
+              spontaneous and indecisive, Camille chose this life because it
+              allows her to explore every option that life provides. She loves
+              being a digital nomad because each new city brings new stories and
+              opportunities. She never realized that documenting this way of
+              life would garner such a large following for which she is grateful
+              every day. Her goal is to promote adventures and positivity. One
+              day she hopes to go to every national park. Her hobbies include
+              hiking, climbing, yoga, snowboarding, and anything with music.
+            </Typography>
+            <br />
+            <Typography variant="h4">Fun Facts</Typography>
+            <Typography>
+              <ul>
+                <li>Camille is a Virgo Libra</li>
+                <li>
+                  Her favorite parts of nature are trees, mountains, and rivers
+                </li>
+                <li>Her favorite parts of cities are music and rooftops</li>
+              </ul>
             </Typography>
           </Card>
         </Grid>
