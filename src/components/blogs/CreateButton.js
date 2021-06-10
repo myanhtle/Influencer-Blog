@@ -23,11 +23,38 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function CreateButton({
-  handleChange,
-  handleClick,
-  setClicked,
-}) {
+export default function CreateButton() {
+  const [clicked, setClicked] = useState(false);
+  const [title, setTitle] = useState(null);
+  const [body, setBody] = useState(null);
+  const handleChange = (e, type) => {
+    if (type === "title") {
+      setTitle(e.target.value);
+    } else {
+      setBody(e.target.value);
+    }
+  };
+  function handleClick() {
+    const current = new Date();
+    const date = `${current.getFullYear()}-${
+      current.getMonth() + 1
+    }-${current.getDate()}`;
+    const postData = {
+      title: title,
+      date,
+      likes: 0,
+      messageContent: body,
+    };
+    fetch("http://localhost:8080/blog/add", {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(postData),
+    });
+    setClicked(true);
+  }
   const classes = useStyles();
   const [open, setOpen] = useState(false);
   const handleOpen = () => {

@@ -1,16 +1,23 @@
-import React, { useState, useEffect } from "react";
-import Blog from "./Blog";
-import { Button, TextField } from "@material-ui/core";
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
+import {
+  Button,
+  TextField,
+  List,
+  ListItem,
+  ListItemText,
+} from "@material-ui/core";
+import CreateNewButton from "./CreateButton";
 
 //recent posts
 //filters
 //search bar
-//links to different blogs
+//links to different blogs (done)
 
 export default function Landing() {
   const [blog, setBlog] = useState([]);
-  const [clicked, setClicked] = useState(false);
-  useEffect(() => {
+
+  const fetchBlogs = () => {
     fetch(`http://localhost:8080/blog/read`)
       .then((res) => res.json())
       .then((data) => {
@@ -24,20 +31,27 @@ export default function Landing() {
         console.log(data);
         setBlog(data);
       });
-    setClicked(false);
-  }, [clicked]);
+  };
 
   return (
     <div style={{ textAlign: "center" }}>
       <h1>Welcome to my Blog</h1>
       <TextField label="Search" />
       <h3>Sort by:</h3>
-      <Button color="primary" variant="contained">
+      <Button onClick={fetchBlogs} color="primary" variant="contained">
         Search
       </Button>
-      {blog.map((b) => (
-        <div></div>
-      ))}
+      <CreateNewButton />
+      <div>
+        <List style={{ marginLeft: "20%", marginRight: "20%" }}>
+          {blog.map((b) => (
+            <ListItem style={{ outline: "2px solid black" }}>
+              <ListItemText primary={b.title} secondary={b.date} />
+              <Link to={`/blog/${b.id}`}>View</Link>
+            </ListItem>
+          ))}
+        </List>
+      </div>
     </div>
   );
 }

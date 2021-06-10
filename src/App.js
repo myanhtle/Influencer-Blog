@@ -19,12 +19,13 @@ import DataForm from "./components/dataForm";
 import LoginPage from "./components/LoginPage";
 import { UserContext } from "./contexts/UserContext";
 import AccountPage from "./components/AccountPage";
-import Blog from "./components/blogs/Landing";
+import Blog from "./components/blogs/Blogs";
+import Landing from "./components/blogs/Landing";
 import HomePage from "./components/HomePage";
 import MerchPage from "./components/merch/merchPage";
 import About from "./components/About";
 // import MerchForm from "./components/merchForm";
-import Footer from "./components/Footer"
+import Footer from "./components/Footer";
 
 function App() {
   const { setUser } = useContext(UserContext);
@@ -38,7 +39,8 @@ function App() {
       <Switch>
         <Route path="/" component={HomePage} exact />
         <Route path="/about" component={About} />
-        <Route path="/blog" component={Blog} />
+        <Route exact path="/blog" component={Landing} />
+        <Route exact path="/blog/:id" component={Blog} />
         <Route path="/forum" component={Forum} />
         <Route path="/dataform" component={DataForm} />
         <Route path="/login" component={LoginPage} />
