@@ -162,6 +162,10 @@ router.post("/update/:query", async (req, res) => {
 /**
  * [sumCalc description]
  * returns the current sum of the provider user, used by Stripe
+ * @param
+ * req.body: the body json passed in
+ * @param
+ * body.User: the user whose sum you want
  */
 const sumCalc = async (req, res) => {
   const cart = [];
