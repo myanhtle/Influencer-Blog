@@ -8,6 +8,7 @@ import CircularProgress from "@material-ui/core/CircularProgress";
 
 function HomePage() {
   const classes = musicPageStyles();
+  const header = headerImageStyles();
   const [showPlaylist, setShowPlaylist] = useState(true);
   const [loading, setLoading] = useState(true);
 
@@ -29,14 +30,14 @@ function HomePage() {
     setLoading(true);
     setShowPlaylist(false);
   };
-
+ 
   return (
     <div>
-      <div className={classes.headerImgContainer}>
-        <img className={classes.headerImg} src={headerImage} alt="Music" />
+      <div className={header.headerImgContainer}>
+        <img className={header.headerImg} src={headerImage} alt="Music" />
       </div>
-      <div className={classes.welcomeTextContainer}>
-        <Typography variant="h1" className={classes.welcomeText}>
+      <div className={header.headerTextContainer}>
+        <Typography variant="h1" className={header.headerText}>
           <div>Jam with Cam!</div>
         </Typography>
       </div>
