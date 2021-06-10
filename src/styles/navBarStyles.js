@@ -34,6 +34,9 @@ const navBarStyles = makeStyles({
     padding: "0 5px",
     verticalAlign: "top",
   },
+  cart: {
+    color: "white"
+  }
 });
 
 export default navBarStyles;
