@@ -65,6 +65,7 @@ function HomePage() {
                 <Typography variant="h4">
                   {blogPosts[blogPosts.length - 1].title}
                 </Typography>
+                <Typography variant="h6">{blogPosts[blogPosts.length - 1].date}</Typography>
                 <br />
                 <Typography>
                   {blogPosts[blogPosts.length - 1].messageContent}
@@ -97,7 +98,7 @@ function HomePage() {
             </Button>
           </Card>
         </Grid>
-        
+
       </Grid>
     </div>
   );
