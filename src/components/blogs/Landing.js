@@ -15,7 +15,7 @@ import CreateNewButton from "./CreateButton";
 //links to different blogs (done)
 
 export default function Landing() {
-  const [blog, setBlog] = useState([]);
+  const [blog, setBlog] = useState(null);
 
   const fetchBlogs = () => {
     fetch(`http://localhost:8080/blog/read`)
@@ -42,18 +42,28 @@ export default function Landing() {
       <Button onClick={fetchBlogs} color="primary" variant="contained">
         Search
       </Button>
-      <h3>Sort by:</h3>
-      <p>(insert sorting functions here...)</p>
-      <div>
-        <List style={{ marginLeft: "20%", marginRight: "20%" }}>
-          {blog.map((b) => (
-            <ListItem style={{ outline: "2px solid black" }}>
-              <ListItemText primary={b.title} secondary={b.date} />
-              <Link to={`/blog/${b.id}`}>View</Link>
-            </ListItem>
-          ))}
-        </List>
-      </div>
+      <p>
+        (search bar does not work, clicking Search button with return all blog
+        results.)
+      </p>
+      <br></br>
+      <br></br>
+      {blog && (
+        <div>
+          <h3>Sort results by:</h3>
+          <p>(insert sorting functions here...)</p>
+          <div>
+            <List style={{ marginLeft: "20%", marginRight: "20%" }}>
+              {blog.map((b) => (
+                <ListItem style={{ outline: "2px solid black" }}>
+                  <ListItemText primary={b.title} secondary={b.date} />
+                  <Link to={`/blog/${b.id}`}>View</Link>
+                </ListItem>
+              ))}
+            </List>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
