@@ -89,27 +89,6 @@ router.post("/add", async (req, res) => {
 });
 
 /**
- * [sumCalc description]
- * returns the current sum of the user, for use by Stripe Needs to be fixed lol
- */
-const sumCalc = async (req, res) => {
-  const cart = [];
-  var sum = 0;
-  var name = req.params.query;
-  const snapshot = await cartRef.get();
-  snapshot.forEach((doc) => {
-    let docU = { ...doc.data(), id: doc.id };
-    cart.push(docU);
-  });
-  for (var i = 0; i < cart.length; i++) {
-    if (cart[i].User === name) {
-      sum = parseFloat(sum) + parseFloat(cart[i].Price);
-    }
-  }
-  return sum;
-};
-
-/**
  *[router.delete(/delete/:query)) description]
  * @params
  * query: name of the item you want deleted
@@ -180,19 +159,44 @@ router.post("/update/:query", async (req, res) => {
   }
   res.send("Update");
 });
+/**
+ * [sumCalc description]
+ * returns the current sum of the provider user, used by Stripe
+ * @param
+ * req.body: the body json passed in
+ * @param
+ * body.User: the user whose sum you want
+ */
+const sumCalc = async (req, res) => {
+  const cart = [];
+  var sum = 0;
+  var user = req.body.User;
+  const snapshot = await cartRef.get();
+  snapshot.forEach((doc) => {
+    let docU = { ...doc.data(), id: doc.id };
+    cart.push(docU);
+  });
+  for (var i = 0; i < cart.length; i++) {
+    if (cart[i].User === user) {
+      sum = parseFloat(sum) + parseFloat(cart[i].Price);
+    }
+  }
+  return sum;
+};
 
 /**
  *[router.post(/create-payment-intent)) description]
  *Stripe route to handle checkout procedure
  * @params
- * body: the items you want purchased
+ * body.User: the user who is purchasing the card
+ * Caller: CheckoutForm
  */
 router.post("/create-payment-intent", async (req, res) => {
   /**the items you pass into this will be the ones it thinks you are purchasing */
-  const { items } = req.body;
+  const user = req.body;
   /**create a new payment intent with the calculated sum (should be updated to take in a user) */
   const paymentIntent = await stripe.paymentIntents.create({
-    amount: sumCalc(),
+    amount: sumCalc(user),
     currency: "usd",
   });
   res.send({

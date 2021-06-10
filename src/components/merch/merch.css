@@ -6,3 +6,8 @@
 .merchCard {
   padding: 10px;
 }
+
+.merchCard-functionContainer {
+  display: flex;
+  justify-content: space-between;
+}

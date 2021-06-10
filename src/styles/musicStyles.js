@@ -1,10 +1,10 @@
 import { makeStyles } from "@material-ui/core/styles";
 
-const homePageStyles = makeStyles({
+const musicPageStyles = makeStyles({
   headerImgContainer: {
     display: "flex",
     flexDirection: "column",
-    height: "100vh",
+    height: "50vh",
     width: "100vw",
     maxWidth: "calc(4320/2163*100vw)",
     maxHeight: "calc(2163/4320*92vw)",
@@ -14,12 +14,13 @@ const homePageStyles = makeStyles({
     maxHeight: "100%",
     maxWidth: "100%",
     objectFit: "cover",
+    filter: "brightness(50%)",
   },
   welcomeTextContainer: {
     position: "absolute",
-    top: "8vh",
-    backgroundColor: "rgba(0, 0, 0, 0.5)",
-    height: "100vh",
+    top: "9.5%",
+    backgroundColor: "transparent",
+    height: "51vh",
     width: "100vw",
     maxWidth: "calc(4320/2163*100vw)",
     maxHeight: "calc(2163/4320*92vw)",
@@ -31,7 +32,7 @@ const homePageStyles = makeStyles({
   welcomeText: {
     color: "white",
     opacity: 1,
-    fontSize: "10vw",
+    fontSize: "8vw",
   },
   bottomContainer: {
     height: "auto",
@@ -42,13 +43,13 @@ const homePageStyles = makeStyles({
   content: {
     padding: "1rem",
   },
-  expandIcon: {
-    fontSize: "10vw",
-    color: "white",
-  },
-  bigLogo: {
-    maxHeight: "calc(2163/4320*92vw/4)"
+  subHeading: {
+    display: "flex",
+    justifyContent: "center",
+    marginTop: "2%",
+    fontSize: "3vh",
+    color: "#4b6b6e",
   },
 });
 
-export default homePageStyles;
+export default musicPageStyles;

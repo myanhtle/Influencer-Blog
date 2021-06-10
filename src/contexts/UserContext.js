@@ -1,15 +1,16 @@
 import { createContext, useState, useEffect } from "react";
 
 const UserContext = createContext();
+const admins = ["CamilleCooper"]
 
 function UserContextProvider({ children }) {
   const [user, setUser] = useState();
-  const [isAdmin, setIsAdmin] = useState(false);
   const isLoggedIn = user ? true : false;
   const uid = user ? user.uid : null;
   const username = user ? user.displayName : null;
   const email = user ? user.email : null;
   const fullName = user ? user.displayName : null;
+  const isAdmin = admins.includes(username);
 
   // useEffect(() => {
   //   if (!user) return null;

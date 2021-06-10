@@ -1,9 +1,13 @@
 import { makeStyles } from "@material-ui/core/styles";
+import theme from "../configs/theme";
 
 const navBarStyles = makeStyles({
   navbar: {
     display: "grid",
     gridTemplateColumns: "20rem 1fr 20rem",
+    [theme.breakpoints.down("md")]: {
+      gridTemplateColumns: "10rem 1fr 10rem",
+    },
     maxHeight: "8vh !important",
     minHeight: "8vh !important",
   },
@@ -18,6 +22,21 @@ const navBarStyles = makeStyles({
     },
   },
   loginButtonContainer: { textAlign: "right" },
+  navDropdown: {
+    "& .MuiPaper-root": { width: "8rem" },
+    "& li": { margin: "auto" },
+  },
+
+  cartCount: {
+    fontSize: "12px",
+    background: "#ff0000",
+    color: "#fff",
+    padding: "0 5px",
+    verticalAlign: "top",
+  },
+  cart: {
+    color: "white"
+  }
 });
 
 export default navBarStyles;

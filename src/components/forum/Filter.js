@@ -7,6 +7,8 @@ import ButtonGroup from "@material-ui/core/ButtonGroup";
 import Checkbox from "@material-ui/core/Checkbox";
 import FormGroup from "@material-ui/core/FormGroup";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
+import CloudIcon from "@material-ui/icons/Cloud";
+import CloudOutlinedIcon from "@material-ui/icons/CloudOutlined";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -31,6 +33,10 @@ export default function Filter({
 }) {
   const classes = useStyles();
 
+  /**
+   * Sorts posts by most recent
+   * @param {*} e event
+   */
   const handleNewSort = (e) => {
     e.preventDefault();
     setSortBy({ new: true, hot: false });
@@ -39,6 +45,10 @@ export default function Filter({
     });
   };
 
+  /**
+   * sorts posts my most popular
+   * @param {*} e event
+   */
   const handleHotSort = (e) => {
     e.preventDefault();
     setSortBy({ new: false, hot: true });
@@ -89,6 +99,8 @@ export default function Filter({
                     id="outdoors"
                     onChange={handleCheck}
                     color="primary"
+                    icon={<CloudOutlinedIcon />}
+                    checkedIcon={<CloudIcon />}
                   />
                 }
                 label="Outdoors"
@@ -96,7 +108,13 @@ export default function Filter({
               />
               <FormControlLabel
                 control={
-                  <Checkbox id="food" onChange={handleCheck} color="primary" />
+                  <Checkbox
+                    id="food"
+                    onChange={handleCheck}
+                    color="primary"
+                    icon={<CloudOutlinedIcon />}
+                    checkedIcon={<CloudIcon />}
+                  />
                 }
                 label="Food"
                 style={{ paddingTop: "2%", paddingRight: "10%" }}
@@ -107,6 +125,8 @@ export default function Filter({
                     id="travel"
                     onChange={handleCheck}
                     color="primary"
+                    icon={<CloudOutlinedIcon />}
+                    checkedIcon={<CloudIcon />}
                   />
                 }
                 label="Travel"
@@ -118,6 +138,8 @@ export default function Filter({
                     id="lifestyle"
                     onChange={handleCheck}
                     color="primary"
+                    icon={<CloudOutlinedIcon />}
+                    checkedIcon={<CloudIcon />}
                   />
                 }
                 label="Lifestyle"
