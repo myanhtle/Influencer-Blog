@@ -9,36 +9,36 @@ const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
     padding: "10px",
-    margin: "20px",
     width: "100%",
   },
   details: {
     display: "flex",
     flexDirection: "column",
+    width: "100%",
+    paddingLeft: "1rem"
   },
   content: {
-    flex: "1 0 auto",
-    paddingTop: "90px",
-    paddingLeft: "50px",
+    display: "flex",
+    flexDirection: "column",
+    height: "100%",
+    justifyContent: "space-between"
   },
   controls: {
     display: "flex",
     alignItems: "center",
-    paddingLeft: theme.spacing(1),
-    paddingBottom: theme.spacing(1),
   },
-
   image: {
     height: "250px",
   },
-
-  flexContainer: {
-    display: "flex",
-    justifyContent: "space-between",
-  },
   removeButton: {
-    marginLeft: "400px",
-  },
+    display: "flex",
+    justifyContent: 'flex-end',
+    [theme.breakpoints.down("sm")]: {
+      justifyContent: 'center',
+      marginTop: ".5rem"
+    },
+    width: "100%"
+  }
 }));
 
 export default function CartCard({ item }) {
@@ -72,11 +72,9 @@ export default function CartCard({ item }) {
           </Typography>
           <br />
           <Typography>${item.price}</Typography>
-          <div className={classes.flexContainer}>
-            <Typography>Qty: {item.quantity}</Typography>
-            <div className={classes.removeButton}>
-              <Button onClick={() => handleRemove()}>Remove</Button>
-            </div>
+          <Typography>Qty: {item.quantity}</Typography>
+          <div className={classes.removeButton}>
+            <Button onClick={() => handleRemove()}>Remove</Button>
           </div>
         </CardContent>
       </div>
