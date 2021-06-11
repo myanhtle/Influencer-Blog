@@ -10,13 +10,14 @@ import AddIcon from "@material-ui/icons/Add";
 
 const useStyles = makeStyles({
   root: {
-    background: "#003c6c", // gradient color l -> r
+    background: "#9cb380", // gradient color l -> r
     borderRadius: 3,
     border: 0,
-    color: "#FDC700", // text color
+    color: "white", // text color
     padding: "1rem",
+    marginBottom: "10px",
+    marginTop: "10px",
     width: "100%",
-    boxShadow: "0 3px 5px 2px rgba(255, 105, 135, .3)",
     fontSize: "18px",
   },
 });
@@ -70,8 +71,7 @@ export default function AddMerch() {
   console.log(imageTextBoxes);
 
   return (
-    <div style={{    maxWidth: "25rem",
-    width: "100vw", margin: "auto"}}>
+    <div style={{ maxWidth: "35rem", width: "120vw", margin: "auto" }}>
       <Button
         variant="outlined"
         color="primary"

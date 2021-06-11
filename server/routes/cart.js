@@ -97,13 +97,13 @@ router.post("/add", async (req, res) => {
 router.delete("/delete/:query", async (req, res) => {
   var docToDeleteId = "";
   var name = req.params.query;
-  var user = req.body.title;
+  var user = req.body.user;
   const cart = [];
   const snapshot = await db.collection("cart").get();
   var dele;
 
   snapshot.forEach((doc) => {
-    if (doc.data().User === user) {
+    if (doc.data().user === user) {
       let docU = { ...doc.data(), id: doc.id };
       cart.push(docU);
     }
@@ -117,7 +117,7 @@ router.delete("/delete/:query", async (req, res) => {
     /**otherwise the method will only delete the specific item whose name matches */
   } else {
     for (var i = 0; i < cart.length; i++) {
-      if (cart[i].Name === name) docToDeleteId = cart[i].id;
+      if (cart[i].name === name) docToDeleteId = cart[i].id;
     }
     const del = await cartRef.doc(docToDeleteId).delete();
   }
