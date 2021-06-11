@@ -1,10 +1,8 @@
-import { Typography, Card, Grid, CardMedia, CardActionArea } from "@material-ui/core";
+import { Typography, Card, Grid } from "@material-ui/core";
 import headerImage from "../images/forest.jpg";
 import camilleImage from "../images/camille1.jpg";
 import homePageStyles from "../styles/homePageStyles";
 import headerImageStyles from "../styles/headerImageStyles";
-import { useHistory } from "react-router-dom";
-import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import virgoImage from "../images/Virgo.png";
 import musicImage from "../images/music.png";
 import natureImage from "../images/nature.png";
@@ -15,7 +13,6 @@ function About() {
 
   return (
     <div className={classes.homepage}>
-
       <div className={header.headerImgContainer}>
         <img className={header.headerImg} src={headerImage} alt="Forest" />
       </div>
@@ -26,25 +23,11 @@ function About() {
       </div>
 
       <Grid container className={classes.bottomContainer}>
-        <Grid item xs={6} className={classes.content}>
+        <Grid item xs={12} md={6} className={classes.content}>
           <Card id="featured-blog-post" className={classes.content}>
-            <img
-              width="100px"
-              height="100px"
-              src={musicImage}
-              alt="The Camille Connection"
-            />{" "}
-            &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-            &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-            &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-            &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-            <img
-              width="100px"
-              height="100px"
-              margin="200px"
-              src={natureImage}
-              alt="The Camille Connection"
-            />
+            <div className={classes.imageContainer2}>
+              <img src={camilleImage} alt="Camille Cooper" />
+            </div>
             <Typography variant="h4">About Camille</Typography>
             <Typography>
               Camille is a recent college graduate from UVA currently traveling
@@ -67,24 +50,15 @@ function About() {
             </Typography>
           </Card>
         </Grid>
-        <Grid item xs={5} className={classes.content}>
+        <Grid item xs={12} md={6} className={classes.content}>
           <Card className={classes.content}>
-            <img
-              src={virgoImage}
-              height="90px"
-              width="90px"
-              alt="The Camille Connection"
-            />
-            &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-            &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-            &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp;
-            &nbsp;&nbsp;
-            <img
-              src={rooftopImage}
-              height="90px"
-              width="90px"
-              alt="The Camille Connection"
-            />
+            <div className={classes.imageContainer}>
+              <img src={rooftopImage} alt="City Rooftop" />
+              <img src={virgoImage} alt="Virgo Sign" />
+              <img src={natureImage} alt="Nature Symbol" />
+              <img src={musicImage} alt="Music Icon" />
+            </div>
+
             <Typography variant="h4">About Camille's Corner</Typography>
             <Typography>
               Camille’s Corner started back in the summer of 2019 when Camille

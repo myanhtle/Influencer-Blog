@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import {
   Card,
   CardContent,
@@ -15,6 +15,7 @@ import { useHistory } from "react-router-dom";
 import CreateIcon from "@material-ui/icons/Create";
 import DeleteIcon from "@material-ui/icons/Delete";
 import CheckIcon from "@material-ui/icons/Check";
+import { UserContext } from "../../contexts/UserContext";
 import "./Blog.css";
 
 /* Modal */
@@ -34,6 +35,7 @@ const useStyles = makeStyles((theme) => ({
 /* Modal */
 
 export default function Blogs({ match }) {
+  const { isAdmin } = useContext(UserContext);
   const history = useHistory();
   const [blogs, setBlogs] = useState(null);
   const [blog, setBlog] = useState(null);
@@ -128,81 +130,87 @@ export default function Blogs({ match }) {
                     marginRight: "0",
                   }}
                 >
-                  <Button
-                    onClick={() => {
-                      setTitle(blog.title);
-                      setBody(blog.messageContent);
-                      setEditID(blog.id);
-                      handleEditOpen();
-                    }}
-                    variant="contained"
-                    color="secondary"
-                  >
-                    <CreateIcon />
-                  </Button>
+                  {isAdmin && (
+                    <>
+                      <Button
+                        onClick={() => {
+                          setTitle(blog.title);
+                          setBody(blog.messageContent);
+                          setEditID(blog.id);
+                          handleEditOpen();
+                        }}
+                        variant="contained"
+                        color="secondary"
+                      >
+                        <CreateIcon />
+                      </Button>
 
-                  <Modal
-                    className={classes.modal}
-                    open={editOpen}
-                    onClose={handleEditClose}
-                    closeAfterTransition
-                    BackdropComponent={Backdrop}
-                    BackdropProps={{
-                      timeout: 500,
-                    }}
-                  >
-                    <Fade in={editOpen}>
-                      <div className={classes.paper}>
-                        <h2>Edit Post</h2>
-                        <p>Edit the following fields to edit this blog post:</p>
-                        <TextField
-                          required
-                          helperText="Title"
-                          defaultValue={title}
-                          onChange={(e) => {
-                            handleChange(e, "title");
-                          }}
-                        ></TextField>
-                        <br></br>
-                        <TextField
-                          required
-                          multiline
-                          rowsMax={20}
-                          helperText="Body"
-                          defaultValue={body}
-                          onChange={(e) => {
-                            handleChange(e, "body");
-                          }}
-                        ></TextField>
-                        <br></br>
-                        <br></br>
-                        <Button
-                          onClick={() => {
-                            handleClickThree(editID);
-                            setClicked(true);
-                            handleEditClose();
-                          }}
-                          variant="contained"
-                          color="primary"
-                        >
-                          <CheckIcon />
-                        </Button>
-                      </div>
-                    </Fade>
-                  </Modal>
+                      <Modal
+                        className={classes.modal}
+                        open={editOpen}
+                        onClose={handleEditClose}
+                        closeAfterTransition
+                        BackdropComponent={Backdrop}
+                        BackdropProps={{
+                          timeout: 500,
+                        }}
+                      >
+                        <Fade in={editOpen}>
+                          <div className={classes.paper}>
+                            <h2>Edit Post</h2>
+                            <p>
+                              Edit the following fields to edit this blog post:
+                            </p>
+                            <TextField
+                              required
+                              helperText="Title"
+                              defaultValue={title}
+                              onChange={(e) => {
+                                handleChange(e, "title");
+                              }}
+                            ></TextField>
+                            <br></br>
+                            <TextField
+                              required
+                              multiline
+                              rowsMax={20}
+                              helperText="Body"
+                              defaultValue={body}
+                              onChange={(e) => {
+                                handleChange(e, "body");
+                              }}
+                            ></TextField>
+                            <br></br>
+                            <br></br>
+                            <Button
+                              onClick={() => {
+                                handleClickThree(editID);
+                                setClicked(true);
+                                handleEditClose();
+                              }}
+                              variant="contained"
+                              color="primary"
+                            >
+                              <CheckIcon />
+                            </Button>
+                          </div>
+                        </Fade>
+                      </Modal>
 
-                  <Button
-                    onClick={() => {
-                      handleClickTwo(blog.id);
-                      setClicked(true);
-                      alert("Post deleted successfully!");
-                      history.push("/blog");
-                    }}
-                    variant="contained"
-                    color="secondary"
-                  >
-                    <DeleteIcon />
-                  </Button>
+                      <Button
+                        onClick={() => {
+                          handleClickTwo(blog.id);
+                          setClicked(true);
+                          alert("Post deleted successfully!");
+                          history.push("/blog");
+                        }}
+                        variant="contained"
+                        color="secondary"
+                      >
+                        <DeleteIcon />
+                      </Button>
+                    </>
+                  )}
                 </div>
               </Typography>
               <Typography variant="subtitle2">{blog.date}</Typography>
