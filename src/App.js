@@ -14,7 +14,6 @@ import { BrowserRouter, Route, Switch } from "react-router-dom";
 import ErrorPage from "./components/ErrorPage";
 import NavBar from "./components/NavBar";
 import Forum from "./components/forum/Forum";
-import ColorExamples from "./components/ColorExamples";
 import DataForm from "./components/dataForm";
 import LoginPage from "./components/LoginPage";
 import { UserContext } from "./contexts/UserContext";
@@ -25,7 +24,6 @@ import HomePage from "./components/HomePage";
 import MerchPage from "./components/merch/merchPage";
 import Cart from "./components/merch/cart";
 import About from "./components/About";
-// import MerchForm from "./components/merchForm";
 import Footer from "./components/Footer";
 import MusicPage from "./components/music/MusicPage";
 
@@ -33,9 +31,7 @@ function App() {
   const { setUser } = useContext(UserContext);
   firebase.auth().onAuthStateChanged((user) => {
     setUser(user);
-    console.log(user);
   });
-  console.log("hi");
 
   return (
     <BrowserRouter>

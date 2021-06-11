@@ -9,10 +9,12 @@ import moment from "moment";
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    "& .MuiTextField-root": {
-      margin: theme.spacing(1),
-      width: "92.8ch",
-    },
+    width: "100%",
+    // maxWidth: "93ch"
+    // "& .MuiTextField-root": {
+    //   margin: "auto",
+    //   width: "90vw",
+    // },
   },
 }));
 
@@ -97,11 +99,12 @@ export default function CreateForumPost({
   };
 
   return (
-    <div style={{ display: "flex", justifyContent: "center", marginTop: "2%" }}>
+    <div style={{ display: "flex", justifyContent: "center", marginTop: "2%"}}>
       <form className={classes.root} noValidate autoComplete="off">
         <div>
           <TextField
             required
+            fullWidth
             multiline
             id="Title"
             label="Description"
@@ -112,6 +115,7 @@ export default function CreateForumPost({
         </div>
         <TextField
           required
+          fullWidth
           id="Content"
           label="What's new?"
           multiline
@@ -126,7 +130,7 @@ export default function CreateForumPost({
             justifyContent: "center",
           }}
         >
-          <Button variant="contained" color="secondary" onClick={handlePost}>
+          <Button variant="contained" color="secondary" onClick={handlePost} style={{marginTop: "1rem"}}>
             Post
           </Button>
           <Popover

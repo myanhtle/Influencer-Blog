@@ -33,6 +33,7 @@ export default function Tags({ setClickedPost, setUpdate, setPosts, setOpen }) {
       >
         <Autocomplete
           multiple
+          fullWidth
           disableCloseOnSelect
           id="tags-standard"
           onChange={(e, val) => handleChange(val)}

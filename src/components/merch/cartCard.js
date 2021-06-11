@@ -1,5 +1,4 @@
-import { useState } from "react";
-import { makeStyles, useTheme } from "@material-ui/core/styles";
+import { makeStyles} from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import Typography from "@material-ui/core/Typography";
@@ -9,41 +8,40 @@ const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
     padding: "10px",
-    margin: "20px",
     width: "100%",
   },
   details: {
     display: "flex",
     flexDirection: "column",
+    width: "100%",
+    paddingLeft: "1rem"
   },
   content: {
-    flex: "1 0 auto",
-    paddingTop: "90px",
-    paddingLeft: "50px",
+    display: "flex",
+    flexDirection: "column",
+    height: "100%",
+    justifyContent: "space-between"
   },
   controls: {
     display: "flex",
     alignItems: "center",
-    paddingLeft: theme.spacing(1),
-    paddingBottom: theme.spacing(1),
   },
-
   image: {
     height: "250px",
   },
-
-  flexContainer: {
-    display: "flex",
-    justifyContent: "space-between",
-  },
   removeButton: {
-    marginLeft: "400px",
-  },
+    display: "flex",
+    justifyContent: 'flex-end',
+    [theme.breakpoints.down("sm")]: {
+      justifyContent: 'center',
+      marginTop: ".5rem"
+    },
+    width: "100%"
+  }
 }));
 
 export default function CartCard({ item }) {
   const classes = useStyles();
-  const theme = useTheme();
 
   const handleRemove = () => {
     fetch(`http://localhost:8080/cart/delete/${item.name}`, {
@@ -61,7 +59,7 @@ export default function CartCard({ item }) {
 
   return (
     <Card className={classes.root}>
-      <img className={classes.image} src={item.images[0]} />
+      <img className={classes.image} src={item.images[0]} alt="cart item"/>
       <div className={classes.details}>
         <CardContent className={classes.content}>
           <Typography component="h5" variant="h5">
@@ -72,11 +70,9 @@ export default function CartCard({ item }) {
           </Typography>
           <br />
           <Typography>${item.price}</Typography>
-          <div className={classes.flexContainer}>
-            <Typography>Qty: {item.quantity}</Typography>
-            <div className={classes.removeButton}>
-              <Button onClick={() => handleRemove()}>Remove</Button>
-            </div>
+          <Typography>Qty: {item.quantity}</Typography>
+          <div className={classes.removeButton}>
+            <Button onClick={() => handleRemove()}>Remove</Button>
           </div>
         </CardContent>
       </div>

@@ -10,8 +10,7 @@ import { nanoid } from "nanoid";
 const useStyles = makeStyles((theme) => ({
   root: {
     "& .MuiTextField-root": {
-      margin: theme.spacing(1),
-      width: "92.8ch",
+      margin: "1rem auto 1rem auto"
     },
   },
 }));
@@ -151,6 +150,7 @@ export default function Comments({ p, setClickedPost }) {
           <TextField
             required
             multiline
+            fullWidth
             id="Title"
             label="Add a comment"
             variant="filled"

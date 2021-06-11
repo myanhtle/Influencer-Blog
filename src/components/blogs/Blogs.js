@@ -111,7 +111,7 @@ export default function Blogs({ match }) {
 
   return (
     blog && (
-      <div>
+      <div className="blog-container">
         <div className="leftcolumn">
           <Card className="card">
             {blog.image && (
@@ -206,6 +206,7 @@ export default function Blogs({ match }) {
                         }}
                         variant="contained"
                         color="secondary"
+                        style={{marginLeft: "1rem"}}
                       >
                         <DeleteIcon />
                       </Button>
