@@ -13,6 +13,7 @@ import {
 } from "@material-ui/core";
 import SearchIcon from "@material-ui/icons/Search";
 import CreateNewButton from "./CreateButton";
+import StarIcon from "@material-ui/icons/Star";
 import { UserContext } from "../../contexts/UserContext";
 
 //recent posts
@@ -44,18 +45,20 @@ export default function Landing() {
 
     if (sort === "descendingDate") {
       data.sort((a, b) => {
-        let da = a.date; //to order posts so
-        let db = b.date; //recent ones are first
-        if (da < db) return 1;
-        if (da > db) return -1;
+        if (a.date < b.date) return 1; //to order posts so
+        if (a.date > b.date) return -1; //recent ones are first
         return 0;
       });
     } else if (sort === "ascendingDate") {
       data.sort((a, b) => {
-        let da = a.date; //to order posts so
-        let db = b.date; //older ones are first
-        if (da < db) return -1;
-        if (da > db) return 1;
+        if (a.date < b.date) return -1; //to order posts so
+        if (a.date > b.date) return 1; //older ones are first
+        return 0;
+      });
+    } else if (sort === "featured") {
+      data.sort((a, b) => {
+        if (a.featured === true && b.featured === false) return -1;
+        if (b.featured === true && a.featured === false) return 1;
         return 0;
       });
     }
@@ -140,8 +143,20 @@ export default function Landing() {
             }}
             color="primary"
             variant="contained"
+            style={{ marginRight: "5%" }}
           >
             Old
+          </Button>
+          <Button
+            onClick={() => {
+              setSort("featured");
+              console.log(sort);
+              fetchBlogs();
+            }}
+            color="primary"
+            variant="contained"
+          >
+            Featured
           </Button>
           <br></br>
           <br></br>
@@ -155,11 +170,14 @@ export default function Landing() {
                       outline: "2px solid black",
                     }}
                   >
+                    {b.featured ? <StarIcon /> : null}
                     <ListItemText
                       style={{}}
                       primary={b.title}
                       secondary={b.date}
-                    />
+                    >
+                      <StarIcon />
+                    </ListItemText>
                     <Button variant="contained" color="secondary">
                       <Link style={{ color: "white" }} to={`/blog/${b.id}`}>
                         View
