@@ -56,9 +56,9 @@ function HomePage() {
       <Grid container className={classes.bottomContainer}>
         {/* Most Recent Blog Post */}
         <Grid item xs={12} lg={9} className={classes.content}>
-          <Typography variant="h3">Latest Post</Typography>
+          <Typography variant="h3" id="featured-blog-post">Latest Post</Typography>
           <br />
-          <Card id="featured-blog-post" className={classes.content}>
+          <Card className={classes.content}>
             {blogPosts && (
               <>
                 <Typography variant="h4">
