@@ -14,21 +14,25 @@
 /* Left column */
 .leftcolumn {
   padding: 2%;
+  float: left;
   margin: 0 auto;
+  margin-left: 5%;
   width: 60%;
 }
 
 /* Right column */
 .rightcolumn {
-  float: left;
+  padding: 2%;
+  float: right;
   width: 25%;
   padding-left: 20px;
+  margin-right: 10%;
 }
 
 /* Image */
 .img {
   background-color: #aaa;
-  height: 200px;
+  height: 100%;
   width: 106%;
   object-fit: cover;
   object-position: center top;
