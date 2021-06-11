@@ -12,7 +12,7 @@
 .merchCard-functionContainer {
   display: flex;
   justify-content: space-between;
-  padding: .5rem
+  padding: 0.5rem;
 }
 
 .addToCart-container {
