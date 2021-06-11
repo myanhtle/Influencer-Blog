@@ -245,7 +245,7 @@ export default function ForumPost({ p, setPosts, setClickedPost }) {
             ", "
           )}`}
         />
-        <CardContent>
+        <CardContent style={{display: "flex", flexDirection: "column"}}>
           {isEditing ? (
             <>
               <TextField
@@ -262,7 +262,8 @@ export default function ForumPost({ p, setPosts, setClickedPost }) {
                 size="small"
                 aria-label="save"
                 onClick={handleSaveChanges}
-                style={{ marginLeft: "80%", marginTop: "1vh" }}
+
+                // style={{ marginLeft: "80%", marginTop: "1vh" }}
               >
                 <CheckCircleIcon />
                 Save Changes
