@@ -25,8 +25,8 @@ function NavBar() {
     { name: "About", route: "/about" },
     { name: "Blog", route: "/blog" },
     { name: "Forum", route: "/forum" },
-    { name: "Music", route: "/music"},
-    { name: "Shop", route: "/shop" }
+    { name: "Music", route: "/music" },
+    { name: "Shop", route: "/shop" },
   ];
 
   return (
@@ -88,12 +88,11 @@ function NavBar() {
           </Menu>
         </Hidden>
         <div className={classes.loginButtonContainer}>
-        <Button
+          <Button
             className={classes.cart}
             onClick={() => history.push("/cart")}
           >
             <LocalMallIcon />
-            <span className={classes.cartCount}>5</span>
           </Button>
           <Button
             onClick={() => history.push(isLoggedIn ? "/account" : "/login")}

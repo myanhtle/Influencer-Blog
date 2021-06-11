@@ -14,6 +14,8 @@ import EditIcon from "@material-ui/icons/Edit";
 import Dialog from "@material-ui/core/Dialog";
 import Select from "@material-ui/core/Select";
 import Input from "@material-ui/core/Input";
+import MenuItem from "@material-ui/core/MenuItem";
+
 const useStyles = makeStyles((theme) => ({
   root: {
     maxWidth: 400,
@@ -60,10 +62,10 @@ export default function MerchCard({ item }) {
   const [openU, setOpenU] = useState(false);
   const [openD, setOpenD] = useState(false);
   const [selectMode, setSelectMode] = useState(false);
-  const [price, setPrice] = useState(0);
-  const [name, setName] = useState([]);
-  const [stock, setStock] = useState(0);
-  const [rating, setRating] = useState(0);
+  const [price, setPrice] = useState();
+  const [name, setName] = useState();
+  const [stock, setStock] = useState();
+  const [quantity, setQuantity] = useState(1);
 
   const typeList = ["name", "description", "price"];
   /* Creates an array of image links */
@@ -90,9 +92,6 @@ export default function MerchCard({ item }) {
   };
   const handleChangeStock = (e) => {
     setStock(e.currentTarget.value);
-  };
-  const handleChangeRating = (e) => {
-    setRating(e.currentTarget.value);
   };
   const handleChangeDelete = (e) => {
     setDeleteVal(e.currentTarget.value);
@@ -149,6 +148,7 @@ export default function MerchCard({ item }) {
       description: item.description,
       images: item.image,
       price: item.price,
+      quantity: quantity,
       user: username,
     };
 
@@ -229,6 +229,25 @@ export default function MerchCard({ item }) {
               </Dialog>
             </div>
             <div className="addToCart-container">
+              <Select
+                id="quantity"
+                margin="dense"
+                value={quantity}
+                onChange={(event) => setQuantity(event.target.value)}
+                autoWidth
+              >
+                <MenuItem value={1}>1</MenuItem>
+                <MenuItem value={2}>2</MenuItem>
+                <MenuItem value={3}>3</MenuItem>
+                <MenuItem value={4}>4</MenuItem>
+                <MenuItem value={5}>5</MenuItem>
+                <MenuItem value={6}>6</MenuItem>
+                <MenuItem value={7}>7</MenuItem>
+                <MenuItem value={8}>8</MenuItem>
+                <MenuItem value={9}>9</MenuItem>
+                <MenuItem value={10}>10</MenuItem>
+              </Select>
+
               {added === false ? (
                 <Button onClick={() => handleClick()}>Add to Bag</Button>
               ) : (
