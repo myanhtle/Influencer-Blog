@@ -1,4 +1,5 @@
 import { makeStyles } from "@material-ui/core/styles";
+import theme from "../configs/theme";
 
 const footerStyles = makeStyles({
   footer: {
@@ -6,7 +7,7 @@ const footerStyles = makeStyles({
     height: "40vh",
     backgroundColor: "#488288",
     display: "grid",
-    gridTemplateColumns: "1fr 1fr 1fr",
+    gridTemplateColumns: "1fr 1fr",
     "& .MuiTypography-root": {
       color: "white",
     },
@@ -16,23 +17,24 @@ const footerStyles = makeStyles({
   },
   footerRight: {
     margin: "auto 3rem auto auto",
+    [theme.breakpoints.down("md")]: {
+      margin: "auto",
+    },
     textAlign: "right",
     "& p": {
-      width: "20vh",
       textAlign: "center",
     },
+    maxWidth: "30vw"
   },
   footerImg: {
     maxHeight: "20vh",
+    maxWidth: "30vw",
   },
   footerLeft: {
     margin: "auto auto auto 3rem",
     "& .MuiTypography-root": {
     }
   },
-  footerCenter: {
-    margin: "auto"
-  }
 });
 
 export default footerStyles;

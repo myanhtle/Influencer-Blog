@@ -14,14 +14,15 @@ import EditIcon from "@material-ui/icons/Edit";
 import Dialog from "@material-ui/core/Dialog";
 import Select from "@material-ui/core/Select";
 import Input from "@material-ui/core/Input";
+import MenuItem from "@material-ui/core/MenuItem";
+
 const useStyles = makeStyles((theme) => ({
   root: {
     maxWidth: 400,
     flexGrow: 1,
   },
   header: {
-    paddingTop: "10%",
-    height: 175,
+    paddingTop: "5%",
     paddingLeft: theme.spacing(3),
   },
   img: {
@@ -30,9 +31,11 @@ const useStyles = makeStyles((theme) => ({
     maxWidth: 400,
     overflow: "hidden",
     width: "100%",
+    objectFit: "cover"
   },
 }));
 const baseButtonStyle = {
+  backgroundColor: "#5a8098",
   borderWidth: "0px",
   fontWeight: "bold",
   color: "white",
@@ -40,18 +43,17 @@ const baseButtonStyle = {
 const selectButtonStyle = {
   ...baseButtonStyle,
 };
-
 const InputStyle = {
   backgroundColor: "#E5E5E5",
   borderRadius: "10px",
   padding: "5px",
 };
-export default function MerchCard({ item }) {
+export default function MerchCard({ item, setMerch }) {
   const classes = useStyles();
   const theme = useTheme();
   const [activeStep, setActiveStep] = useState(0);
   const [added, setAdded] = useState(false);
-  const { username } = useContext(UserContext);
+  const { isAdmin, username } = useContext(UserContext);
   const [deleteVal, setDeleteVal] = useState([]);
   const [update, setUpdate] = useState([]);
   const [updateType, setUpdateType] = useState([]);
@@ -60,20 +62,18 @@ export default function MerchCard({ item }) {
   const [openU, setOpenU] = useState(false);
   const [openD, setOpenD] = useState(false);
   const [selectMode, setSelectMode] = useState(false);
-  const [price, setPrice] = useState(0);
-  const [name, setName] = useState([]);
-  const [stock, setStock] = useState(0);
-  const [rating, setRating] = useState(0);
+  const [price, setPrice] = useState();
+  const [name, setName] = useState();
+  const [stock, setStock] = useState();
+  const [quantity, setQuantity] = useState(1);
 
   const typeList = ["name", "description", "price"];
   /* Creates an array of image links */
   const imgReel = [];
-  const handleClickOpenD = () => {
-    setOpenD(true);
-  };
-
-  const handleCloseD = () => {
-    setOpenD(false);
+  const fetchMerch = () => {
+    fetch(`http://localhost:8080/merchandise/read`)
+      .then((res) => res.json())
+      .then((data) => setMerch(data));
   };
   const handleClickOpenU = () => {
     setOpenU(true);
@@ -81,6 +81,15 @@ export default function MerchCard({ item }) {
 
   const handleCloseU = () => {
     setOpenU(false);
+    fetchMerch();
+  };
+  const handleClickOpenD = () => {
+    setOpenD(true);
+  };
+
+  const handleCloseD = () => {
+    setOpenD(false);
+    fetchMerch();
   };
   const handleChangePrice = (e) => {
     setPrice(e.currentTarget.value);
@@ -90,9 +99,6 @@ export default function MerchCard({ item }) {
   };
   const handleChangeStock = (e) => {
     setStock(e.currentTarget.value);
-  };
-  const handleChangeRating = (e) => {
-    setRating(e.currentTarget.value);
   };
   const handleChangeDelete = (e) => {
     setDeleteVal(e.currentTarget.value);
@@ -141,12 +147,16 @@ export default function MerchCard({ item }) {
     setUpdate("");
     setUpdateType("");
     setUpdateVal("");
+    fetchMerch();
   };
   /*Functionality for Cart button*/
   const handleClick = () => {
     const itemDetails = {
       name: item.name,
+      description: item.description,
+      images: item.image,
       price: item.price,
+      quantity: quantity,
       user: username,
     };
 
@@ -171,29 +181,63 @@ export default function MerchCard({ item }) {
       headers: {
         "Content-Type": "application/json",
         "Access-Control-Allow-Origin": "*",
-        "Access-Control-Allow-Origin": "http://localhost:3000/",
       },
       body: JSON.stringify({ title: item.name }),
     })
       .then((res) => res.json())
       .then((data) => console.log(data));
+    fetchMerch();
   };
 
   return (
     <div className={classes.root}>
-      <img className={classes.img} src={imgReel[activeStep].imgPath} />
+      <img className={classes.img} src={imgReel[activeStep].imgPath} alt="Merch"/>
       <Paper square elevation={2} className={classes.header}>
         <div>
           <Typography>
-            {item.name} <br /> {item.description} <br /> ${item.price}
+            {item.name} <br /> {item.description} <br /> ${item.price} <br />{" "}
+            <Select
+              id="quantity"
+              margin="dense"
+              value={quantity}
+              onChange={(event) => setQuantity(event.target.value)}
+              autoWidth
+            >
+              <MenuItem value={1}>1</MenuItem>
+              <MenuItem value={2}>2</MenuItem>
+              <MenuItem value={3}>3</MenuItem>
+              <MenuItem value={4}>4</MenuItem>
+              <MenuItem value={5}>5</MenuItem>
+              <MenuItem value={6}>6</MenuItem>
+              <MenuItem value={7}>7</MenuItem>
+              <MenuItem value={8}>8</MenuItem>
+              <MenuItem value={9}>9</MenuItem>
+              <MenuItem value={10}>10</MenuItem>
+            </Select>
           </Typography>
           <br />
           <div className="merchCard-functionContainer">
-            <div className="editMerch-container">
-              <Button onClick={() => deletePost()}>
+            {isAdmin && (<div className="editMerch-container">
+              <Button onClick={handleClickOpenD}>
                 <DeleteIcon />
               </Button>
-
+              <Dialog
+                open={openD}
+                onClose={handleCloseD}
+                aria-labelledby="form-dialog-title"
+              >
+                <form>
+                  <h3>
+                    Are you sure you wish to permanently delete this item?
+                    <Button
+                      style={baseButtonStyle}
+                      onClick={() => deletePost()}
+                    >
+                      Yes Delete Item
+                    </Button>
+                  </h3>
+                </form>
+              </Dialog>
               <Button onClick={handleClickOpenU}>
                 <EditIcon />
               </Button>
@@ -203,29 +247,34 @@ export default function MerchCard({ item }) {
                 aria-labelledby="form-dialog-title"
               >
                 <form>
-                  Type:
-                  <Select
-                    style={selectButtonStyle}
-                    onChange={handleChangeType}
-                    selected={typeList[0]}
-                  >
-                    {typeList.map((type) => {
-                      return <option value={type}> {type} </option>;
-                    })}
-                  </Select>
-                  <Input
-                    style={InputStyle}
-                    name="newVal"
-                    placeholder="What should it be set to?"
-                    value={updateVal}
-                    onChange={handleChangeVal}
-                  />
-                  <Button style={baseButtonStyle} onClick={() => updatemerch()}>
-                    Update Post
-                  </Button>
+                  <h3>
+                    Field To Edit: &nbsp;
+                    <Select
+                      style={selectButtonStyle}
+                      onChange={handleChangeType}
+                      selected={typeList[0]}
+                    >
+                      {typeList.map((type) => {
+                        return <option value={type}> {type} </option>;
+                      })}
+                    </Select>
+                    <Input
+                      style={InputStyle}
+                      name="newVal"
+                      placeholder="What should it be set to?"
+                      value={updateVal}
+                      onChange={handleChangeVal}
+                    />
+                    <Button
+                      style={baseButtonStyle}
+                      onClick={() => updatemerch()}
+                    >
+                      Update Merchandise
+                    </Button>
+                  </h3>
                 </form>
               </Dialog>
-            </div>
+            </div>)}
             <div className="addToCart-container">
               {added === false ? (
                 <Button onClick={() => handleClick()}>Add to Bag</Button>

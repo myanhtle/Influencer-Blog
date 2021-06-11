@@ -10,15 +10,11 @@ import FormControlLabel from "@material-ui/core/FormControlLabel";
 import CloudIcon from "@material-ui/icons/Cloud";
 import CloudOutlinedIcon from "@material-ui/icons/CloudOutlined";
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   root: {
-    flexGrow: 1,
-    maxWidth: "100%",
-  },
-  paper: {
-    padding: theme.spacing(2),
-    textAlign: "center",
-    backgroundColor: "#9fbcbf",
+    maxWidth: 800,
+    width: "100%",
+    backgroundColor: "#95b9bd",
   },
 }));
 
@@ -70,85 +66,90 @@ export default function Filter({
 
   return (
     <div
-      className={classes.root}
-      style={{ marginLeft: "30%", marginTop: "1.5%" }}
+      style={{
+        display: "flex",
+        justifyContent: "center",
+        marginTop: "1%",
+        marginBottom: "1%",
+      }}
     >
-      <Grid container spacing={3}>
-        <Grid item xs={7}>
-          <Paper className={classes.paper}>
-            <ButtonGroup>
-              <Button
-                variant="contained"
+      <Paper className={classes.root}>
+        <ButtonGroup
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            paddingTop: "1rem",
+          }}
+        >
+          <Button variant="contained" color="primary" onClick={handleNewSort}>
+            New
+          </Button>
+          <Button variant="contained" color="primary" onClick={handleHotSort}>
+            Hot
+          </Button>
+        </ButtonGroup>
+        <FormGroup
+          row
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            paddingBottom: "1rem",
+          }}
+        >
+          <FormControlLabel
+            control={
+              <Checkbox
+                id="outdoors"
+                onChange={handleCheck}
                 color="primary"
-                onClick={handleNewSort}
-              >
-                New
-              </Button>
-              <Button
-                variant="contained"
+                icon={<CloudOutlinedIcon />}
+                checkedIcon={<CloudIcon />}
+              />
+            }
+            label="Outdoors"
+            style={{ paddingTop: "2%", paddingRight: "10%" }}
+          />
+          <FormControlLabel
+            control={
+              <Checkbox
+                id="food"
+                onChange={handleCheck}
                 color="primary"
-                onClick={handleHotSort}
-              >
-                Hot
-              </Button>
-            </ButtonGroup>
-            <FormGroup row>
-              <FormControlLabel
-                control={
-                  <Checkbox
-                    id="outdoors"
-                    onChange={handleCheck}
-                    color="primary"
-                    icon={<CloudOutlinedIcon />}
-                    checkedIcon={<CloudIcon />}
-                  />
-                }
-                label="Outdoors"
-                style={{ paddingTop: "2%", paddingRight: "10%" }}
+                icon={<CloudOutlinedIcon />}
+                checkedIcon={<CloudIcon />}
               />
-              <FormControlLabel
-                control={
-                  <Checkbox
-                    id="food"
-                    onChange={handleCheck}
-                    color="primary"
-                    icon={<CloudOutlinedIcon />}
-                    checkedIcon={<CloudIcon />}
-                  />
-                }
-                label="Food"
-                style={{ paddingTop: "2%", paddingRight: "10%" }}
+            }
+            label="Food"
+            style={{ paddingTop: "2%", paddingRight: "10%" }}
+          />
+          <FormControlLabel
+            control={
+              <Checkbox
+                id="travel"
+                onChange={handleCheck}
+                color="primary"
+                icon={<CloudOutlinedIcon />}
+                checkedIcon={<CloudIcon />}
               />
-              <FormControlLabel
-                control={
-                  <Checkbox
-                    id="travel"
-                    onChange={handleCheck}
-                    color="primary"
-                    icon={<CloudOutlinedIcon />}
-                    checkedIcon={<CloudIcon />}
-                  />
-                }
-                label="Travel"
-                style={{ paddingTop: "2%", paddingRight: "10%" }}
+            }
+            label="Travel"
+            style={{ paddingTop: "2%", paddingRight: "10%" }}
+          />
+          <FormControlLabel
+            control={
+              <Checkbox
+                id="lifestyle"
+                onChange={handleCheck}
+                color="primary"
+                icon={<CloudOutlinedIcon />}
+                checkedIcon={<CloudIcon />}
               />
-              <FormControlLabel
-                control={
-                  <Checkbox
-                    id="lifestyle"
-                    onChange={handleCheck}
-                    color="primary"
-                    icon={<CloudOutlinedIcon />}
-                    checkedIcon={<CloudIcon />}
-                  />
-                }
-                label="Lifestyle"
-                style={{ paddingTop: "2%" }}
-              />
-            </FormGroup>
-          </Paper>
-        </Grid>
-      </Grid>
+            }
+            label="Lifestyle"
+            style={{ paddingTop: "2%" }}
+          />
+        </FormGroup>
+      </Paper>
     </div>
   );
 }

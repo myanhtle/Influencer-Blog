@@ -40,37 +40,39 @@ export default function Comments({ p, setClickedPost }) {
    */
   const handlePost = (event) => {
     event.preventDefault();
-    const updatedPost = {
-      title: p.Title,
-      type: "Comments",
-      val: [
-        ...p.Comments,
-        {
-          ...newComment,
-          Date: moment().format("LLL"),
-          User: user.displayName,
-          ID: nanoid(),
+    if (isLoggedIn) {
+      const updatedPost = {
+        title: p.Title,
+        type: "Comments",
+        val: [
+          ...p.Comments,
+          {
+            ...newComment,
+            Date: moment().format("LLL"),
+            User: user.displayName,
+            ID: nanoid(),
+          },
+        ],
+      };
+      fetch(`http://localhost:8080/forum/update/${p.Title}`, {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
         },
-      ],
-    };
-    fetch(`http://localhost:8080/forum/update/${p.Title}`, {
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(updatedPost),
-    }).then(() => {
-      setNewComment({
-        User: "",
-        Content: "",
-        Date: "",
-        ID: "",
+        body: JSON.stringify(updatedPost),
+      }).then(() => {
+        setNewComment({
+          User: "",
+          Content: "",
+          Date: "",
+          ID: "",
+        });
+        setClickedPost((prev) => {
+          return !prev;
+        });
       });
-      setClickedPost((prev) => {
-        return !prev;
-      });
-    });
+    }
   };
 
   /**
@@ -114,18 +116,28 @@ export default function Comments({ p, setClickedPost }) {
                 <i frame style={{ color: "grey", fontSize: "12px" }}>
                   {comment.Date}
                 </i>
-                <button
-                  onClick={handleDeleteComment}
-                  id={comment.ID}
-                  style={{
-                    backgroundColor: "Transparent",
-                    border: "none",
-                    cursor: "pointer",
-                    color: "#4b6d70",
-                  }}
-                >
-                  delete
-                </button>
+                {isLoggedIn ? (
+                  <>
+                    {user.displayName === comment.User ? (
+                      <button
+                        onClick={handleDeleteComment}
+                        id={comment.ID}
+                        style={{
+                          backgroundColor: "Transparent",
+                          border: "none",
+                          cursor: "pointer",
+                          color: "#4b6d70",
+                        }}
+                      >
+                        delete
+                      </button>
+                    ) : (
+                      <></>
+                    )}
+                  </>
+                ) : (
+                  <></>
+                )}
               </Comment.Author>
               <Comment.Metadata></Comment.Metadata>
               <Comment.Text>{comment.Content}</Comment.Text>

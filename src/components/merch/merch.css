@@ -1,13 +1,51 @@
 .merchCard-container {
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
 }
 
 .merchCard {
-  padding: 10px;
+  padding: 20px;
 }
 
 .merchCard-functionContainer {
   display: flex;
   justify-content: space-between;
+  padding: .5rem
+}
+
+.addToCart-container {
+  margin: auto;
+}
+
+.order-summary {
+  display: flex;
+  justify-content: center;
+}
+
+.loading {
+  margin-left: 50%;
+  margin-top: 5%;
+  margin-bottom: 5%;
+}
+
+.stripe-div {
+  display: flex;
+  flex-direction: column;
+  float: right;
+  margin-right: 10%;
+  margin-top: 10%;
+}
+
+.total-div {
+  display: flex;
+  float: right;
+}
+
+.cartCard-container {
+  display: flex;
+  flex-direction: column;
+  float: left;
+  margin-left: 10%;
 }

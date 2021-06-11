@@ -14,6 +14,7 @@ import { UserContext } from "../contexts/UserContext";
 import logo from "../images/logo_white.png";
 import navBarStyles from "../styles/navBarStyles";
 import LocalMallIcon from "@material-ui/icons/LocalMall";
+import AccountBoxIcon from '@material-ui/icons/AccountBox';
 
 function NavBar() {
   const history = useHistory();
@@ -25,8 +26,8 @@ function NavBar() {
     { name: "About", route: "/about" },
     { name: "Blog", route: "/blog" },
     { name: "Forum", route: "/forum" },
+    { name: "Music", route: "/music" },
     { name: "Shop", route: "/shop" },
-    { name: "Music", route: "/music"}
   ];
 
   return (
@@ -88,19 +89,19 @@ function NavBar() {
           </Menu>
         </Hidden>
         <div className={classes.loginButtonContainer}>
-        <Button
+          <Button
             className={classes.cart}
             onClick={() => history.push("/cart")}
           >
             <LocalMallIcon />
-            <span className={classes.cartCount}>5</span>
           </Button>
           <Button
             onClick={() => history.push(isLoggedIn ? "/account" : "/login")}
-            variant="contained"
-            color="secondary"
+            // variant="contained"
+            // color="secondary"
+            style={{color: 'white'}}
           >
-            {isLoggedIn ? "My Account" : "Log In"}
+            <AccountBoxIcon />
           </Button>
         </div>
       </Toolbar>
