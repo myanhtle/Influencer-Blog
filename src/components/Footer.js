@@ -21,7 +21,7 @@ function Footer() {
           src={logo}
           alt="Camille's Corner Logo"
         />
-        <Typography>Copyright 2021 Camille Cooper</Typography>
+        <Typography>Copyright 2021<br/>Camille Cooper</Typography>
       </div>
     </div>
   );

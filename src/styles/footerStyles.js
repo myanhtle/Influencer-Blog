@@ -22,7 +22,6 @@ const footerStyles = makeStyles({
     },
     textAlign: "right",
     "& p": {
-      maxWidth: "30vw",
       textAlign: "center",
     },
     maxWidth: "30vw"
