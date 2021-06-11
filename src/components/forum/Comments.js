@@ -114,18 +114,28 @@ export default function Comments({ p, setClickedPost }) {
                 <i frame style={{ color: "grey", fontSize: "12px" }}>
                   {comment.Date}
                 </i>
-                <button
-                  onClick={handleDeleteComment}
-                  id={comment.ID}
-                  style={{
-                    backgroundColor: "Transparent",
-                    border: "none",
-                    cursor: "pointer",
-                    color: "#4b6d70",
-                  }}
-                >
-                  delete
-                </button>
+                {isLoggedIn ? (
+                  <>
+                    {user.displayName === comment.User ? (
+                      <button
+                        onClick={handleDeleteComment}
+                        id={comment.ID}
+                        style={{
+                          backgroundColor: "Transparent",
+                          border: "none",
+                          cursor: "pointer",
+                          color: "#4b6d70",
+                        }}
+                      >
+                        delete
+                      </button>
+                    ) : (
+                      <></>
+                    )}
+                  </>
+                ) : (
+                  <></>
+                )}
               </Comment.Author>
               <Comment.Metadata></Comment.Metadata>
               <Comment.Text>{comment.Content}</Comment.Text>

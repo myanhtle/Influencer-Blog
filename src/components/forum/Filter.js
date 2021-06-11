@@ -14,7 +14,7 @@ const useStyles = makeStyles(() => ({
   root: {
     maxWidth: 800,
     width: "100%",
-    backgroundColor: "#dcedc7",
+    backgroundColor: "#95b9bd",
   },
 }));
 
@@ -74,7 +74,13 @@ export default function Filter({
       }}
     >
       <Paper className={classes.root}>
-        <ButtonGroup style={{ display: "flex", justifyContent: "center" }}>
+        <ButtonGroup
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            paddingTop: "1rem",
+          }}
+        >
           <Button variant="contained" color="primary" onClick={handleNewSort}>
             New
           </Button>
@@ -82,7 +88,14 @@ export default function Filter({
             Hot
           </Button>
         </ButtonGroup>
-        <FormGroup row style={{ display: "flex", justifyContent: "center" }}>
+        <FormGroup
+          row
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            paddingBottom: "1rem",
+          }}
+        >
           <FormControlLabel
             control={
               <Checkbox
