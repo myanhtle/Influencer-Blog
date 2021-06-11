@@ -216,7 +216,7 @@ export default function Landing() {
                   <Card className="card">
                     {f.image && (
                       <div>
-                        <img className="img" src={f.image}></img>
+                        <img className="img" src={f.image} style={{maxHeight: "10rem"}}></img>
                         <br></br>
                       </div>
                     )}
