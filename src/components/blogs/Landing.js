@@ -107,6 +107,7 @@ export default function Landing() {
             }}
             color="primary"
             variant="contained"
+            style={{ marginRight: "5%" }}
           >
             New
           </Button>
