@@ -23,7 +23,6 @@ const useStyles = makeStyles((theme) => ({
   },
   header: {
     paddingTop: "5%",
-    height: 175,
     paddingLeft: theme.spacing(3),
   },
   img: {
@@ -32,6 +31,7 @@ const useStyles = makeStyles((theme) => ({
     maxWidth: 400,
     overflow: "hidden",
     width: "100%",
+    objectFit: "cover"
   },
 }));
 const baseButtonStyle = {
@@ -53,7 +53,7 @@ export default function MerchCard({ item, setMerch }) {
   const theme = useTheme();
   const [activeStep, setActiveStep] = useState(0);
   const [added, setAdded] = useState(false);
-  const { username } = useContext(UserContext);
+  const { isAdmin, username } = useContext(UserContext);
   const [deleteVal, setDeleteVal] = useState([]);
   const [update, setUpdate] = useState([]);
   const [updateType, setUpdateType] = useState([]);
@@ -181,7 +181,6 @@ export default function MerchCard({ item, setMerch }) {
       headers: {
         "Content-Type": "application/json",
         "Access-Control-Allow-Origin": "*",
-        "Access-Control-Allow-Origin": "http://localhost:3000/",
       },
       body: JSON.stringify({ title: item.name }),
     })
@@ -192,7 +191,7 @@ export default function MerchCard({ item, setMerch }) {
 
   return (
     <div className={classes.root}>
-      <img className={classes.img} src={imgReel[activeStep].imgPath} />
+      <img className={classes.img} src={imgReel[activeStep].imgPath} alt="Merch"/>
       <Paper square elevation={2} className={classes.header}>
         <div>
           <Typography>
@@ -218,7 +217,7 @@ export default function MerchCard({ item, setMerch }) {
           </Typography>
           <br />
           <div className="merchCard-functionContainer">
-            <div className="editMerch-container">
+            {isAdmin && (<div className="editMerch-container">
               <Button onClick={handleClickOpenD}>
                 <DeleteIcon />
               </Button>
@@ -275,7 +274,7 @@ export default function MerchCard({ item, setMerch }) {
                   </h3>
                 </form>
               </Dialog>
-            </div>
+            </div>)}
             <div className="addToCart-container">
               {added === false ? (
                 <Button onClick={() => handleClick()}>Add to Bag</Button>

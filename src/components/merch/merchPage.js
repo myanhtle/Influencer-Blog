@@ -1,10 +1,12 @@
-import React, { useRef, useEffect, useState } from "react";
+import React, { useRef, useEffect, useState, useContext } from "react";
 import MerchCard from "./merchCard";
 import AddMerch from "./addMerch";
 import "./merch.css";
+import {UserContext} from "../../contexts/UserContext"
 
 function MerchPage() {
   const [merch, setMerch] = useState([]);
+  const {isAdmin} = useContext(UserContext)
 
   useEffect(() => {
     console.log("oh");
@@ -24,7 +26,7 @@ function MerchPage() {
           </div>
         ))}
       </div>
-      <AddMerch />
+      {isAdmin && (<AddMerch />)}
     </>
   );
 }
