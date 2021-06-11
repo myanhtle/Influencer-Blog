@@ -202,8 +202,7 @@ export default function ForumPost({ p, setPosts, setClickedPost }) {
       style={{
         display: "flex",
         justifyContent: "center",
-        marginTop: "1%",
-        marginBottom: "1%",
+
       }}
     >
       <Card className={classes.root}>
