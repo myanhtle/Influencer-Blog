@@ -35,6 +35,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 const baseButtonStyle = {
+  backgroundColor: "#5a8098",
   borderWidth: "0px",
   fontWeight: "bold",
   color: "white",
@@ -42,13 +43,12 @@ const baseButtonStyle = {
 const selectButtonStyle = {
   ...baseButtonStyle,
 };
-
 const InputStyle = {
   backgroundColor: "#E5E5E5",
   borderRadius: "10px",
   padding: "5px",
 };
-export default function MerchCard({ item }) {
+export default function MerchCard({ item, setMerch }) {
   const classes = useStyles();
   const theme = useTheme();
   const [activeStep, setActiveStep] = useState(0);
@@ -70,12 +70,10 @@ export default function MerchCard({ item }) {
   const typeList = ["name", "description", "price"];
   /* Creates an array of image links */
   const imgReel = [];
-  const handleClickOpenD = () => {
-    setOpenD(true);
-  };
-
-  const handleCloseD = () => {
-    setOpenD(false);
+  const fetchMerch = () => {
+    fetch(`http://localhost:8080/merchandise/read`)
+      .then((res) => res.json())
+      .then((data) => setMerch(data));
   };
   const handleClickOpenU = () => {
     setOpenU(true);
@@ -83,6 +81,15 @@ export default function MerchCard({ item }) {
 
   const handleCloseU = () => {
     setOpenU(false);
+    fetchMerch();
+  };
+  const handleClickOpenD = () => {
+    setOpenD(true);
+  };
+
+  const handleCloseD = () => {
+    setOpenD(false);
+    fetchMerch();
   };
   const handleChangePrice = (e) => {
     setPrice(e.currentTarget.value);
@@ -140,6 +147,7 @@ export default function MerchCard({ item }) {
     setUpdate("");
     setUpdateType("");
     setUpdateVal("");
+    fetchMerch();
   };
   /*Functionality for Cart button*/
   const handleClick = () => {
@@ -179,6 +187,7 @@ export default function MerchCard({ item }) {
     })
       .then((res) => res.json())
       .then((data) => console.log(data));
+    fetchMerch();
   };
 
   return (
@@ -210,10 +219,26 @@ export default function MerchCard({ item }) {
           <br />
           <div className="merchCard-functionContainer">
             <div className="editMerch-container">
-              <Button onClick={() => deletePost()}>
+              <Button onClick={handleClickOpenD}>
                 <DeleteIcon />
               </Button>
-
+              <Dialog
+                open={openD}
+                onClose={handleCloseD}
+                aria-labelledby="form-dialog-title"
+              >
+                <form>
+                  <h3>
+                    Are you sure you wish to permanently delete this item?
+                    <Button
+                      style={baseButtonStyle}
+                      onClick={() => deletePost()}
+                    >
+                      Yes Delete Item
+                    </Button>
+                  </h3>
+                </form>
+              </Dialog>
               <Button onClick={handleClickOpenU}>
                 <EditIcon />
               </Button>
@@ -223,26 +248,31 @@ export default function MerchCard({ item }) {
                 aria-labelledby="form-dialog-title"
               >
                 <form>
-                  Type:
-                  <Select
-                    style={selectButtonStyle}
-                    onChange={handleChangeType}
-                    selected={typeList[0]}
-                  >
-                    {typeList.map((type) => {
-                      return <option value={type}> {type} </option>;
-                    })}
-                  </Select>
-                  <Input
-                    style={InputStyle}
-                    name="newVal"
-                    placeholder="What should it be set to?"
-                    value={updateVal}
-                    onChange={handleChangeVal}
-                  />
-                  <Button style={baseButtonStyle} onClick={() => updatemerch()}>
-                    Update Post
-                  </Button>
+                  <h3>
+                    Field To Edit: &nbsp;
+                    <Select
+                      style={selectButtonStyle}
+                      onChange={handleChangeType}
+                      selected={typeList[0]}
+                    >
+                      {typeList.map((type) => {
+                        return <option value={type}> {type} </option>;
+                      })}
+                    </Select>
+                    <Input
+                      style={InputStyle}
+                      name="newVal"
+                      placeholder="What should it be set to?"
+                      value={updateVal}
+                      onChange={handleChangeVal}
+                    />
+                    <Button
+                      style={baseButtonStyle}
+                      onClick={() => updatemerch()}
+                    >
+                      Update Merchandise
+                    </Button>
+                  </h3>
                 </form>
               </Dialog>
             </div>
