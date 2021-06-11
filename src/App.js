@@ -35,7 +35,6 @@ function App() {
     setUser(user);
     console.log(user);
   });
-  console.log("hi");
 
   return (
     <BrowserRouter>
