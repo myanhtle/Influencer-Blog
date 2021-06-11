@@ -1,5 +1,4 @@
-import { useState } from "react";
-import { makeStyles, useTheme } from "@material-ui/core/styles";
+import { makeStyles} from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import Typography from "@material-ui/core/Typography";
@@ -43,7 +42,6 @@ const useStyles = makeStyles((theme) => ({
 
 export default function CartCard({ item }) {
   const classes = useStyles();
-  const theme = useTheme();
 
   const handleRemove = () => {
     fetch(`http://localhost:8080/cart/delete/${item.name}`, {
@@ -61,7 +59,7 @@ export default function CartCard({ item }) {
 
   return (
     <Card className={classes.root}>
-      <img className={classes.image} src={item.images[0]} />
+      <img className={classes.image} src={item.images[0]} alt="cart item"/>
       <div className={classes.details}>
         <CardContent className={classes.content}>
           <Typography component="h5" variant="h5">

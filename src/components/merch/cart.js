@@ -27,7 +27,7 @@ export default function Cart() {
     fetch(`http://localhost:8080/cart/read/${username}`)
       .then((res) => res.json())
       .then((data) => setCart(data));
-  }, [username]);
+  }, []);
 
   console.log(sum);
 
