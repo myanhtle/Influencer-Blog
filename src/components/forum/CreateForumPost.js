@@ -22,7 +22,7 @@ export default function CreateForumPost({
   setUpdate,
   setOpen,
 }) {
-  const { user } = useContext(UserContext);
+  const { user, isLoggedIn } = useContext(UserContext);
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = useState(null);
   const [postContent, setPostContent] = useState({
@@ -33,6 +33,7 @@ export default function CreateForumPost({
     User: "",
     Tags: [],
     Comments: [],
+    LikedBy: [],
   });
   const open = Boolean(anchorEl);
   const id = open ? "simple-popover" : undefined;
@@ -55,40 +56,43 @@ export default function CreateForumPost({
    */
   const handlePost = (event) => {
     event.preventDefault();
-    if (postContent.Title === "" || postContent.Content === "") {
-      setAnchorEl(event.currentTarget);
-    } else {
-      setOpen(false);
-      fetch(`http://localhost:8080/forum/add`, {
-        method: "POST",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          ...postContent,
-          User: user.displayName,
-          Date: moment().format("LLL"),
-          Tags: postTags,
-        }),
-      })
-        .then(() => {
-          setUpdate((prev) => {
-            return prev + "0";
-          });
-          setClickedPost((prev) => !prev);
+    if (isLoggedIn) {
+      if (postContent.Title === "" || postContent.Content === "") {
+        setAnchorEl(event.currentTarget);
+      } else {
+        setOpen(false);
+        fetch(`http://localhost:8080/forum/add`, {
+          method: "POST",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            ...postContent,
+            User: user.displayName,
+            Date: moment().format("LLL"),
+            Tags: postTags,
+          }),
         })
-        .then(() => {
-          setPostContent({
-            Title: "",
-            Content: "",
-            Date: "",
-            Likes: 0,
-            User: "",
-            Tags: [],
-            Comments: [],
+          .then(() => {
+            setUpdate((prev) => {
+              return prev + "0";
+            });
+            setClickedPost((prev) => !prev);
+          })
+          .then(() => {
+            setPostContent({
+              Title: "",
+              Content: "",
+              Date: "",
+              Likes: 0,
+              User: "",
+              Tags: [],
+              Comments: [],
+              LikedBy: [],
+            });
           });
-        });
+      }
     }
   };
 
