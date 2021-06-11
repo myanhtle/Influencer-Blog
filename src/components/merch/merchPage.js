@@ -7,6 +7,7 @@ function MerchPage() {
   const [merch, setMerch] = useState([]);
 
   useEffect(() => {
+    console.log("oh");
     fetch(`http://localhost:8080/merchandise/read`)
       .then((res) => res.json())
       .then((data) => setMerch(data));
@@ -19,7 +20,7 @@ function MerchPage() {
       <div className="merchCard-container">
         {merch.map((item) => (
           <div className="merchCard">
-            <MerchCard item={item} />
+            <MerchCard item={item} setMerch={setMerch} />
           </div>
         ))}
       </div>
