@@ -111,7 +111,7 @@ export default function Blogs({ match }) {
 
   return (
     blog && (
-      <div>
+      <div className="blog-container">
         <div className="leftcolumn">
           <Card className="card">
             {blog.image && (

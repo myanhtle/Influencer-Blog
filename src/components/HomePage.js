@@ -1,4 +1,4 @@
-import { Typography, Button, Card, Grid } from "@material-ui/core";
+import { Typography, Button, Card, Grid, Hidden} from "@material-ui/core";
 import headerImage from "../images/homepage_image.png";
 import homePageStyles from "../styles/homePageStyles";
 import { useHistory } from "react-router-dom";
@@ -56,7 +56,9 @@ function HomePage() {
       <Grid container className={classes.bottomContainer}>
         {/* Most Recent Blog Post */}
         <Grid item xs={12} lg={9} className={classes.content}>
-          <Typography variant="h3" id="featured-blog-post">Latest Post</Typography>
+          <Typography variant="h3" id="featured-blog-post">
+            Latest Post
+          </Typography>
           <br />
           <Card className={classes.content}>
             {blogPosts && (
@@ -78,8 +80,12 @@ function HomePage() {
 
         {/* About Text */}
         <Grid item xs={12} lg={3} className={classes.content}>
-        <Typography variant="h3"><br /></Typography>
-        <br />
+          <Hidden mdDown>
+            <Typography variant="h3">
+              <br />
+            </Typography>
+            <br />
+          </Hidden>
           <Card className={classes.content}>
             <Typography variant="h4">About Camille</Typography>
             <br />

@@ -30,6 +30,13 @@ const useStyles = makeStyles((theme) => ({
     boxShadow: theme.shadows[5],
     padding: theme.spacing(2, 4, 3),
   },
+  forumContainer: {
+    width: "90vw",
+    margin: "0 auto 1rem auto",
+    "& > *": {
+      marginTop: "1rem"
+    }
+  }
 }));
 
 export default function Forum() {
@@ -107,7 +114,7 @@ export default function Forum() {
   };
 
   return (
-    <div>
+    <div className={classes.forumContainer}>
       <div>
         <Tooltip title="Create New Post" aria-label="add" onClick={handleOpen}>
           <Fab color="secondary" className={classes.absolute}>
