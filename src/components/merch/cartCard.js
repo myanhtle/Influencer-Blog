@@ -10,7 +10,7 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     padding: "10px",
     margin: "20px",
-    width: "50%",
+    width: "100%",
   },
   details: {
     display: "flex",
