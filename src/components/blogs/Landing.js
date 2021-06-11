@@ -15,6 +15,25 @@ import SearchIcon from "@material-ui/icons/Search";
 import CreateNewButton from "./CreateButton";
 import StarIcon from "@material-ui/icons/Star";
 import { UserContext } from "../../contexts/UserContext";
+import theme from "../../configs/theme"
+import { makeStyles } from "@material-ui/core/styles";
+
+const landingPageStyles = makeStyles({
+  featuredPostsContainer: {
+      display: "flex",
+      flexWrap: "wrap",
+      justifyContent: "center",
+      gap: "1rem",
+  },
+  postContainer: {
+    maxWidth: "40vw",
+    height: "100%",
+    [theme.breakpoints.down("md")]: {
+      minWidth: "90vw"
+    },
+    flexBasis: "50%",
+  }
+})
 
 //recent posts
 //filters
@@ -25,6 +44,7 @@ import { UserContext } from "../../contexts/UserContext";
 //sidebar with all blogs, links
 
 export default function Landing() {
+  const styles = landingPageStyles();
   const [blog, setBlog] = useState(null);
 
   const { isAdmin } = useContext(UserContext);
@@ -197,26 +217,18 @@ export default function Landing() {
           <br></br>
           <br></br>
           <h2>Featured Posts</h2>
-          <div
-            style={{
-              display: "flex",
-              marginLeft: "10%",
-              marginRight: "10%",
-            }}
-          >
+          <div className={styles.featuredPostsContainer}>
             {featured &&
               featured.map((f) => (
-                <div
-                  style={{
-                    flexBasis: "50%",
-                    marginLeft: "5%",
-                    marginRight: "5%",
-                  }}
-                >
+                <div className={styles.postContainer}>
                   <Card className="card">
                     {f.image && (
                       <div>
-                        <img className="img" src={f.image} style={{maxHeight: "10rem"}}></img>
+                        <img
+                          className="img"
+                          src={f.image}
+                          style={{ maxHeight: "10rem" }}
+                        ></img>
                         <br></br>
                       </div>
                     )}
