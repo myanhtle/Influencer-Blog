@@ -2,6 +2,14 @@
   padding: 2%;
 }
 
+.blog-container {
+  display: flex;
+  flex-wrap: wrap;
+  width: 90vw;
+  margin: 1rem auto 1rem auto;
+  gap: 1rem
+}
+
 /* Header/Blog Title */
 .header {
   padding: 30px;
@@ -15,9 +23,8 @@
 .leftcolumn {
   padding: 2%;
   float: left;
-  margin: 0 auto;
-  margin-left: 5%;
-  width: 60%;
+  margin: 0 auto auto auto;
+  width: 70%;
 }
 
 /* Right column */
@@ -26,7 +33,6 @@
   float: right;
   width: 25%;
   padding-left: 20px;
-  margin-right: 10%;
 }
 
 /* Image */
@@ -48,7 +54,6 @@
 .card {
   background-color: white;
   padding: 20px;
-  margin-top: 20px;
 }
 
 /* Clear floats after the columns */
