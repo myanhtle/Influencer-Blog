@@ -30,7 +30,6 @@ export default function Landing() {
   const { isAdmin } = useContext(UserContext);
 
   const [search, setSearch] = useState(null);
-  const [sort, setSort] = useState("descendingDate");
 
   const filterSortBlogs = (data, search, sort) => {
     if (search) {
@@ -65,7 +64,7 @@ export default function Landing() {
     return data;
   };
 
-  const fetchBlogs = () => {
+  const fetchBlogs = (sort) => {
     fetch(`http://localhost:8080/blog/read`)
       .then((res) => res.json())
       .then((data) => {
@@ -125,9 +124,7 @@ export default function Landing() {
           <h3>Sort results by:</h3>
           <Button
             onClick={() => {
-              setSort("descendingDate");
-              console.log(sort);
-              fetchBlogs();
+              fetchBlogs("descendingDate");
             }}
             color="primary"
             variant="contained"
@@ -137,9 +134,7 @@ export default function Landing() {
           </Button>
           <Button
             onClick={() => {
-              setSort("ascendingDate");
-              console.log(sort);
-              fetchBlogs();
+              fetchBlogs("ascendingDate");
             }}
             color="primary"
             variant="contained"
@@ -149,9 +144,7 @@ export default function Landing() {
           </Button>
           <Button
             onClick={() => {
-              setSort("featured");
-              console.log(sort);
-              fetchBlogs();
+              fetchBlogs("featured");
             }}
             color="primary"
             variant="contained"
@@ -215,16 +208,14 @@ export default function Landing() {
                 >
                   <Card className="card">
                     {f.image && (
-                      <div>
+                      <div style={{}}>
                         <img className="img" src={f.image}></img>
                         <br></br>
                       </div>
                     )}
                     <CardContent>
                       <Typography variant="h6">{f.title}</Typography>
-                      <Typography variant="subtitle2">
-                        {fetchBlogs.date}
-                      </Typography>
+                      <Typography variant="subtitle2">{f.date}</Typography>
                       <br></br>
                       <Typography variant="body2">
                         {f.messageContent}
