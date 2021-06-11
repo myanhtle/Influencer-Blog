@@ -14,6 +14,7 @@ import { UserContext } from "../contexts/UserContext";
 import logo from "../images/logo_white.png";
 import navBarStyles from "../styles/navBarStyles";
 import LocalMallIcon from "@material-ui/icons/LocalMall";
+import AccountBoxIcon from '@material-ui/icons/AccountBox';
 
 function NavBar() {
   const history = useHistory();
@@ -96,10 +97,11 @@ function NavBar() {
           </Button>
           <Button
             onClick={() => history.push(isLoggedIn ? "/account" : "/login")}
-            variant="contained"
-            color="secondary"
+            // variant="contained"
+            // color="secondary"
+            style={{color: 'white'}}
           >
-            {isLoggedIn ? "My Account" : "Log In"}
+            <AccountBoxIcon />
           </Button>
         </div>
       </Toolbar>

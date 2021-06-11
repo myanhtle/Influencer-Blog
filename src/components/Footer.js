@@ -9,13 +9,11 @@ function Footer() {
       <div className={classes.footerLeft}>
         <Typography variant="h4">Contact Camille</Typography>
         <Typography><a href="mailto:camille@joinforge.co">camille@joinforge.co</a></Typography>
-        <Typography><a href="https://instagram.com/camycoop" target="_blank">@camycoop on Instagram</a></Typography>
+        <Typography><a href="https://instagram.com/camycoop" target="_blank" rel="noreferrer">@camycoop</a> on Instagram</Typography>
         <Typography>PO Box 21948</Typography>
         <Typography>Charlottesville, VA 22901</Typography>
       </div>
-      <div className={classes.footerCenter}>
-        
-      </div>
+
 
       <div className={classes.footerRight}>
         <img

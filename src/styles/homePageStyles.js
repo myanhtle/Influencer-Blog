@@ -53,6 +53,23 @@ const homePageStyles = makeStyles({
     },
     "& h3": {
       paddingLeft: ".5rem"
+    },
+  },
+  imageContainer: {
+    display: "flex",
+    justifyContent: "space-around",
+    " & img": {
+      maxWidth: "15%",
+      margin: "1rem"
+    },
+    marginBottom: "1rem"
+  },
+  imageContainer2: {
+
+    "& img": {
+      margin: "auto",
+      display: "block",
+      height: "10rem"
     }
   },
   expandIcon: {

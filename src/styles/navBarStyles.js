@@ -6,12 +6,16 @@ const navBarStyles = makeStyles({
     display: "grid",
     gridTemplateColumns: "20rem 1fr 20rem",
     [theme.breakpoints.down("md")]: {
-      gridTemplateColumns: "10rem 1fr 10rem",
+      gridTemplateColumns: "1fr 1fr 10rem",
     },
     maxHeight: "8vh !important",
     minHeight: "8vh !important",
   },
-  siteName: { height: "6vh", display: "flex", alignItems: "center" },
+  siteName: {
+    height: "6vh",
+    display: "flex",
+    alignItems: "center",
+  },
   navButtonsContainer: {
     textAlign: "center",
     "& .MuiButton-root": {
@@ -35,8 +39,8 @@ const navBarStyles = makeStyles({
     verticalAlign: "top",
   },
   cart: {
-    color: "white"
-  }
+    color: "white",
+  },
 });
 
 export default navBarStyles;
