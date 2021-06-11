@@ -1,17 +1,44 @@
-import { Typography, Button, Card, Grid } from "@material-ui/core";
+import { Typography, Button, Card, Grid, ButtonGroup } from "@material-ui/core";
+import { useState, useEffect } from "react";
+import Playlists from "./Playlist";
+import Albums from "./Albums";
 import headerImage from "../../images/musicpageimg.jpg";
 import musicPageStyles from "../../styles/musicStyles";
+import headerImageStyles from "../../styles/headerImageStyles";
+import CircularProgress from "@material-ui/core/CircularProgress";
 
 function HomePage() {
   const classes = musicPageStyles();
+  const header = headerImageStyles();
+  const [showPlaylist, setShowPlaylist] = useState(true);
+  const [loading, setLoading] = useState(true);
 
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setLoading(false);
+    }, 1000);
+    return () => clearTimeout(timer);
+  }, [loading]);
+
+  const handleShowPlaylist = (event) => {
+    event.preventDefault();
+    setLoading(true);
+    setShowPlaylist(true);
+  };
+
+  const handleShowAlbums = (event) => {
+    event.preventDefault();
+    setLoading(true);
+    setShowPlaylist(false);
+  };
+ 
   return (
     <div>
-      <div className={classes.headerImgContainer}>
-        <img className={classes.headerImg} src={headerImage} alt="Music" />
+      <div className={header.headerImgContainer}>
+        <img className={header.headerImg} src={headerImage} alt="Music" />
       </div>
-      <div className={classes.welcomeTextContainer}>
-        <Typography variant="h1" className={classes.welcomeText}>
+      <div className={header.headerTextContainer}>
+        <Typography variant="h1" className={header.headerText}>
           <div>Jam with Cam!</div>
         </Typography>
       </div>
@@ -19,56 +46,31 @@ function HomePage() {
         On the road or just wanting to relax? Listen along to my favorite
         playlists
       </div>
-      <Grid container className={classes.bottomContainer}>
-        <Grid item xs={4} className={classes.content}>
-          <Card
-            id="playlist1"
-            className={classes.content}
-            style={{ backgroundColor: "#9CB380" }}
+      <div className={classes.subHeading}>
+        <ButtonGroup>
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={handleShowPlaylist}
           >
-            <iframe
-              src="https://open.spotify.com/embed/album/7bYichzvtYHdjF8HF69dyA"
-              width="100%"
-              height="380"
-              frameBorder="0"
-              allowtransparency="true"
-              allow="encrypted-media"
-            ></iframe>
-          </Card>
-        </Grid>
-        <Grid item xs={4} className={classes.content}>
-          <Card
-            id="playlist2"
-            className={classes.content}
-            style={{ backgroundColor: "#9CB380" }}
+            My Playlists
+          </Button>
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={handleShowAlbums}
           >
-            <iframe
-              src="https://open.spotify.com/embed/playlist/0PUVrDKbN0Mlk30FFxc0Is"
-              width="100%"
-              height="380"
-              frameBorder="0"
-              allowtransparency="true"
-              allow="encrypted-media"
-            ></iframe>
-          </Card>
-        </Grid>
-        <Grid item xs={4} className={classes.content}>
-          <Card
-            id="playlist3"
-            className={classes.content}
-            style={{ backgroundColor: "#9CB380" }}
-          >
-            <iframe
-              src="https://open.spotify.com/embed/album/7fRrTyKvE4Skh93v97gtcU"
-              width="100%"
-              height="380"
-              frameBorder="0"
-              allowtransparency="true"
-              allow="encrypted-media"
-            ></iframe>
-          </Card>
-        </Grid>
-      </Grid>
+            Favorite Albums
+          </Button>
+        </ButtonGroup>
+      </div>
+      {loading ? (
+        <div className={classes.subHeading} style={{ padding: "5%" }}>
+          <CircularProgress />
+        </div>
+      ) : (
+        <>{showPlaylist && !loading ? <Playlists /> : <Albums />}</>
+      )}
     </div>
   );
 }

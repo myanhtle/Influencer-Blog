@@ -20,6 +20,7 @@ export default function CreateForumPost({
   postTags,
   setClickedPost,
   setUpdate,
+  setOpen,
 }) {
   const { user } = useContext(UserContext);
   const classes = useStyles();
@@ -57,6 +58,7 @@ export default function CreateForumPost({
     if (postContent.Title === "" || postContent.Content === "") {
       setAnchorEl(event.currentTarget);
     } else {
+      setOpen(false);
       fetch(`http://localhost:8080/forum/add`, {
         method: "POST",
         headers: {

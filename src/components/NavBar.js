@@ -25,12 +25,13 @@ function NavBar() {
     { name: "About", route: "/about" },
     { name: "Blog", route: "/blog" },
     { name: "Forum", route: "/forum" },
+    { name: "Music", route: "/music" },
     { name: "Shop", route: "/shop" },
   ];
 
   return (
     <AppBar position="static">
-      <Toolbar className={classes.navbdar}>
+      <Toolbar className={classes.navbar}>
         <Typography variant="h4" className={classes.siteName}>
           <img
             src={logo}
@@ -39,26 +40,8 @@ function NavBar() {
           />
           <Hidden mdDown>Camille's Corner</Hidden>
         </Typography>
-        <div className={classes.navButtonsContainer}>
-          <Button onClick={() => history.push("/")}>Home</Button>
-          <Button onClick={() => history.push("/about")}>About</Button>
-          <Button onClick={() => history.push("/blog")}>Blog</Button>
-          <Button onClick={() => history.push("/forum")}>Forum</Button>
-          <Button onClick={() => history.push("/music")}>Music</Button>
-          <Button onClick={() => history.push("/shop")}>Shop</Button>
-          <Button onClick={() => history.push("/color-examples")}>
-            Colors
-          </Button>
-          <Button
-            className={classes.cart}
-            onClick={() => history.push("/cart")}
-          >
-            <LocalMallIcon />
-            <span className={classes.cartCount}>5</span>
-          </Button>
-        </div>
 
-        {/* <Hidden mdDown>
+        <Hidden smDown>
           <div className={classes.navButtonsContainer}>
             {routes.map((route) => {
               return (
@@ -103,8 +86,14 @@ function NavBar() {
               );
             })}
           </Menu>
-        </Hidden> */}
+        </Hidden>
         <div className={classes.loginButtonContainer}>
+          <Button
+            className={classes.cart}
+            onClick={() => history.push("/cart")}
+          >
+            <LocalMallIcon />
+          </Button>
           <Button
             onClick={() => history.push(isLoggedIn ? "/account" : "/login")}
             variant="contained"

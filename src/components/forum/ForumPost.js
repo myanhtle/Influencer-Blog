@@ -123,11 +123,18 @@ export default function ForumPost({ p, posts, setPosts, setClickedPost }) {
    */
   const updateLikes = () => {
     if (isFavorited) {
-      const updatedPost = {
-        title: p.Title,
-        type: "Likes",
-        val: p.Likes - 1,
-      };
+      const updatedPost =
+        p.Likes - 1 < 0
+          ? {
+              title: p.Title,
+              type: "Likes",
+              val: 0,
+            }
+          : {
+              title: p.Title,
+              type: "Likes",
+              val: p.Likes - 1,
+            };
       fetch(`http://localhost:8080/forum/update/${p.Title}`, {
         method: "POST",
         headers: {

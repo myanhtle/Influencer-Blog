@@ -1,13 +1,23 @@
 .merchCard-container {
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
 }
 
 .merchCard {
   padding: 10px;
 }
 
-.addToCart-container {
+.merchCard-functionContainer {
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
+}
+
+.addToCart-container {
+  padding-right: 20px;
+}
+
+.h1 {
+  margin-left: 20px;
 }

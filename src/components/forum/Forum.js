@@ -133,6 +133,7 @@ export default function Forum() {
               setClickedPost={setClickedPost}
               setUpdate={setUpdate}
               setPosts={setPosts}
+              setOpen={setOpen}
             />
           </div>
         </Fade>

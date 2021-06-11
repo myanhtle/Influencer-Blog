@@ -41,13 +41,26 @@ const homePageStyles = makeStyles({
   },
   content: {
     padding: "1rem",
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    "& > *": {
+      textAlign: "left",
+      width: "100%",
+    },
+    "& .MuiButton-root": {
+      maxWidth: "15rem",
+    },
+    "& h3": {
+      paddingLeft: ".5rem"
+    }
   },
   expandIcon: {
     fontSize: "10vw",
     color: "white",
   },
   bigLogo: {
-    maxHeight: "calc(2163/4320*92vw/4)"
+    maxHeight: "calc(2163/4320*92vw/4)",
   },
 });
 

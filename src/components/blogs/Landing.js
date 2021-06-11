@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useContext } from "react";
+
 import { Link } from "react-router-dom";
 import {
   Button,
@@ -12,6 +13,7 @@ import {
 } from "@material-ui/core";
 import SearchIcon from "@material-ui/icons/Search";
 import CreateNewButton from "./CreateButton";
+import { UserContext } from "../../contexts/UserContext";
 
 //recent posts
 //filters
@@ -23,6 +25,9 @@ import CreateNewButton from "./CreateButton";
 
 export default function Landing() {
   const [blog, setBlog] = useState(null);
+
+  const { isAdmin } = useContext(UserContext);
+
   const [search, setSearch] = useState(null);
   const [sort, setSort] = useState("descendingDate");
 
@@ -86,12 +91,28 @@ export default function Landing() {
   }, []);
 
   return (
-    <div style={{ textAlign: "center" }}>
+    <div
+      style={{ textAlign: "center", marginBottom: "1rem", minHeight: "50vh" }}
+    >
       <h1>Welcome to my Blog</h1>
-      <CreateNewButton />
-      <p>or</p>
-      <TextField onChange={handleChange} size="small" label="Search" />
-      <Button onClick={fetchBlogs} color="primary" variant="contained">
+      {isAdmin && (
+        <>
+          <CreateNewButton />
+          <p>or</p>
+        </>
+      )}
+      <TextField
+        onChange={handleChange}
+        value={search}
+        size="small"
+        label="Search"
+      />
+      <Button
+        onClick={fetchBlogs}
+        color="primary"
+        variant="contained"
+        style={{ marginLeft: "1rem" }}
+      >
         <SearchIcon /> Search
       </Button>
 
