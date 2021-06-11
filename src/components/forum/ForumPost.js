@@ -118,10 +118,12 @@ export default function ForumPost({ p, setPosts, setClickedPost }) {
    */
   const handleLike = (e) => {
     e.preventDefault();
-    updateLikes();
-    setIsFavorited((prev) => {
-      return !prev;
-    });
+    if (isLoggedIn) {
+      updateLikes();
+      setIsFavorited((prev) => {
+        return !prev;
+      });
+    }
   };
 
   /**

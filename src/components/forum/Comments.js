@@ -40,37 +40,39 @@ export default function Comments({ p, setClickedPost }) {
    */
   const handlePost = (event) => {
     event.preventDefault();
-    const updatedPost = {
-      title: p.Title,
-      type: "Comments",
-      val: [
-        ...p.Comments,
-        {
-          ...newComment,
-          Date: moment().format("LLL"),
-          User: user.displayName,
-          ID: nanoid(),
+    if (isLoggedIn) {
+      const updatedPost = {
+        title: p.Title,
+        type: "Comments",
+        val: [
+          ...p.Comments,
+          {
+            ...newComment,
+            Date: moment().format("LLL"),
+            User: user.displayName,
+            ID: nanoid(),
+          },
+        ],
+      };
+      fetch(`http://localhost:8080/forum/update/${p.Title}`, {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
         },
-      ],
-    };
-    fetch(`http://localhost:8080/forum/update/${p.Title}`, {
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(updatedPost),
-    }).then(() => {
-      setNewComment({
-        User: "",
-        Content: "",
-        Date: "",
-        ID: "",
+        body: JSON.stringify(updatedPost),
+      }).then(() => {
+        setNewComment({
+          User: "",
+          Content: "",
+          Date: "",
+          ID: "",
+        });
+        setClickedPost((prev) => {
+          return !prev;
+        });
       });
-      setClickedPost((prev) => {
-        return !prev;
-      });
-    });
+    }
   };
 
   /**
