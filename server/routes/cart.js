@@ -66,7 +66,7 @@ router.get("/sum/:query", async (req, res) => {
   });
   for (var i = 0; i < cart.length; i++) {
     if (cart[i].user === username) {
-      sum = parseFloat(sum) + parseFloat(cart[i].price);
+      sum = parseFloat(sum) + parseFloat(cart[i].price * cart[i].quantity);
     }
   }
   /**val is a json structured variable to be returned through res.send to the client application */
