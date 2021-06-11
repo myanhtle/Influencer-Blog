@@ -19,11 +19,11 @@ import AccountBoxIcon from "@material-ui/icons/AccountBox";
 function NavBar() {
   const history = useHistory();
   const { isLoggedIn } = useContext(UserContext);
-  const { username } = useContext(UserContext);
   const classes = navBarStyles();
   const [menuOpen, setMenuOpen] = useState(false);
   const [cartCount, setCartCount] = useState(0);
   const [cart, setCart] = useState([]);
+  const { username } = useContext(UserContext);
   const routes = [
     { name: "Home", route: "/" },
     { name: "About", route: "/about" },
@@ -33,9 +33,10 @@ function NavBar() {
     { name: "Shop", route: "/shop" },
   ];
   const fetchUserCart = () => {
-    fetch(`http://localhost:8080/cart/read/${username}`)
-      .then((res) => res.json())
-      .then((data) => setCart(data));
+    if (username != null)
+      fetch(`http://localhost:8080/cart/read/${username}`)
+        .then((res) => res.json())
+        .then((data) => setCart(data));
     console.log("cart");
     console.log(cart);
     calcCount();
@@ -50,9 +51,10 @@ function NavBar() {
     setCartCount(count);
   };
   useEffect(() => {
+    console.log(username);
     console.log("ohohoh");
     fetchUserCart();
-  }, []);
+  }, [username]);
   return (
     <AppBar position="static">
       <Toolbar className={classes.navbar}>
@@ -116,7 +118,6 @@ function NavBar() {
             className={classes.cart}
             onClick={() => history.push("/cart")}
           >
-            <p className={classes.cartCount}>{cartCount}</p>
             <LocalMallIcon />
           </Button>
           <Button
