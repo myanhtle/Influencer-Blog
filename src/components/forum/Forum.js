@@ -135,7 +135,7 @@ export default function Forum() {
         }}
       >
         <Fade in={open}>
-          <div className={classes.paper}>
+          <div className={classes.paper} style={{width: "90vw", maxWidth: "40rem", margin: "auto"}}>
             <ForumModal
               setClickedPost={setClickedPost}
               setUpdate={setUpdate}

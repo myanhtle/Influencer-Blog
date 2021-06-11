@@ -206,6 +206,7 @@ export default function Blogs({ match }) {
                         }}
                         variant="contained"
                         color="secondary"
+                        style={{marginLeft: "1rem"}}
                       >
                         <DeleteIcon />
                       </Button>

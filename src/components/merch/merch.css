@@ -31,11 +31,14 @@
 }
 
 .stripe-div {
-  display: flex;
+  /* display: flex;
   flex-direction: column;
   float: right;
   margin-right: 10%;
-  margin-top: 10%;
+  margin-top: 10%; */
+  width: 30rem;
+  max-width: 90vw;
+  margin: auto
 }
 
 .total-div {
@@ -46,6 +49,8 @@
 .cartCard-container {
   display: flex;
   flex-direction: column;
-  float: left;
-  margin-left: 10%;
+  margin: auto;
+  width: 50rem;
+  gap: 1rem;
+  max-width: 90vw;
 }
