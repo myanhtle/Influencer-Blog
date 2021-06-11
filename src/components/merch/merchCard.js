@@ -22,7 +22,7 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
   },
   header: {
-    paddingTop: "10%",
+    paddingTop: "5%",
     height: 175,
     paddingLeft: theme.spacing(3),
   },
@@ -187,7 +187,25 @@ export default function MerchCard({ item }) {
       <Paper square elevation={2} className={classes.header}>
         <div>
           <Typography>
-            {item.name} <br /> {item.description} <br /> ${item.price}
+            {item.name} <br /> {item.description} <br /> ${item.price} <br />{" "}
+            <Select
+              id="quantity"
+              margin="dense"
+              value={quantity}
+              onChange={(event) => setQuantity(event.target.value)}
+              autoWidth
+            >
+              <MenuItem value={1}>1</MenuItem>
+              <MenuItem value={2}>2</MenuItem>
+              <MenuItem value={3}>3</MenuItem>
+              <MenuItem value={4}>4</MenuItem>
+              <MenuItem value={5}>5</MenuItem>
+              <MenuItem value={6}>6</MenuItem>
+              <MenuItem value={7}>7</MenuItem>
+              <MenuItem value={8}>8</MenuItem>
+              <MenuItem value={9}>9</MenuItem>
+              <MenuItem value={10}>10</MenuItem>
+            </Select>
           </Typography>
           <br />
           <div className="merchCard-functionContainer">
@@ -229,25 +247,6 @@ export default function MerchCard({ item }) {
               </Dialog>
             </div>
             <div className="addToCart-container">
-              <Select
-                id="quantity"
-                margin="dense"
-                value={quantity}
-                onChange={(event) => setQuantity(event.target.value)}
-                autoWidth
-              >
-                <MenuItem value={1}>1</MenuItem>
-                <MenuItem value={2}>2</MenuItem>
-                <MenuItem value={3}>3</MenuItem>
-                <MenuItem value={4}>4</MenuItem>
-                <MenuItem value={5}>5</MenuItem>
-                <MenuItem value={6}>6</MenuItem>
-                <MenuItem value={7}>7</MenuItem>
-                <MenuItem value={8}>8</MenuItem>
-                <MenuItem value={9}>9</MenuItem>
-                <MenuItem value={10}>10</MenuItem>
-              </Select>
-
               {added === false ? (
                 <Button onClick={() => handleClick()}>Add to Bag</Button>
               ) : (
