@@ -29,13 +29,19 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-export default function ForumPost({ p, posts, setPosts, setClickedPost }) {
+export default function ForumPost({ p, setPosts, setClickedPost }) {
   const { user, isLoggedIn } = useContext(UserContext);
   const classes = useStyles();
   const [isFavorited, setIsFavorited] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const [newContents, setNewContents] = useState("");
   const [expanded, setExpanded] = useState(false);
+
+  useEffect(() => {
+    if (user && p.LikedBy.includes(user.displayName)) {
+      setIsFavorited(true);
+    }
+  }, [user]);
 
   useEffect(() => {
     setNewContents(p.Content);
@@ -78,7 +84,7 @@ export default function ForumPost({ p, posts, setPosts, setClickedPost }) {
     setIsEditing((prev) => {
       return !prev;
     });
-    console.log(p.Content, posts);
+    console.log(p.Content);
   };
 
   /**
@@ -123,18 +129,11 @@ export default function ForumPost({ p, posts, setPosts, setClickedPost }) {
    */
   const updateLikes = () => {
     if (isFavorited) {
-      const updatedPost =
-        p.Likes - 1 < 0
-          ? {
-              title: p.Title,
-              type: "Likes",
-              val: 0,
-            }
-          : {
-              title: p.Title,
-              type: "Likes",
-              val: p.Likes - 1,
-            };
+      const updatedPost = {
+        title: p.Title,
+        type: "Likes",
+        val: p.Likes - 1,
+      };
       fetch(`http://localhost:8080/forum/update/${p.Title}`, {
         method: "POST",
         headers: {
@@ -143,7 +142,19 @@ export default function ForumPost({ p, posts, setPosts, setClickedPost }) {
         },
         body: JSON.stringify(updatedPost),
       }).then(() => {
-        fetch("http://localhost:8080/forum/read").then(() => {
+        const updatedPost = {
+          title: p.Title,
+          type: "LikedBy",
+          val: p.LikedBy.filter((u) => u !== user.displayName),
+        };
+        fetch(`http://localhost:8080/forum/update/${p.Title}`, {
+          method: "POST",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(updatedPost),
+        }).then(() => {
           setClickedPost((prev) => {
             return !prev;
           });
@@ -163,7 +174,19 @@ export default function ForumPost({ p, posts, setPosts, setClickedPost }) {
         },
         body: JSON.stringify(updatedPost),
       }).then(() => {
-        fetch("http://localhost:8080/forum/read").then(() => {
+        const updatedPost = {
+          title: p.Title,
+          type: "LikedBy",
+          val: [...p.LikedBy, user.displayName],
+        };
+        fetch(`http://localhost:8080/forum/update/${p.Title}`, {
+          method: "POST",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(updatedPost),
+        }).then(() => {
           setClickedPost((prev) => {
             return !prev;
           });

@@ -149,8 +149,8 @@ export default function Forum() {
       />
       {posts.map((p) => (
         <ForumPost
+          key={p.Title}
           p={p}
-          posts={posts}
           setPosts={setPosts}
           setClickedPost={setClickedPost}
           clickedPost={clickedPost}

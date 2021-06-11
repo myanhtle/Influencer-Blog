@@ -33,6 +33,7 @@ export default function CreateForumPost({
     User: "",
     Tags: [],
     Comments: [],
+    LikedBy: [],
   });
   const open = Boolean(anchorEl);
   const id = open ? "simple-popover" : undefined;
@@ -87,6 +88,7 @@ export default function CreateForumPost({
             User: "",
             Tags: [],
             Comments: [],
+            LikedBy: [],
           });
         });
     }
