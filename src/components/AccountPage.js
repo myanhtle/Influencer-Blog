@@ -6,11 +6,12 @@ import { useHistory } from "react-router-dom";
 import { deleteAccount } from "../utils/loginUtils";
 
 function AccountPage() {
-  const { username, email, fullName, isAdmin, isLoggedIn } =
+  const { email, isAdmin, isLoggedIn } =
     useContext(UserContext);
+  const user = useContext(UserContext);
   const history = useHistory();
 
-  if (!isLoggedIn) history.push("/login");
+  if (!isLoggedIn) {history.push("/login"); return null};
 
   return (
     <div style={{minHeight: "65vh"}}>
@@ -21,9 +22,9 @@ function AccountPage() {
         margin: "5vh auto 5vh auto",
       }}
     >
-      <Typography variant="h6">Hello, {username}!</Typography>
+      <Typography variant="h6">Hello, {user.user.displayName}!</Typography>
       <br />
-      <Typography>Name: {fullName}</Typography>
+      <Typography>Name: {user.user.displayName}</Typography>
       <Typography>Email: {email}</Typography>
       <Typography>{isAdmin ? "Admin" : "User"}</Typography>
       <br />

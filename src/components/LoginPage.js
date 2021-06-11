@@ -31,23 +31,25 @@ function LoginPage() {
       if (password !== confirmPassword) {
         alert("Passwords do not match");
       } else {
-        signup(fullName, username, email, password);
+        signup(fullName, username, email, password)
+        .then(() => history.push("/account"));
         // .then((success) => {
         //   success ? alert("Account created.") : alert("Account not created");
         // });
       }
     } else {
-      login(email, password);
+      login(email, password)
+      .then(() => history.push("/account"));
       // .then((success) => {
       //   success ? alert("Logged in.") : alert("Not logged in.");
       // });
     }
   };
 
-  if (isLoggedIn) {
-    history.push("/account");
-    return null;
-  }
+  // if (isLoggedIn) {
+  //   history.push("/account");
+  //   return null;
+  // }
   return (
     <Card className={classes.loginCard}>
       <Grid container className={classes.loginGrid}>

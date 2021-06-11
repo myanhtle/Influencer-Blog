@@ -86,11 +86,12 @@ export default function CreateButton() {
         }}
       >
         <Fade in={open}>
-          <div className={classes.paper}>
+          <div className={classes.paper} style={{maxWidth: "40rem", width: "100%"}}>
             <h2>Create New Post</h2>
             <p>Fill out the following fields to create a new blog post:</p>
             <TextField
               required
+              fullWidth
               label="Title"
               onChange={(e) => {
                 handleChange(e, "title");
@@ -99,6 +100,7 @@ export default function CreateButton() {
             <br></br>
             <TextField
               required
+              fullWidth
               multiline
               rowsMax={20}
               label="Body"
