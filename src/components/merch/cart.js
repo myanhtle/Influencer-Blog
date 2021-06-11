@@ -8,7 +8,7 @@ import "./merch.css";
 
 export default function Cart() {
   const { username } = useContext(UserContext);
-  const [sum, setSum] = useState();
+  const [sum, setSum] = useState(0.0);
   const [cart, setCart] = useState([]);
   const promise = loadStripe(
     "pk_test_51J0S9sK9Oa09hK7vKAkeRyWpAZsK3yPH2kSWGPDnJbHXPQkMU9XFG8el61jESoEA8RPtGUcrmay9Ls8WwJCX5Tot00ahHw3SpM"
@@ -45,7 +45,11 @@ export default function Cart() {
           ))}
         </div>
         <div className="stripe-div">
-          <h2 className="total-div">Total: ${sum.sum}</h2>
+          {sum.sum ? (
+            <h2 className="total-div">Total: ${sum.sum}</h2>
+          ) : (
+            <h2>Calculating Total...</h2>
+          )}
           <br />
           <br />
           <Elements stripe={promise}>
