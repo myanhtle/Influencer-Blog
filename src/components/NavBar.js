@@ -9,18 +9,21 @@ import {
 } from "@material-ui/core";
 import MenuIcon from "@material-ui/icons/Menu";
 import { useHistory } from "react-router-dom";
-import { useContext, useState } from "react";
+import { useContext, useState, useEffect } from "react";
 import { UserContext } from "../contexts/UserContext";
 import logo from "../images/logo_white.png";
 import navBarStyles from "../styles/navBarStyles";
 import LocalMallIcon from "@material-ui/icons/LocalMall";
-import AccountBoxIcon from '@material-ui/icons/AccountBox';
+import AccountBoxIcon from "@material-ui/icons/AccountBox";
 
 function NavBar() {
   const history = useHistory();
   const { isLoggedIn } = useContext(UserContext);
   const classes = navBarStyles();
   const [menuOpen, setMenuOpen] = useState(false);
+  const [cartCount, setCartCount] = useState(0);
+  const [cart, setCart] = useState([]);
+  const { username } = useContext(UserContext);
   const routes = [
     { name: "Home", route: "/" },
     { name: "About", route: "/about" },
@@ -29,7 +32,29 @@ function NavBar() {
     { name: "Music", route: "/music" },
     { name: "Shop", route: "/shop" },
   ];
-
+  const fetchUserCart = () => {
+    if (username != null)
+      fetch(`http://localhost:8080/cart/read/${username}`)
+        .then((res) => res.json())
+        .then((data) => setCart(data));
+    console.log("cart");
+    console.log(cart);
+    calcCount();
+    console.log(cartCount);
+  };
+  const calcCount = () => {
+    console.log("calculating");
+    var count = 0;
+    for (var i = 0; i < cart.length; i++) {
+      count++;
+    }
+    setCartCount(count);
+  };
+  useEffect(() => {
+    console.log(username);
+    console.log("ohohoh");
+    fetchUserCart();
+  }, [username]);
   return (
     <AppBar position="static">
       <Toolbar className={classes.navbar}>
@@ -99,7 +124,7 @@ function NavBar() {
             onClick={() => history.push(isLoggedIn ? "/account" : "/login")}
             // variant="contained"
             // color="secondary"
-            style={{color: 'white'}}
+            style={{ color: "white" }}
           >
             <AccountBoxIcon />
           </Button>
